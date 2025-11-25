@@ -1,0 +1,31 @@
+.chat-box{
+ display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chat-box p{
+    font-size: 20px;
+    font-weight: normal;
+    font-family: "Times New Roman", sans-serif;
+}
+
+.message-left{
+    text-align: left;
+    background-color: #f1f1f1;
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin: 5px 0;
+    display: inline-block;
+}
+
+.message-right{
+    text-align: right;
+    background-color: #cce5ff;
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin: 5px 0;
+    display: inline-block;
+    float: right;
+    clear: both;
+}

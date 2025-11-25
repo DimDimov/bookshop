@@ -1,0 +1,116 @@
+body, html{
+    height: 100%;
+    margin: 0;
+}
+.bg{
+    background-image: url("../images/buchladen.png");
+    min-height:100%;
+    background-position:left top;
+    background-repeat: repeat-y;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.frame{
+    background-color: burlywood;
+    width:910px;
+    height:750px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+    border-radius: 2mm;
+    padding-left: 30px;
+    border: 1px solid burlywood;
+    outline: 1px solid saddlebrown;
+    outline-offset: -10px;
+}
+
+.form-container{
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+
+#formular{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.left_column{
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+label{
+    font-size: 18px;
+    margin-bottom: 4px;
+    margin-top: 10px;
+}
+input{
+    height: 25px;
+    font-size: 18px;
+    font-family: "Arial", serif;
+    font-style: normal;
+    width: 350px;
+}
+
+input:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+.l11{
+    /* margin-left: 95px;*/
+    margin-top: 20px;
+    background-color: saddlebrown;
+    color: whitesmoke;
+    cursor: pointer;
+    border-radius: 2mm ;
+    padding: 8px 12px;
+    width: 150px;
+    justify-content: center;
+}
+
+.buttons-group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:10px;
+}
+
+input .author_image{
+    margin-right: auto;
+    margin-left: auto;
+}
+.right_column label{
+    font-size: 18px;
+    margin-bottom: 4px;
+    margin-top: 10px;
+    display: block;
+}
+
+.right_column textarea{
+    width: 450px;
+    height: 580px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 14px;
+    padding: 8px;
+}
+
+.saveAuthor{
+    width:150px;
+    height:60px;
+    margin-top: 200px;
+    border-radius: 2mm;
+    background-color: saddlebrown;
+    font-size: 18px;
+    color: whitesmoke;
+    font-family: "Times New Roman", serif;
+    cursor: pointer;
+    align-items: end;
+}

@@ -1,0 +1,47 @@
+.control-page{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.dashboard-btn{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 330px;
+}
+
+.toAdminDashboard, .delete-returned-book-btn{
+    margin: 12px;
+    padding: 8px 12px;
+    background-color: #4682B4; /* cornflower blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.toAdminDashboard:hover, .delete-returned-book-btn:hover{
+    background-color: #5a9bd3;
+}
+
+.returnTable{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table, th, td{
+    border: 1px solid black;"
+
+}
+td, th{
+    text-align: center;
+    padding: 8px;
+    font-size: 18px;
+    font-family: "Arial", serif;
+    font-style: normal;
+}

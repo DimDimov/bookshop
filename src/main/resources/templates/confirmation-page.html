@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link rel="icon shortcur icon" th:href="@{/images/favicon.ico}">
+<head>
+    <meta charset="UTF-8">
+    <title>Bestaetigung</title>
+    <link th:href="@{/css/confirmation-page.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<div th:insert="~{home :: authorization}"></div>
+
+<div th:block th:replace="~{cart-page.html :: checkout-steps }"></div>
+<form th:action="@{/order/confirmation-page}" th:object="${order}" method="post">
+<div class="full-order-section">
+    <div style="display: flex; flex-direction: column">
+        <h2 class="inf-title">Rechnungsadresse</h2>
+        <div class="invoice-address">
+            <p class="inf">Vorname: <span  th:text="${invoiceAddress.firstName}"></span></p>
+            <p class="inf">Nachname: <span th:text="${invoiceAddress.lastName}"></span></p>
+            <p class="inf">PLZ: <span th:text="${invoiceAddress.postcode}"></span></p>
+            <p class="inf">Strasse: <span th:text="${invoiceAddress.street}"></span></p>
+            <p class="inf">Stadt: <span th:text="${invoiceAddress.town}"></span></p>
+            <p class="inf">Land: <span th:text="${invoiceAddress.country}"></span></p>
+        </div>
+    </div>
+
+        <div style="display: flex; flex-direction: column">
+            <h2 class="inf-title">Lieferadresse</h2>
+            <div class="delivery-address">
+        <p class="inf">Vorname: <span  th:text="${deliveryAddress.firstName}"></span></p>
+        <p class="inf">Nachname: <span th:text="${deliveryAddress.lastName}"></span></p>
+        <p class="inf">PLZ: <span th:text="${deliveryAddress.postcode}"></span></p>
+        <p class="inf">Strasse: <span th:text="${deliveryAddress.street}"></span></p>
+        <p class="inf">Stadt: <span th:text="${deliveryAddress.town}"></span></p>
+        <p class="inf">Land: <span th:text="${deliveryAddress.country}"></span></p>
+    </div>
+    </div>
+    <div style="display: flex; flex-direction: column">
+        <h2 class="inf-title">Zahlungsart</h2>
+    <div class="payment-type" style="display: flex; gap: 10px">
+       <div class="inf-type-payment">
+           <span th:if="${order.paymentMethod.name() == 'RECHNUNG'}"> RECHNUNG  <i class="fa-solid fa-receipt"> </i></span>
+           <span th:if="${order.paymentMethod.name() == 'PAYPAL'}">  PAYPAL  <i class="fa-brands fa-paypal"> </i></span>
+           <span th:if="${order.paymentMethod.name() == 'BANKKARTE'}">  BANKKARTE  <i class="fa-solid fa-credit-card"> </i></span>
+       </div>
+    </div>
+    </div>
+</div>
+
+    <input type="hidden" name="orderId" th:value="${order.id}">
+    <input type="hidden" name="method" th:value="${order.paymentMethod}">
+
+<div class="item-part">
+    <table>
+        <tr>
+            <th></th>
+            <th class="author-title">Name, Autor</th>
+            <th class="sum">Menge</th>
+            <th>Price</th>
+        </tr>
+      <tr class="line" th:each="item : ${items}">
+            <td>
+                <img class="item-image" th:src="@{${item.book.imageBook}}"/>
+            </td>
+          <td ><span style="font-weight: bold" th:text="${item.book.title}"></span>
+              <br>
+              <span style="color: #5a6268;" th:text="${item.book.author.name}"></span>
+          </td>
+          <td th:text="${item.quantity}"></td>
+          <td style="color: #b21f2d" th:text="${item.price + ' Euro'}"></td>
+      </tr>
+    </table>
+</div>
+    <div class="end-line">
+        <p>Gesamtbeitrag
+        <span class="cartPrice" th:text="${cartPrice + ' Euro'}"></span>
+        </p>
+    <button class="confirm-order" type="submit">Jetzt Kaufen</button>
+    </div>
+</form>
+
+</body>
+</html>

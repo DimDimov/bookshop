@@ -1,0 +1,9 @@
+greeting=Willkommen,
+your=Deine
+bookshop=Buchhandlung
+guest=Gast!
+login=anmelden
+search=Suche
+titleSearch=Suche nach Titel oder Autor
+category=Kategorien
+classicBooks=Klassische Bücher

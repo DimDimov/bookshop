@@ -1,0 +1,101 @@
+.author-table{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+}
+
+table, th, td{
+    border: 1px solid black;"
+}
+td{
+    text-align: center;
+    padding: 8px;
+}
+
+.number, .photo{
+    width:100px;
+}
+
+.author-name{
+    width: 150px;
+}
+
+.biography{
+  width: 900px;
+}
+
+.delete-and-edit{
+    width: 150px;
+}
+
+.add-author{
+    position: absolute;
+    top: 50px;
+    right:190px;
+    z-index: 1000;
+    padding: 8px 12px;
+    background-color: #4682B4; /* cornflower blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+
+.delete-author-btn,  .edit-author-btn{
+    display: flex;
+    flex-direction: column;
+    margin: 12px;
+    padding: 8px 12px;
+    background-color: #4682B4; /* cornflower blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+ .edit-author-btn:hover, .add-author:hover, .toHomePage1:hover{
+    background-color: #5a9bd3;
+}
+
+
+
+.delete-author-btn{
+width: 120px;
+}
+
+.delete-author-btn:hover{
+    background-color: #5a9bd3;
+    }
+
+.toHomePage1{
+    position: absolute;
+    top: 50px;
+    right:430px;
+    z-index: 1000;
+    padding: 8px 12px;
+    background-color: #4682B4; /* cornflower blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.toHomePage1:hover{
+    background-color: #5a9bd3;
+}

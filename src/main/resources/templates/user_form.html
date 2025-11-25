@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="shortcut icon" th:href="@{#}">
+<link rel="icon" type="image/x-icon" th:href="@{images/favicon.ico}">
+
+<head>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/registration_form.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <meta charset="UTF-8" content="notranslate">
+    <title>Neueregistrierung</title>
+</head>
+
+<body >
+<div class="bg" >
+    <div th:insert="~{home.html :: authorization}"></div>
+    <div class = "full-box">
+        <div class="taken-post" th:if="${warning}">
+             <span class="post-warn" th:text="${warning}"></span>
+        </div>
+     <div th:if="${message1 != null}"  class="message-box">
+        <div th:text="${message1}" class="success-message"></div>
+         <div class="threeRows">
+         <span th:text="${message2}" class="success-message"></span>
+         <span id="countdown"> 10 </span>
+         <span th:text="${message3}" class="success-message"></span>
+         </div>
+         <div th:text="${message4}" class="success-message"></div>
+    </div>
+    </div>
+    <div class="frame"  style="margin-top: 1%">
+
+        <h2 id="formular">Anmeldungsformular</h2>
+
+        <label for="titel">Anrede:</label>
+        <br>
+        <select class="titel" id="titel" style="width: 570px; height: 30px">
+            <option>...</option>
+            <option>männlich</option>
+            <option>fraulich</option>
+        </select>
+        <br>
+
+        <br>
+        <form th:object="${registration_form}" id="myForm22"  class="form" method="post"
+              th:action="@{/user_form}"  role="form">
+
+            <label for="firstName">Vorname*:</label>
+            <label class="l1" for="second_name" style="margin-left: 33%">Nachname*:</label>
+            <br>
+
+            <input th:field="*{firstName}"  type="text" class="first_name" id="firstName" name="firstName">
+            <input th:field="*{lastName}"  type="text" class="second_name" id="second_name" name="lastName">
+            <div  id="first_name_error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+            <div id="second_name_error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+            <br>
+            <br>
+            <label for="geburtsdatum" class="l8">Geburtsdatum*:</label>
+             <br>
+
+             <input name="birthday" th:field="*{birthday}" type="date" class="geburtsdatum" id="geburtsdatum"
+                    style="height: 30px">
+            <br>
+            <div  id="birthday_error" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></div>
+            <br>
+            <br>
+               <label for="street" class="l2">Straße*:</label>
+               <label for="home" class="l3">Hausnummer*:</label>
+               <label for="index" class="l4">PLZ*:</label>
+             <br>
+              <input th:field="*{street}"  id="street" name="street" style="width: 250px" >
+              <input th:field="*{houseNumber}" name="houseNumber"  id="home" >
+              <input th:field="*{postcode}" name="postcode" id="index" >
+              <br>
+               <div class = "container">
+               <div  id="street_error" th:if="${#fields.hasErrors('street')}" th:errors="*{street}"></div>
+               <div  id="house_error" th:if="${#fields.hasErrors('houseNumber')}" th:errors="*{houseNumber}"></div>
+               <div  id="index_error" th:if="${#fields.hasErrors('postcode')}" th:errors="*{postcode}"></div>
+
+               </div>
+            <br>
+            <label for="town" >Ort*:</label>
+             <label for="country" class="l11">Land*:</label>
+             <br>
+            <input th:field="*{town}" id="town" class="town">
+
+             <select required th:field="*{country}" name="country" class="country" id="country" style="width: 260px; height: 30px">
+                 <option value="Deutschland">Deutchland</option>
+                 <option value="Belgien">Belgien</option>
+                 <option value="Bulgarien">Bulgarien</option>
+                 <option value="Daenmark">Dänemark</option>
+                 <option value="Frankreich">Frankreich</option>
+                 <option value="Italien">Italien</option>
+                 <option value="Niederlande">Niederlande</option>
+                 <option value="Österreich">Österreich</option>
+                 <option value="Portugal">Portugal</option>
+                 <option value="Schweiz">Schweiz</option>
+             </select>
+             <br>
+            <br>
+            <div  id="town_error" th:if="${#fields.hasErrors('town')}" th:errors="*{town}"></div>
+            <br>
+            <label for="myPost">E-Mail*:</label>
+            <label for="regpass" class="l5">Passwort*:</label>
+            <br>
+            <input th:field="*{email}" name="email" class="myPost" type="text" id="myPost">
+
+            <div class="pass1">
+
+                <input type="password" th:field="*{password}" name="password"  id="regpass" class="password">
+                    <img class = "img2" id="img2" th:src="@{/images/eye.png}" onclick="showPass1()">
+            </div>
+            <div class="container1">
+                <div  id="email_error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                <div  id="pass_error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+            </div>
+            <br>
+            <div>
+                <input type="checkbox" id="usePost" onclick="showUsername()" th:field="*{useEmailAsUsername}" value="true" checked/>
+                <label for="usePost">E-Mail Adresse als Benutzernamen verwenden</label>
+            </div>
+            <br>
+            <div id="myWrapper">
+            <label for="usernameField" id="u_name">Benutzname</label>
+                <br>
+            <input th:field="*{customUsername}" name="username"  id="usernameField" type="text">
+            </div>
+            <br>
+            <div>
+                    <button type="button" onclick="goToLogin()"  class="back" >Zu die Anmeldung</button>
+                <button id="submit-button" type="submit"  class="save" value = "Speichern">Speichern</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+<script type="text/javascript" th:src="@{/js/registration_form.js}"></script>
+
+<script>
+    function showUsername() {
+        const checkBox = document.getElementById("usePost");
+        const usernameField = document.getElementById("usernameField");
+        const wrapper = document.getElementById("myWrapper");
+
+        if (checkBox.checked) {
+            usernameField.value = '';
+            wrapper.style.display = 'none';
+        } else {
+            usernameField.disabled = false;
+            wrapper.style.display = 'block';
+        }
+    }
+
+    window.onload = function () {
+        showUsername();
+    }
+let timer;
+
+ window.addEventListener("DOMContentLoaded", function () {
+     const countElement = document.getElementById("countdown");
+
+     if(countElement) {
+         let seconds = parseInt(countElement.textContent, 10);
+         timer = setInterval(function() {
+             seconds--;
+             countElement.textContent = seconds;
+             if (seconds <= 0) {
+                 clearInterval(timer);
+                 window.location.href = "/login";
+             }
+         }, 1000);
+     }
+ });
+
+    function goToLogin() {
+        clearInterval(timer);
+        window.location.href = "/login";
+    }
+
+</script>
+
+</body>
+</html>

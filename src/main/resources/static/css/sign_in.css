@@ -1,0 +1,34 @@
+
+.child {
+    margin-left: 80%;
+    margin-top: 30px;
+}
+
+
+
+.sign_in_button {
+    color: black;
+    font-size: 24px;
+    font-style: normal;
+    font-family: "Times New Roman", serif;
+    font-weight: bold;
+    border: none;
+    background-color: white;
+    width: 200px;
+    height: 60px;
+    border-radius: 3mm;
+}
+.sign_in_image {
+    padding-right: 10px;
+}
+.sign_in_button:hover {
+    background-color: whitesmoke;
+    border-radius: 3mm;
+    cursor: pointer;
+    border: none;
+}
+
+.sign_in_button:focus{
+    outline:0 !important;
+}
+

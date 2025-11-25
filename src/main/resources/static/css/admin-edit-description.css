@@ -1,0 +1,49 @@
+.book-desc-part{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top:50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.desc-form{
+    display: flex;
+    flex-direction: column;
+    gap:4px;
+}
+
+.book-desc{
+  /*  margin-right: auto;
+    margin-left: auto;*/
+    width:1000px;
+    height: 500px;
+    padding: 8px 12px;
+}
+.save-btn-section {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.save-btn{
+    padding: 8px 12px;
+    background-color: #4682B4; /* cornflower blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+
+.book-text{
+    display: flex;
+    flex-direction: column;
+}
+label{
+
+}

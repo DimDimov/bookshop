@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="shortcut icon" th:href="@{#}">
+<link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
+<head>
+    <meta charset="UTF-8">
+    <title>Anmeldung bei der Buchladung</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link th:href="@{/css/loginPage.css}" rel="stylesheet" type="text/css"/>
+
+</head>
+<body>
+
+<div th:insert="~{home.html :: authorization}"></div>
+<div th:insert="~{home :: searchModal}"></div>
+<div class="alert-section">
+<div th:if = "${param.disabled}" class="alert alert-warning my-alert" role="alert">
+    Ihr Konto ist deaktiviert.
+</div>
+
+<div th:if = "${param.error}">
+    <div class = "alert alert-danger my-error" >Ungültiger Benutzername oder Passwort.</div>
+</div>
+
+</div>
+
+<div class="box-in-login-page">
+
+    <div class="myLoginForm" id="myForm" role="dialog">
+
+        <div class="dialogInLogin" style="height: 25%;" >
+            <div class="contentInLogin" style="width: 550px" >
+
+                <div class="headerInLogin">
+                    <div class="titleInLogin" th:text="#{registration}"></div>
+                </div>
+                <div class="body-in-login">
+                    <form method="post" th:action="@{/login}"   name="my_form" class="myForm" id="my_Form22" onsubmit="return validate()" >
+
+                        <div class="myFormGroup">
+                            <label for="input_email" class="en" th:text="#{emailUsername}"></label>
+                            <br>
+                            <input type="text" id="input_email" name="username">
+                            <div class="error" id="nameErr"></div>
+                        </div>
+                        <div class="myFormGroup1">
+                            <div class="offer" th:text="#{info}"></div>
+                                <div class="offer" th:text="#{info1}"></div>
+                                <div class="offer" th:text="#{info2}"></div>
+                        </div>
+                        <div class="myFormGroup">
+                            <input type="checkbox" id="einlogen" name="remember-me">
+                            <label for="einlogen" class="ein" th:text="#{stayLogin}"></label>
+                        </div>
+                        <br>
+
+                        <div class="myFormGroup">
+                            <label for="input_password" class="passlabel" th:text="#{pass}"></label>
+                            <br>
+                            <input  type="password" id="input_password" name="password">
+                                <img class="img1" id = "img1" th:src="@{/images/eye.png}" onclick="showPass()" style="padding-bottom: 3px">
+                            <div class="error" id="passErr"></div>
+                        </div>
+                        <div class="myLoginFooter" style="height: 50%; border: none">
+                            <button type="submit" name="action" class="anmelden" id="formBtn" th:text="#{signIn}"></button>
+                        </div>
+                    </form>
+                    <a th:href="@{/forgot_password}" class="vergessen" style="margin-right: 350px; width: 150px" th:text="#{forgetPass}"></a>
+                    <a th:href="@{/user_form}" class="registr" th:text="#{register}"></a>
+                    <a class="toHomePage" th:href="@{'/home'}" th:text="#{homePage}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+<script th:src="@{/js/book_search.js}" charset="UTF-8"></script>
+    <script th:src="@{/js/login.js}" charset="UTF-8"></script>
+
+</body>
+</html>

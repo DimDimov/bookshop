@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+<head>
+    <meta charset="UTF-8">
+    <title>Ein neues Buch hinzufügen</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/addNewBook.css}">
+</head>
+<body>
+
+<div class="bg">
+
+    <div class="frame" style="margin-top: 8%">
+
+        <h2 id="formular">Ein neues Buch hinzufügen </h2>
+
+        <br>
+        <form th:object="${book}" id="myForm22" class="bookForm" method="post"
+              th:action="@{/admin/books/add_newBook}" role="form" enctype="multipart/form-data">
+            <input type="hidden" th:field="*{id}"/>
+         <input type="hidden" name="authorId" th:field="${book.id}">
+            <div class="form-row">
+                <div class="form-group">
+                <label for="book_title">Titel*:</label>
+                <input th:field="*{title}" type="text" class="book_title" id="book_title">
+                <div id="book_title_error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                <label for="l1" class="l1" >Autor*:</label>
+                    <select class="choose_author" id="l1" th:field="*{authorId}">
+                    <option value="">Wählen Sie ein Autor</option>
+                    <option th:each= "author : ${authors}"
+                    th:value="${author.id}"
+                    th:text="${author.name}" >
+                    </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                <label for="isbn" class="l8">ISBN*:</label>
+                <input th:field="*{isbn}" type="text" class="isbn" id="isbn">
+                <div id="isbn_error" th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></div>
+                </div>
+            </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                    <label for="genre" class="l2">Genre*:</label>
+                    <input th:field="*{genre}" id="genre" class="genre">
+                    <div id="genre_error" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="book_image" class="l11"> &#128194; Wählen Datei*:</label>
+                        <input th:field="*{imageFile}" type="file" id="book_image"  accept="image/*" style="display: none">
+                       <span id="file-name">Keine Datei ausgewählt.</span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                <label for="price" class="l4">Price*:</label>
+                        <div style="display: flex; align-items: center">
+                <input th:field="*{price}" id="price" class="price" style="margin-right: 5px">
+                        <span style="font-size: 18px" >Euro</span>
+                        </div>
+                    <div id="price_error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+                    </div>
+                    <div class="form-group">
+                        <button id="submit-button" type="submit" class="saveNewBook" >&#128217;  Neues Buch hinzufügen</button>
+                    </div>
+                </div>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById("book_image").addEventListener("change", function() {
+
+        document.getElementById("file-name").textContent = this.files[0]?.name || "Keine Datei ausgewählt.";
+
+    });
+</script>
+</body>

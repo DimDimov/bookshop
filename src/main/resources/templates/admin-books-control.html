@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link rel="icon shortcur icon" th:href="@{/images/favicon.ico}">
+<link th:href="@{/css/admin-books-control.css}" rel="stylesheet" type="text/css"/>
+<meta name="_csrf" th:content="${_csrf.token}">
+<meta name="_csrf_header" th:content="${_csrf.headerName}">
+<head>
+    <meta charset="UTF-8">
+    <title>Kontrol fuer die Buecher </title>
+</head>
+<body>
+<div class="control-page">
+    <div class="dashboard-btn">
+        <a class="toAdminDashboard" th:href="${'/admin/dashboard'}">Zu die Adminseite</a>
+    </div>
+
+<form th:action="@{/admin/control/controlForBooks}" method="get" id="filterForm" class="filterForm">
+    <div class="both-selects">
+    <div class="select1">
+    <label for="bookId">Filter bei Buecher</label>
+    <select id="bookId" class="book-id" name="bookId" onchange="document.getElementById('filterForm').submit()">
+        <option value="" th:selected="${selectedBookId  == null}">Alle Buecher</option>
+        <option th:each="b : ${books}"
+                th:value="${b.id}"
+                th:text="${b.title + ' / ' + b.author.name}"
+                th:selected="${b.id == selectedBookId}">
+        </option>
+    </select>
+</div>
+    <div class="select1">
+    <label for="userId">Filter bei Benutzern</label>
+    <select id="userId" class="user-id" name="userId" onchange="document.getElementById('filterForm').submit()" >
+        <option value="" th:selected="${selectedUserId == null}">Alle Benutzer</option>
+        <option th:each="u : ${users}"
+                th:if="${u.id != 2}"
+                th:value="${u.id}"
+                th:text="${u.customUsername + ' / ' + u.firstName + '  ' + u.lastName}"
+                th:selected="${u.id == selectedUserId}">
+        </option>
+    </select>
+        </div>
+    </div>
+<!--<button type="submit">Bestaetigen</button>-->
+</form>
+<table class="all-books">
+    <thead>
+    <tr>
+        <th>Nummer</th>
+        <th class="book">Buch</th>
+        <th class="quantity" >Menge</th>
+        <th class="price">Gesamtkosten</th>
+        <th>Nummer der Bestellung</th>
+        <th class="status">Status</th>
+        <th>Aktion</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each = "item, iterStat : ${items}">
+        <td th:text="${iterStat.count}"></td>
+        <td th:text="${item.book.title + ' / ' + item.book.author.name }"></td>
+        <td th:text="${item.quantity}"></td>
+        <td th:text="${item.order.totalAmount + ' Euro'}"></td>
+        <td th:text="${item.order.id}"></td>
+        <td th:text="${item.returned ? 'Zurueckgegeben' : 'Bezahlt'}"></td>
+        <td>
+            <button th:classappend="${item.returned} ? ' returned' : ''"
+                    class="mark-returned-btn"
+                    th:text="${item.returned} ? 'Zurueckgegeben' : 'Markiert als zurueckgegeben'"
+            th:attr="data-id=${item.id}">
+                Markiert als zurueckgegeben
+            </button>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+    <div class="full-price">
+        <p>Gesamtwert aller verkauften Buecher
+           <!-- <strong id="shop-profit" th:text="${#numbers.formatDecimal(profit, 1, 'COMMA', 2, 'POINT')} + ' Euro'" ></strong>-->
+            <strong id="shop-profit" th:text="${profit + ' Euro'}"></strong>
+        </p>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded",  () => {
+            const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+            const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+            document.querySelectorAll(".mark-returned-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const id = btn.getAttribute("data-id");
+
+                    fetch(`/admin/control/order-item/${id}/return`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            [csrfHeader]: csrfToken
+                        }
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            if(data.status === "returned") {
+                                btn.disabled = true;
+                                btn.classList.add("returned");
+                            const el = document.getElementById('shop-profit');
+                            el.textContent = data.profit.toFixed(2);
+
+                           }
+                        })
+                        .catch(err => console.error("Fehler: " + err));
+                });
+            });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+
+.full-page{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top:50px;
+}
+
+.home-btn, .new-book-btn{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 230px;
+}
+.books-table{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+table, th, td{
+    border: 1px solid black;"
+}
+td{
+    text-align: center;
+    padding: 8px;
+}
+
+.number, .picture, .isbn, .price{
+    width: 100px;
+}
+
+.book-img{
+    width: 100px;
+    height: auto;
+}
+
+.title {
+    width: 200px;
+}
+
+.author, .genre{
+    width: 150px;
+}
+
+.description{
+    width:200px;
+}
+
+
+
+.delete-book-btn, .edit-book-btn, .add-to-stock {
+    display: flex;
+    flex-direction: column;
+    margin: 12px;
+    padding: 8px 12px;
+    background-color: #4682B4; /* cornflower blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-book-btn{
+    width: 57px;
+}
+
+
+
+.delete-book-btn:hover, .add-book:hover, .toHomePage:hover, .add-to-stock{
+    background-color: #5a9bd3;
+}
+
+
+.toHomePage, .add-book{
+    padding: 8px 12px;
+    background-color: #4682B4; /* cornflower blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+}

@@ -1,0 +1,106 @@
+.control-page{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.dashboard-btn{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 330px;
+}
+
+.toAdminDashboard, .mark-returned-btn{
+    margin: 12px;
+    padding: 8px 12px;
+    background-color: #4682B4; /* cornflower blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.toAdminDashboard:hover, .mark-returned-btn:hover{
+    background-color: #5a9bd3;
+}
+
+.mark-returned-btn.returned{
+    margin: 12px;
+    padding: 8px 12px;
+    background-color: #9aa;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: not-allowed;
+}
+
+.all-books, .filterForm{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table, th, td{
+    border: 1px solid black;"
+
+}
+td, th{
+    text-align: center;
+    padding: 8px;
+    font-size: 18px;
+    font-family: "Arial", serif;
+    font-style: normal;
+}
+
+.book{
+    width: 300px;
+}
+
+.quantity, .price, .status{
+    width: 100px;
+}
+.both-selects{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.select1{
+    display: flex;
+    flex-direction: column;
+}
+
+label{
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.book-id, .user-id{
+    height: 35px;
+    font-size: 18px;
+    font-family: "Arial", serif;
+    font-style: normal;
+    padding: 5px 8px;
+}
+
+.book-id:focus, .user-id:focus{
+    outline: none;
+    border-color: #5a9bd3;
+    box-shadow: 0 0 10px #5a9bd3;
+}
+
+.full-price{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 390px;
+    font-size: 24px;
+}

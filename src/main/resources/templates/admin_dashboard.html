@@ -1,0 +1,41 @@
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin_Seite</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin_dashboard.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<h2>die Seite des Administrators</h2>
+<ul class="dashboard">
+    <li><a th:href="@{'/admin/books/books_list'}">die Bearbeitung der Büchern
+        <i class="fa-solid fa-book"></i>
+    </a></li>
+    <li><a th:href="@{'/admin/users'}">die Liste der registrierten Benutzer
+        <i class="fa-solid fa-users"></i>
+    </a></li>
+    <li><a th:href="@{'/home'}">zu die Startseite
+        <i class="fa-solid fa-right-to-bracket"></i>
+    </a></li>
+    <li><a th:href="@{'/admin/authors/author_list'}">die Liste der Autoren
+        <i class="fa-solid fa-feather"></i>
+    </a></li>
+    <li><a th:href="@{'/admin/user-requests'}">die Liste der Nachrichten von Benutzern
+        <i class="fa-solid fa-message"></i>
+    </a></li>
+    <li><a th:href="@{'/admin/stock/books/getStock'}">der Lager
+        <i class="fa-solid fa-warehouse"></i>
+    </a></li>
+    <li><a th:href="@{'/admin/control/controlForBooks'}">die Buecherkontrolle
+        <i class="fa-solid fa-list-check"></i>
+    </a></li>
+    <li><a th:href="@{'/admin/control/returned-books'}">die zurueckgegebene Buecher
+        <i class="fa-solid fa-right-left"></i>
+    </a></li>
+</ul>
+
+
+</body>
+</html>

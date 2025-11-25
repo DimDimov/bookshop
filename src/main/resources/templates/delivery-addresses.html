@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
+<link rel="icon shortcur icon" th:href="@{/images/favicon.ico}">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/delivery-addresses.css}" rel="stylesheet" type="text/css"/>
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <title>Neue und gespeicherte Lieferaddresse</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:block th:replace="~{home.html :: authorization }"></div>
+
+<div id="deliverAddressError" class="alert alert-warning my-alert" style="display: none">
+    Bitte waehlen Sie eine Lieferadresse!
+</div>
+
+<div th:block th:replace="~{cart-page.html :: checkout-steps }"></div>
+
+<form id="newAddressForm" method="post">
+    <div class="order-frame">
+        <div class="deliveryPart">
+            <h2>die Liefersadresse</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="hidden" id="addressId" name="id" value="">
+                    <label for="title">Titel:</label>
+                    <input type="text" id="title" class="title">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">Vorname:</label>
+                    <input id="firstName" name="firstName" class="firstName" type="text">
+                    <div class="error-message" id="error-firstName"></div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Nachname:</label>
+                    <input id="lastName" name="lastName" class="secondName" type="text">
+                    <div class="error-message" id="error-lastName"></div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="town">Stadt:</label>
+                    <input id="town" name="town" class="town" type="text">
+                    <div class="error-message" id="error-town"></div>
+                </div>
+                <div class="form-group">
+                    <label for="street">Strasse:</label>
+                    <input id="street" name="street" class="street" type="text">
+                    <div class="error-message" id="error-street"></div>
+                </div>
+                <div class="form-group">
+                    <label for="houseNumber">Hausnummer:</label>
+                    <input id="houseNumber" class="houseNumber" type="text">
+                    <div class="error-message" id="error-houseNumber"></div>
+                </div>
+                <div class="form-group">
+                    <label for="postcode">PLZ:</label>
+                    <input id="postcode" name="postcode" class="postcode" type="text">
+                    <div class="error-message" id="error-postcode"></div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="country">Land:</label>
+                    <select id="country" name="country" class="country" type="text">
+                        <option value="Deutschland">Deutchland</option>
+                        <option value="Belgien">Belgien</option>
+                        <option value="Bulgarien">Bulgarien</option>
+                        <option value="Daenmark">Dänemark</option>
+                        <option value="Frankreich">Frankreich</option>
+                        <option value="Italien">Italien</option>
+                        <option value="Niederlande">Niederlande</option>
+                        <option value="Österreich">Österreich</option>
+                        <option value="Portugal">Portugal</option>
+                        <option value="Schweiz">Schweiz</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="deliveryAddress" style="font-weight: bold; font-size: 24px;">Leifersadresse:</label>
+                    <select id="deliveryAddress" class="deliveryAddress">
+                        <option value="" disabled selected hidden>Wählen Sie eine Lieferaddresse:</option>
+                        <option value="new">Neue Lieferadresse</option>
+                        <option value="saved">Gespeicherte Lieferadresse</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="line2"></div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <a class="goToBillAddress" th:href="${'/order/order_address'}">
+                        <i class="fa-solid fa-angles-left"></i>
+                        Zurück
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="orderPart">
+            <h2 style="margin-top: -5px;">die Bestellung</h2>
+            <div style="display: flex; align-items: center; justify-content: space-between">
+                <p class="totalOrder"> Sie bestellen: </p>
+                <span class="totalBooks" th:text="${total + ' Büchern'}"></span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between">
+                <p class="totalSum"> Gesamtbetrag: </p>
+                <span class="totalEuro" th:text="${cartPrice + ' Euro'}"></span>
+            </div>
+            <div class="line2"></div>
+            <div class="form-group">
+                <button class="goToPayment" id="goToPayment" type="button">
+                    Weiter
+                    <i class="fa-solid fa-angles-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="modal fade" id="addressModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Wählen eine Lieferadresse</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div th:each="addr : ${savedAddresses}" class="card mb-2">
+                    <div class="card-body">
+                        <label>
+                            <input type="radio" name="selectedAddresses" th:value="${addr.id}">
+                            <strong th:text="${addr.firstName + ' ' + addr.lastName + ','}"></strong>
+                            <br>
+                            <span th:text="${addr.street + ' ' + addr.houseNumber + ','}"></span>
+                            <br>
+                            <span th:text="${addr.postcode + ', ' + addr.town + ','}"></span>
+                            <br>
+                            <span th:text="${addr.country + '.'}"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="saveAddressBtn" type="button" class="btn btn-success" data-bs-dismiss="modal">
+                    Speichern die gewaelte Adresse
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById("deliveryAddress").addEventListener("change", function () {
+
+        const newForm = document.getElementById("newAddressForm");
+
+        if (this.value === "saved") {
+            const modal = new bootstrap.Modal(document.getElementById("addressModal"));
+            modal.show();
+            /*  newForm.style.display = "block";*/
+        } else if (this.value === "new") {
+            /*  window.location.href ="/order/delivery_new_or_saved_addresses"*/
+            newForm.style.display = "block";
+        } else {
+            newForm.style.display = "none";
+        }
+    });
+
+
+    document.getElementById("saveAddressBtn").addEventListener("click", function () {
+        const selected = document.querySelector('input[name ="selectedAddresses"]:checked');
+
+        const addressId = selected.value;
+        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+        fetch(`/order/get_address/${addressId}`, {
+            method: "GET",
+            headers: {
+                [csrfHeader]: csrfToken
+            }
+        })
+            .then(response => response.json())
+            .then(addr => {
+
+                document.getElementById("firstName").value = addr.firstName;
+                document.getElementById("lastName").value = addr.lastName;
+                document.getElementById("houseNumber").value = addr.houseNumber;
+                document.getElementById("street").value = addr.street;
+                document.getElementById("town").value = addr.town;
+                document.getElementById("country").value = addr.country;
+                document.getElementById("postcode").value = addr.postcode;
+                document.getElementById("addressId").value = addr.id;
+
+            })
+            .catch(err => console.error(err));
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        document.getElementById("goToPayment").addEventListener("click", function () {
+            const errorDiv = document.getElementById('deliverAddressError');
+
+            let selected = $("#deliveryAddress").val();
+            if (!selected) {
+                errorDiv.style.display = 'block';
+                return;
+            } else {
+                errorDiv.style.display = 'none';
+            }
+
+            const formData = {
+
+                firstName: document.getElementById("firstName").value,
+                lastName: document.getElementById("lastName").value,
+                street: document.getElementById("street").value,
+                houseNumber: document.getElementById("houseNumber").value,
+                postcode: document.getElementById("postcode").value,
+                town: document.getElementById("town").value,
+                country: document.getElementById("country").value,
+            }
+
+            const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+            const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+            fetch("/order/save_address", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    [csrfHeader]: csrfToken
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(async response => {
+                    if (!response.ok) {
+                        const errors = await response.json();
+                        console.log("Validation errors:", errors);
+                        for (const field in errors) {
+                            const errorDiv = document.getElementById(`error-${field}`);
+
+                            if (errorDiv) {
+                                errorDiv.textContent = errors[field];
+                            }
+                        }
+                        throw new Error("Validation failed");
+                    }
+                    return response.json();
+                })
+                .then(orderId => {
+                    window.location.href = `/order/choose-payment/${orderId}`;
+                })
+                .catch(async err => console.error(err));
+        });
+    });
+</script>
+</html>

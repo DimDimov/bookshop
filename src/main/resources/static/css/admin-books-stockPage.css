@@ -1,0 +1,80 @@
+.stock-page {
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.add-book-link, .back-btn{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 390px;
+}
+
+.stockTable{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table, th, td{
+    border: 1px solid black;"
+}
+td{
+    text-align: center;
+    padding: 8px;
+}
+
+.number, .status, .quantity{
+    width: 100px;
+}
+
+.title, .total, .update {
+    width: 200px;
+}
+
+.edit-stock-book-btn, .delete-stock-book-btn{
+    display: flex;
+    flex-direction: column;
+    margin: 12px;
+    padding: 8px 12px;
+    background-color: #4682B4; /* cornflower blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.add-book-to-stock, .link-to-dashboard{
+    top: 50px;
+    right:190px;
+    z-index: 1000;
+    padding: 8px 12px;
+    background-color: #4682B4; /* cornflower blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+
+.edit-stock-book-btn:hover, .delete-stock-book-btn:hover, .add-book-to-stock:hover{
+    background-color: #5a9bd3;
+}
+
+.full-price{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 390px;
+    font-size: 24px;
+}

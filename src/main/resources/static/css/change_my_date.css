@@ -1,0 +1,336 @@
+body, html{
+
+    height: 100%;
+    margin: 0;
+
+}
+
+.bg{
+    background-image: url("../images/buchladen.png");
+    min-height:100%;
+    background-position:left top;
+    background-repeat: repeat-y;
+    background-size: cover;
+    overflow: hidden;
+    /*  background-attachment: fixed;*/
+}
+
+.frame{
+    background-color: burlywood;
+    width:710px;
+    height:680px;
+    margin-left: 34%;
+    padding-top: 30px;
+    border-radius: 2mm;
+    padding-left: 30px;
+    border: 1px solid burlywood;
+    outline: 1px solid saddlebrown;
+    outline-offset: -10px;
+}
+
+
+#formular{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.titel{
+    position: relative;
+    font-size: 18px;
+}
+
+.firstName{
+    position: absolute;
+    width: 250px;
+    height:25px;
+    font-size: 18px;
+    display: inline ;
+}
+.firstName:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+.error{
+    color: red;
+}
+
+.l1{
+    margin-left: 20%;
+    position: relative;
+}
+
+.secondName{
+    position: relative;
+    margin-left: 310px;
+    width: 250px;
+    height:25px;
+    font-size: 18px;
+}
+
+.secondName:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+.l8{
+    position: absolute;
+}
+
+.geburtsdatum{
+    position: absolute;
+    width: 250px;
+    font-size: 18px;
+}
+
+.geburtsdatum:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+.l2{
+    position: absolute;
+}
+
+.l3{
+    position: relative;
+    margin-left: 310px;
+}
+
+.l4{
+    position: relative;
+    margin-left: 50px;
+}
+
+#street{
+    height: 25px;
+    position: relative;
+    margin-right: 50px;
+    font-size: 18px;
+}
+
+#street:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+
+
+#home{
+    height: 25px;
+    position: relative;
+    width: 100px;
+    margin-right: 40px;
+    font-size: 18px;
+}
+
+#home:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+#index{
+    height: 25px;
+    position: relative;
+    width: 100px;
+    font-size: 18px;
+}
+
+#index:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+.town{
+    position: absolute;
+    width: 250px;
+    height:25px;
+    font-size: 18px;
+    display: inline ;
+}
+
+.town:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+
+
+.l11{
+    margin-left: 38%;
+    position: relative;
+}
+
+.country{
+    position: absolute;
+    margin-left: 310px;
+    height: 25px;
+    width:250px;
+    font-size: 18px;
+}
+
+.country:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+#email{
+    position: absolute;
+    height: 25px;
+    width:250px;
+    font-size: 18px;
+    display: inline;
+}
+
+#email:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+.l5{
+    margin-left: 250px;
+}
+
+#regpass1{
+    position: absolute;
+    height: 25px;
+    width:250px;
+    font-size: 18px;
+    margin-left: 310px;
+    display: inline;
+}
+
+#regpass1:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+.eye_icon2{
+    margin-left: 530px;
+    margin-top: 2px;
+    position: relative;
+    border: none;
+    background-color: white;
+    width: 35px;
+    height: 26px;
+    padding: 1px 1px 1px 1px;
+}
+
+.eye_icon2:hover{
+    cursor: pointer;
+}
+
+#username{
+    width:250px;
+    height:25px;
+    display:none;
+}
+#u_name{
+    display: none;
+}
+
+
+.back{
+    width:120px;
+    height:50px;
+    border-radius: 2mm;
+    background-color: saddlebrown;
+    font-size: 18px;
+    color: whitesmoke;
+    cursor: pointer;
+    position: absolute;
+    margin-top: 30px;
+}
+
+.save{
+    position: relative;
+    margin-top: 30px;
+    margin-left: 450px;
+    width:120px;
+    height:50px;
+    border-radius: 2mm;
+    background-color: saddlebrown;
+    font-size: 18px;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+
+
+.container {
+    display: flex;
+    justify-content: left;
+}
+
+
+
+.container1{
+    display: flex;
+    justify-content: left;
+}
+
+.message{
+    color: white;
+    background-color: blue;
+}
+
+
+.first_name_error{
+    color: red;
+    position: absolute;
+}
+
+.second_name_error{
+    color: red;
+    position: absolute;
+    margin-left: 310px;
+}
+
+.streetError{
+    color: red;
+    position: absolute;
+}
+
+.houseError{
+    color: red;
+    margin-left: 310px;
+    position: absolute;
+}
+
+.indexError{
+    color: red;
+    margin-left: 460px;
+    position: absolute;
+}
+.townError{
+    color: red;
+    position: absolute;
+}
+
+.emailError{
+    color: red;
+    position: absolute;
+}
+
+.passError{
+    color: red;
+    margin-left: 310px ;
+    position: absolute;
+}
+
+.success{
+    position: absolute;
+    margin-top: -20px;
+    margin-left: 200px;
+    color: blue;
+}

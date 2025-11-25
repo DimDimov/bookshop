@@ -1,0 +1,456 @@
+body, html{
+    height: 100%;
+    margin: 0;
+}
+
+.bg{
+    background-image: url("../images/buchladen.png");
+    min-height:100%;
+    background-position:left top;
+    background-repeat: repeat-y;
+    background-size: cover;
+    overflow: hidden;
+}
+.page-top-section{
+    display: flex;
+    gap: 20px;
+    max-width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    z-index: 1000;
+    min-height: 100px;
+    padding: 20px 0;
+    margin-top: 20px;
+
+}
+
+.logo{
+    display: flex;
+    margin-left: 200px;
+    align-items: center;
+    gap: 10px;
+    width: 200px;
+}
+
+.text-logo{
+    font-family: "Tahoma", serif;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.round-logo{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.book-search {
+    position: relative;
+}
+
+
+.searchForm{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input-search{
+    height: 30px;
+    width: 400px;
+    padding-left: 8px ;
+    font-size: 20px;
+    font-style: normal;
+    font-family: "Times New Roman", serif;
+}
+
+.book-search i{
+    padding-top: 4px;
+    margin-left: -35px;
+}
+
+.book-search button{
+    position: relative;
+    cursor: pointer;
+    margin-left: 20px;
+    width:80px;
+    height:30px;
+    background-color: #005cbf;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    font-size: 14px;
+}
+
+.book-search button:hover{
+    background-color: #007bff;
+}
+
+
+.message-section{
+    position: relative;
+    color: white;
+    font-size: 20px;
+    font-style: normal;
+    font-family: "Times New Roman", serif;
+    white-space: nowrap;
+    text-align: center;
+    left: 50px;
+    /*  margin-top: 20px;*/
+}
+
+
+.logout{
+    color: black;
+    font-size: 20px;
+    font-style: normal;
+    font-family: "Times New Roman", serif;
+}
+
+.unreadMessages{
+    width:100px;
+    position: relative;
+    /* right: 480px;*/
+}
+
+.unread-icon i {
+    color: red;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse  {
+    0% {transform: scale(1); opacity: 1}
+    50% { transform:scale(1.3); opacity: 0}
+    100% {transform:scale(1); opacity: 1}
+}
+
+.cart-section{
+    right: 50px;
+    width: 50px;
+    position: relative;
+}
+
+.trolley{
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+}
+
+.cart-count{
+    position: absolute;
+    top: -30px;
+    right:-10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.auth-button{
+    right: 50px;
+    position: sticky;
+}
+
+.sign_in_button, .sign_out_button, .account_button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    color: black;
+    font-size: 18px;
+    font-style: normal;
+    font-family: "Times New Roman", serif;
+    border: none;
+    background-color: white;
+    width: 150px;
+    height: 50px;
+    padding-left: 10px;
+    border-radius: 3mm;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+.account_button{
+    right: 40px;
+}
+
+.sign_in_image, .sign_out_image,.konto_image  {
+    width: 30px;
+    height: auto;
+}
+
+.sign_in_button:hover, .sign_out_button:hover, .account_button:hover {
+    background-color: whitesmoke;
+    border-radius: 3mm;
+    cursor: pointer;
+    border: none;
+}
+
+.sign_in_button:focus, .sign_out_button:focus, .account_button:focus{
+    outline:0 !important;
+}
+
+.form-frame {
+    width: 710px;
+    height: 680px;
+    background-color: burlywood;
+    padding: 30px;
+    margin: 100px auto;
+    border: 1px solid burlywood;
+    border-radius: 2mm;
+    outline: 1px solid saddlebrown;
+    outline-offset: -10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+}
+
+select{
+    height: 30px;
+    line-height: 30px;
+}
+
+.form-title{
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.form-row{
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 150px;
+}
+
+.l1, .plz, .houseNummer{
+    font-size: 18px;
+    /* margin-bottom: 2px;*/
+    margin-top: 30px;
+    font-family: "Times New Roman", sans-serif;
+}
+
+select.titel {
+    padding: 6px 10px;
+    font-size: 18px;
+    width: 620px;
+}
+
+.firstName{
+    width: 250px;
+    height: 25px;
+    font-size: 18px;
+}
+
+.firstName:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+.lastName{
+    width: 250px;
+    height: 25px;
+    font-size: 18px;
+}
+.lastName:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+
+.birthday{
+    width:250px;
+    height: 25px;
+    font-size: 18px;
+}
+
+.birthday:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+.error{
+    color:red;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.street{
+    width:250px;
+    height: 25px;
+    font-size: 18px;
+}
+
+.street:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+.houseNummer{
+    margin-left: 80px;
+}
+
+.house{
+    width:100px;
+    height: 25px;
+    font-size: 18px;
+    margin-left: 80px;
+}
+
+.house:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+.errorHaus{
+    color: red;
+    margin-top: 4px;
+    margin-left: 80px;
+    font-size: 14px;
+    max-width: 160px;  /* adjust to break the line */
+    white-space: normal;
+    line-height: 1.3;
+}
+
+.plz{
+    margin-left: 25px;
+}
+
+.index{
+    width:100px;
+    height: 25px;
+    font-size: 18px;
+    margin-left: 25px;
+}
+
+.index:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+.errorPLZ1{
+    color: red;
+    margin-top: 4px;
+    margin-left: 25px;
+    font-size: 14px;
+    max-width: 160px;  /* adjust to break the line */
+    white-space: normal;
+    line-height: 1.3;
+}
+
+.town{
+    width: 250px;
+    height: 25px;
+    font-size: 18px;
+}
+
+.town:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+select.country{
+    width: 250px;
+    font-size: 18px;
+}
+
+.country:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+.email{
+    width: 250px;
+    height: 25px;
+    font-size: 18px;
+}
+
+.email:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+.pass{
+    width: 250px;
+    height: 25px;
+    font-size: 18px;
+}
+
+.pass:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+.imgEye{
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-left: 230px;
+    margin-top: 58px;
+
+}
+
+.save1{
+    position: relative;
+    margin-top: 30px;
+    margin-left: 500px;
+    width:120px;
+    height:50px;
+    border-radius: 2mm;
+    background-color: saddlebrown;
+    font-size: 18px;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.saveDeliveryAddress{
+    position: relative;
+    margin-top: 30px;
+    margin-left: 390px;
+    width:220px;
+    height:50px;
+    border-radius: 2mm;
+    background-color: saddlebrown;
+    font-size: 18px;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.editDeliveryAddress{
+    position: relative;
+    margin-top: 30px;
+    margin-left: 390px;
+    width:220px;
+    height:50px;
+    border-radius: 2mm;
+    background-color: saddlebrown;
+    font-size: 18px;
+    color: whitesmoke;
+    cursor: pointer;
+}

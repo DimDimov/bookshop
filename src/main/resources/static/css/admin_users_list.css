@@ -1,0 +1,80 @@
+
+.users-page{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+h2{
+    text-align: center;
+}
+
+.home-btn{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 250px;
+}
+
+.linkToStartPage{
+    padding: 8px 12px;
+    background-color: #4682B4; /* cornflower blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.linkToStartPage:hover{
+    background-color: #5a9bd3;
+}
+
+.user-table{
+    margin-left: auto;
+    margin-right: auto;
+   position: relative;
+}
+
+table, th, td{
+    border: 1px solid black;
+}
+
+td{
+    text-align: center;
+    padding: 8px;
+}
+
+.custom-checkbox{
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.enabled{
+    background-color: green;
+    color: white;
+}
+
+.disabled{
+    background-color: red;
+    color: white;
+}
+/*.custom-checkbox{
+    pointer-events: none;
+}*/
+
+input[type="checkbox"] {
+    display: none;
+}
+.status{
+    width: 100px;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+<head>
+    <meta charset="UTF-8">
+    <title>Ein neuer Author hinzufügen</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/addNewAuthor.css}">
+</head>
+<body>
+
+<div class="bg">
+
+    <div class="frame1" style="margin-top: 8%">
+        <h2 id="formular">Ein neuer Autor hinzufügen </h2>
+
+        <br>
+        <form th:object="${author}" id="myForm22" class="authorForm" method="post"
+              th:action="@{/admin/authors/add_newAuthor}" role="form" enctype="multipart/form-data">
+
+            <div class="form-container">
+                <div class="left_column">
+
+                    <label for="author_name">Name*:</label>
+                    <input th:field="*{name}" type="text" class="author_name" id="author_name">
+                    <div id="author_name_error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+
+
+                <div class="buttons-group">
+                    <label for="author_image" class="l11"> &#128194; Wählen Datei*:</label>
+                    <input th:field="*{photoUrl}" type="file" id="author_image" class="author_image" name="image" accept="image/*" style="display: none">
+                    <span id="file-name">Keine Datei ausgewählt.</span>
+                    <button id="submit-button" type="submit" class="saveNewAuthor" >&#128217;  Neuer Author hinzufügen</button>
+                </div>
+                </div>
+
+           <div class="right_column">
+
+                    <label for="author_biography">Biography*:</label>
+                    <textarea th:field="*{biography}" type="text" class="author_biography" id="author_biography"></textarea>
+                    <div id="author_biography_error" th:if="${#fields.hasErrors('biography')}" th:errors="*{biography}"></div>
+           </div>
+
+
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<script>
+document.getElementById("author_image").addEventListener("change", function() {
+
+document.getElementById("file-name").textContent = this.files[0]?.name || "Keine Datei ausgewählt.";
+
+});
+</script>
+</body>
+</html>

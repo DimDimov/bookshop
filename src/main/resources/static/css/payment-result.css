@@ -1,0 +1,231 @@
+.page-top-section{
+    display: flex;
+    gap: 20px;
+    max-width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    z-index: 1000;
+    min-height: 100px;
+    padding: 20px 0;
+    margin-top: 20px;
+}
+
+.logo{
+    display: flex;
+    margin-left: 200px;
+    align-items: center;
+    gap: 10px;
+    width: 200px;
+}
+
+.text-logo{
+    font-family: "Tahoma", serif;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    color: black;
+}
+
+.round-logo{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.book-search {
+    margin-right: 300px;
+    height: 60px;
+    align-items: center;
+    display: flex;
+    margin-bottom: -40px;
+    visibility: hidden;
+}
+
+.input-search{
+    height: 30px;
+    width: 400px;
+    padding-left: 8px ;
+    font-size: 20px;
+    font-style: normal;
+    font-family: "Times New Roman", serif;
+}
+
+.book-search i{
+    padding-top: 8px;
+    margin-left: -25px;
+}
+
+.book-search button{
+    cursor: pointer;
+    margin-left: 20px;
+    width:80px;
+    height:30px;
+    background-color: #005cbf;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    font-size: 14px;
+}
+
+.book-search button:hover{
+    background-color: #007bff;
+}
+
+
+.message-section{
+
+    color: black;
+    font-size: 20px;
+    font-style: normal;
+    font-family: "Times New Roman", serif;
+    white-space: nowrap;
+    text-align: center;
+    margin-right: 400px;
+    margin-top: 20px;
+}
+
+
+.logout{
+    color: black;
+    font-size: 20px;
+    font-style: normal;
+    font-family: "Times New Roman", serif;
+}
+
+.cart-section{
+    margin-left: -450px;
+    width: 100px;
+    position: relative;
+
+}
+
+.trolley{
+    position: relative;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.cart-count{
+    position: absolute;
+    top: -30px;
+    right:-10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.auth-button{
+    right: 50px;
+    position: sticky;
+}
+
+.sign_in_button, .sign_out_button, .account_button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    color: black;
+    font-size: 18px;
+    font-style: normal;
+    font-family: "Times New Roman", serif;
+    border: none;
+    background-color: white;
+    width: 150px;
+    height: 50px;
+    padding-left: 10px;
+    border-radius: 3mm;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.account_button{
+    right: 40px;
+}
+
+.sign_in_image img, .sign_out_image,.konto_image  {
+    width: 30px;
+    height: auto;
+}
+
+.sign_in_button:hover, .sign_out_button:hover, .account_button:hover {
+    background-color: whitesmoke;
+    border-radius: 3mm;
+    cursor: pointer;
+    border: none;
+}
+
+.sign_in_button:focus, .sign_out_button:focus{
+    outline:0 !important;
+}
+
+.send-part{
+
+    margin: 0 auto;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 100px;
+}
+
+.alert-success{
+    margin: 0 auto;
+    width: 400px;
+    text-align: center;
+}
+
+.end-message{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    height: 60px;
+    text-align: center;
+    padding: 12px 12px;
+}
+
+.linkToHome{
+    align-items: center;
+    width: 220px;
+    text-align: center;
+    padding: 18px 0;
+    background-color: #34ce57;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    border: none;
+    margin: 20px auto;
+}
+.linkToHome a{
+    color: white;
+    padding-right: 5px;
+}
+
+.send{
+    font-size: 18px;
+    font-weight: bold;
+    font-family: "Arial", sans-serif;
+}
+
+.send4{
+    font-style: normal;
+    font-weight: bold;
+    font-family: "Times New Roman", serif;
+    color: #b21f2d;
+    font-size: 24px;
+    padding-left: 10px;
+    padding-right: 10px;
+}

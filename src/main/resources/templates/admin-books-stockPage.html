@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link rel="icon shortcur icon" th:href="@{/images/favicon.ico}">
+<head>
+    <meta charset="UTF-8">
+    <title>Buecherslager</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin-books-stockPage.css}">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+</head>
+<body>
+<div class="stock-page">
+
+    <div class="back-btn">
+        <a class="link-to-dashboard" th:href="@{'/admin/dashboard'}">Zu die Adminseite</a>
+    </div>
+    <div class="add-book-link">
+<a class="add-book-to-stock" th:href="@{'/admin/stock/addNewBookToStock'}">Ein neues Buch hinzufuegen</a>
+    </div>
+    <table class="stockTable">
+        <thead>
+            <tr>
+                <th class="number">Nummer</th>
+                <th class="title">Titel/Autor</th>
+                <th class="quantity">Menge</th>
+                <th>Price fuer ein Buch</th>
+               <th class="total">Gesamtprice</th>
+                <th class="update">Letzte Aktualizierung</th>
+                <th>Bearbeitung</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="stock, iterStat : ${stocks}">
+            <td th:text="${iterStat.count}"></td>
+
+            <td th:text="${stock.book.title + ' / ' + stock.book.author.name}"></td>
+            <td th:text="${stock.quantity}"></td>
+            <td th:text="${stock.oneBookPrice}"></td>
+            <td th:text="${stock.totalPrice}"></td>
+            <td th:text="${#temporals.format(stock.lastUpdate, 'dd.MM.yyyy HH:mm')}"></td>
+            <td>
+                <a class="edit-stock-book-btn" th:href="@{/admin/stock/books/getStock/edit_stock/{id}(id=${stock.id})}">Bearbeiten</a>
+                <button class="delete-stock-book-btn" th:attr="data-id=${stock.id}" >Löschen</button>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <div class="full-price">
+    <p>Gesamtwert aller Buecher im Lager
+        <strong th:text="${#numbers.formatDecimal(totalStockValue, 1, 'COMMA', 2, 'POINT')} + ' Euro'" ></strong>
+    </p>
+    </div>
+</div>
+<script th:src="@{/js/admin-stock-page.js}" charset="UTF-8"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+.pass_form{
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #d3d9df;
+    height: 320px;
+    width: 650px;
+    border-radius: 10px;
+}
+
+.form_header{
+    background-color: cornflowerblue;
+    color: whitesmoke;
+    font-size: 24px;
+    height: 50px;
+    padding-left: 10px;
+    padding-top: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-bottom: 20px;
+    width: 640px;
+}
+.result_message{
+    position: absolute;
+    margin-top: -75px;
+    width: 640px;
+    margin-left: 630px;
+    text-align: center;
+    background-color: #28a745;
+    height: 60px;
+    padding-top: 10px;
+    font-size: 18px;
+    font-family: "Arial", serif;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.error_message{
+    position: absolute;
+    margin-top: -95px;
+    width: 640px;
+    margin-left: 630px;
+    text-align: center;
+    background-color: #dc3545;
+    height: 60px;
+    padding-top: 30px;
+    font-size: 18px;
+    font-family: "Arial", serif;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+
+.input_mail{
+    width:63%;
+    height:25px;
+}
+
+.input_mail:focus {
+    outline: none;
+    border-color: cornflowerblue;
+    box-shadow: 0 0 10px cornflowerblue;
+}
+
+.send{
+    font-size: 14px;
+    font-family: "Arial", serif;
+    border: none;
+    border-radius: 1mm;
+    background-color: gold;
+    height:30px;
+    width: 150px;
+    margin-top: 50px;
+}
+
+.send:hover {
+    background-color: goldenrod;
+    cursor: pointer;
+}

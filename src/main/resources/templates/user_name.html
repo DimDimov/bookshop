@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="shortcut icon" th:href="@{#}">
+<link rel="icon" type="image/x-icon" th:href="@{images/favicon.ico}">
+
+<head>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/change_my_date.css}">
+
+
+    <meta charset="UTF-8" content="notranslate">
+    <title>Neueregistrierung</title>
+</head>
+
+<body>
+<div class="bg" >
+
+
+    <div class="frame"  style="margin-top: 8%">
+        <div th:if="${message != null}">
+            <h3 class="success">[[${message}]]</h3>
+        </div>
+        <h2 id="formular">Sie können Ihre Daten tauschen.</h2>
+
+        <label for="titel">Anrede:</label>
+        <br>
+        <select class="titel" id="titel" style="width: 570px; height: 30px">
+            <option>...</option>
+            <option>männlich</option>
+            <option>fraulich</option>
+        </select>
+        <br>
+
+        <br>
+        <!-- @thymesVar id="user22" type="com.example.buchladen.web.dto.UserRegistrationDto" -->
+        <form th:object="${user22}" id="myForm22"  class="form"  name = "myForm" method="post"
+              th:action="@{/my_account/user_name}"  role="form">
+           <!-- <input type="hidden" th:field="*{email}">-->
+            <label for="firstName">Vorname*:</label>
+            <label class="l1" for="second_name" style="margin-left: 33%">Nachname*:</label>
+            <br>
+
+            <input th:field="*{firstName}"  type="text" class="firstName" id="firstName" name="firstName">
+            <input th:field="*{lastName}"  type="text" class="secondName" id="second_name" name="lastName">
+            <div  class="first_name_error" id="firstNameError" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+            <div class="second_name_error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+            <br>
+            <br>
+            <br>
+            <label for="geburtsdatum" class="l8">Geburtsdatum*:</label>
+            <br>
+
+            <input name="birthday" th:field="*{birthday}" type="date" class="geburtsdatum" id="geburtsdatum"
+                   style="height: 30px">
+            <br>
+
+            <br>
+            <br>
+            <label for="street" class="l2">Straße*:</label>
+            <label for="home" class="l3">Hausnummer*:</label>
+            <label for="index" class="l4">PLZ*:</label>
+            <br>
+            <input th:field="*{street}"  id="street" name="street" style="width: 250px" >
+            <input th:field="*{houseNumber}"  id="home" name="home" >
+            <input th:field="*{postcode}" id="index" name="index" >
+            <br>
+            <div class = "container">
+                <div  id="street_error" class="streetError" th:if="${#fields.hasErrors('street')}" th:errors="*{street}"></div>
+                <div  id="house_error" class="houseError" th:if="${#fields.hasErrors('houseNumber')}" th:errors="*{houseNumber}"></div>
+                <div  id="index_error" class="indexError" th:utext="${#fields.errors('postcode')}" th:errors="*{postcode}"></div>
+            </div>
+            <br>
+            <label for="town" >Ort*:</label>
+            <label  class="l11">Land*:</label>
+            <br>
+            <input th:field="*{town}" id="town" name="town" class="town">
+
+                <label for="country"></label><select required th:field="*{country}" class="country" id="country" style="width: 260px; height: 30px">
+                <option value="Deutschland">Deutchland</option>
+                <option value="Belgien">Belgien</option>
+                <option value="Bulgarien">Bulgarien</option>
+                <option value="Daenmark">Dänemark</option>
+                <option value="Frankreich">Frankreich</option>
+                <option value="Italien">Italien</option>
+                <option value="Niederlande">Niederlande</option>
+                <option value="Österreich">Österreich</option>
+                <option value="Portugal">Portugal</option>
+                <option value="Schweiz">Schweiz</option>
+            </select>
+            <br>
+            <br>
+                <div  id="town_error" class="townError" th:if="${#fields.hasErrors('town')}" th:errors="*{town}"></div>
+            <br>
+            <label for="email">E-Mail*:</label>
+            <label for="regpass1"  class="l5">Passwort*:</label>
+            <br>
+            <input th:field="*{email}"  id="email" name="email" >
+
+            <div class="pass1">
+                <input type="password" th:field="*{password}" id="regpass1" name="password" class="password">
+                <button type="button" class="eye_icon2" onclick="showPass2()">
+                    <img class = "img2" id="img3" th:src="@{/images/eye.png}">
+                </button>
+            </div>
+            <div class="container1">
+                    <div  id="email_error" class="emailError" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                    <div  id="pass_error" class="passError" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+            </div>
+            <br>
+            <label for="username" id="u_name">Benutzname</label>
+            <input id="username">
+            <br>
+          <!--  <div>
+                <input type="checkbox" id="use_email" checked onclick="showUsername()">
+                <label for="use_email">E-Mail Adresse als Benutzernamen verwenden</label>
+            </div>-->
+            <div>
+
+                <button id="submit-button" type="submit" data-toggle="modal" data-target="#reg_success" class="save" value = "Speichern">Speichern</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/js/change_data.js}"></script>
+
+
+</body>
+</html>

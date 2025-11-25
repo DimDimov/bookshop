@@ -1,0 +1,182 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <title>Mein Warenkorb</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/cart-page.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<div th:block th:replace="~{home.html :: authorization }"></div>
+
+<div th:block th:replace="~{home.html :: categories}"></div>
+
+
+<div th:fragment="checkout-steps" class="checkout-steps">
+    <div class="step" th:classappend="${step == 1} ? 'active'">
+        <span>1</span>
+        <p>Einkaufwagen</p>
+    </div>
+    <div class="step" th:classappend="${step == 2} ? 'active'">
+        <span>2</span>
+        <p>Bestellung</p>
+    </div>
+    <div class="step" th:classappend="${step == 3} ? 'active'">
+        <span>3</span>
+        <p>Bezalung</p>
+    </div>
+    <div class="step" th:classappend="${step== 4} ? 'active'">
+        <span>4</span>
+        <p>Bestätigung</p>
+    </div>
+</div>
+
+<div class="cart-list">
+    <table>
+        <thead>
+        <tr>
+            <th class="book-info">Artikel</th>
+            <th class="number-of-books">Menge</th>
+            <th class="total-price">Gesamt</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="every-book" th:id="|cart-item-${item.bookId}|" th:each="item : ${cart.cartItemDto}" >
+            <td>
+                <div class="info1">
+                    <img class="book-img" th:src="@{${item.imageURL}}">
+                    <p th:text="${item.author + ':'}"></p>
+                    <p th:text="${item.title}"></p>
+                </div>
+            </td>
+            <td>
+                <div class="quantity">
+                    <button type="button" th:onclick="|updateQuantity(${item.bookId}, -1)|" class="button-minus">-</button>
+                    <span class="text" th:id="|quantity-${item.bookId}|" th:text="${item.quantity}">1</span>
+                    <button type="button" th:onclick="|updateQuantity(${item.bookId}, 1)|" class="button-plus">+</button>
+                </div>
+            </td>
+            <td class="price1" th:id="|price1-${item.bookId}|" th:text="${item.itemTotalPrice} + ' €'">
+
+            </td>
+            <td>
+                <button type="button" th:onclick="|removeBookFromCart(${item.bookId})|" class="removeFromCart">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="total-sum">
+    <table class="order" >
+        <tr>
+            <td>Du bestellst
+            <span style="color: #b21f2d; float: right" th:text="${total} + ' Bücher'">0</span>
+            </td>
+        </tr>
+        <tr style="border-bottom: #778899 solid 1px;">
+            <td >Summe
+            <span style="color: #b21f2d; float: right" th:id="|totalSum|" th:text="${cartPrice} + '  €'">0.00</span>
+            </td>
+        </tr>
+        <tr>
+            <td style="height: 70px">
+                <a class="payment" th:href="${'/order/order_address'}">Zur Kasse
+                    <i class="fa-solid fa-angles-right"></i>
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+
+<script>
+
+    function updateQuantity(bookId, change) {
+
+        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+        fetch("/cart/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                [csrfHeader]: csrfToken
+            },
+            body: JSON.stringify({bookId: bookId, changeQuantity: change})
+        })
+            .then(res => res.json())
+            .then(data => {
+
+                if (data.success) {
+
+                    document.getElementById("quantity-" + bookId).textContent = data.newQuantity;
+
+                    document.querySelector(".cart-count").textContent = data.totalQuantity;
+
+                    document.getElementById("price1-" + bookId).textContent = data.itemTotalPrice.toFixed(2) + ' €';
+
+                    document.getElementById("totalSum").textContent = data.totalCartPrice.toFixed(2) + '  €';
+
+                } else {
+                    alert("Fehler!");
+                }
+            });
+    }
+
+    function removeBookFromCart(bookId) {
+        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+        fetch("/cart/delete_item/" + bookId, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+        [csrfHeader]: csrfToken
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+            if(data.success) {
+
+            const  row = document.getElementById("cart-item-" + bookId);
+                if(row) row.remove();
+
+                if(data.totalQuantity !== undefined) {
+                    document.querySelector(".cart-count").textContent = data.totalQuantity;
+                }
+
+                if(data.totalPrice !== undefined) {
+                    document.querySelector(".price1").textContent = data.totalPrice;
+                }
+
+                if(data.totalCartPrice !== undefined) {
+                    document.getElementById("totalSum").textContent = data.totalCartPrice.toFixed(2) + '  €';
+                }
+            } else {
+                alert("Fehler beim Entfernen Buches");
+            }
+        });
+
+    }
+
+
+
+   /* function updateCartCount() {
+        fetch('/cart/total')
+            .then(response =>
+                response.text())
+            .then(total => {
+                document.querySelector('.cart-count').textContent = total;
+            })
+            .catch(error =>
+                console.error('Waren nicht', error)
+            )
+    }*/
+</script>
+</html>

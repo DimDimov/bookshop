@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+<head>
+    <meta charset="UTF-8">
+    <title>Bücher</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/books.css}">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+</head>
+<body>
+<div class="full-page">
+    <div class="home-btn">
+        <a class="toHomePage" th:href="${'/home'}">Zu die Startseite</a>
+    </div>
+    <div class="new-book-btn">
+        <a th:href="${'/admin/books/add_newBook'}" class="add-book">Eine neues Buch hinzufügen</a>
+    </div>
+    <table class="books-table">
+        <thead>
+        <tr>
+            <th class="toggled">Angehakte Bücher</th>
+            <th class="number">Nummer</th>
+            <th class="title">Titel</th>
+            <th class="author">Autor</th>
+            <th class="genre">Genre</th>
+            <th class="description">Beschreibung</th>
+            <th class="picture">Bild</th>
+            <th class="isbn">ISBN</th>
+            <th class="price">Price</th>
+            <th>Bearbeiten</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book, iterStat : ${books}">
+            <td>
+                <input type="checkbox" name="toggledBooks"
+                       th:attr="data-id=${book.id}"
+                       th:value="${book.id}"
+                       th:checked="${book.toggledBook}"
+                       onchange="toggleBook(this)">
+
+            </td>
+            <td th:text="${iterStat.count}"></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author.name}"></td>
+            <td th:text="${book.genre}"></td>
+            <td>
+                <a th:href="@{/admin/books/editDescription/{id}(id=${book.id})}" title="Zu die Buchsbeschreibung">Beschreibung</a>
+            </td>
+            <td>
+                <img class="book-img" th:src="@{${book.imageBook}}"/>
+            </td>
+            <td th:text="${book.isbn}"></td>
+            <td th:text="${book.price + ' Euro'}"></td>
+            <td>
+                <form id="stock-form" class="stock-form">
+                    <input type="hidden" class="book-id" id="book-id" th:value="${book.id}">
+                    <input type="hidden" class="book-title" name="bookTitle" id="book-title" th:value="${book.title}">
+                    <input type="hidden" class="book-author" name="bookAuthor" id="book-author" th:value="${book.author.name}">
+                    <input type="hidden" class="book-price" name="bookPrice" id="book-price" th:value="${book.price}">
+                    <button type="button" class="add-to-stock" id="add-to-stock">Hinzufuegen zu den Lager</button>
+                </form>
+                <a class="edit-book-btn" th:href="@{/admin/books/books_list/edit_book/{id}(id=${book.id})}">Ändern</a>
+                <button class="delete-book-btn" th:attr="data-id=${book.id}">Löschen</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+        document.querySelectorAll(".delete-book-btn").forEach(btn => {
+
+            btn.addEventListener("click", function () {
+                const id = this.getAttribute("data-id");
+
+                fetch(`/admin/books/delete/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        [csrfHeader]: csrfToken
+                    }
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert("Fehler beim Löschen!")
+                        }
+                    })
+            });
+
+        });
+    });
+
+    function toggleBook(checkbox) {
+        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+        const bookId = checkbox.getAttribute("data-id");
+        const active = checkbox.checked;
+
+        fetch('/admin/books/books_list', {
+            method: 'POST',
+            headers: {
+                [csrfHeader]: csrfToken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `bookId=${bookId}&active=${active}`
+        })
+            .then(response => response.text())
+            .then(result => {
+                console.log("Updated:", result);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Update failed.");
+                checkbox.checked = !active;
+            });
+    }
+
+
+
+        document.querySelectorAll(".add-to-stock").forEach(button => {
+
+
+            button.addEventListener("click", function () {
+
+
+
+            const form = this.closest(".stock-form");
+            const bookId = form.querySelector(".book-id").value;
+                const title = form.querySelector(".book-title").value;
+                const author = form.querySelector(".book-author").value;
+                const price = form.querySelector(".book-price").value;
+
+            const formData = {
+               id: bookId,
+                title: title,
+                authorName: author,
+                price: parseFloat(price)
+            };
+
+                const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+                const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+            fetch('/admin/books/addToStock', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    [csrfHeader]: csrfToken
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(response => response.json())
+                .catch(error => console.error('Fehler', error))
+        });
+        });
+
+</script>
+
+</body>
+</html>

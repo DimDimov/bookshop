@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<link rel="icon shortcut icon" th:href="@{images/favicon.ico}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Herzlich willkommen zu den Buchladen!</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/result.css}">
+</head>
+
+<body>
+
+<div th:fragment="buttons">
+    <div class="top-right-wrapper">
+
+
+        <div class="child2">
+            <a id="sign_in_button" class="sign_in_button" th:href="@{/logout}">
+                <img th:src="@{/images/logout.png}" class="sign_in_image" alt="Logout icon">
+                <span class="abmelden" sec:authorize="isAuthenticated()">Abmelden</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="options-table1"  th:fragment="myTable">
+<table>
+    <tr>
+        <td class="punkts" th:text="#{myAccount}"></td>
+    </tr>
+    <tr>
+        <td class="cell">
+            <a class="options" th:href="@{'/my_account/my_orders'}" th:text="#{myOrders}"></a>
+        </td>
+    </tr>
+    <tr>
+        <td class="cell">
+            <a  th:href="@{'/my_account/my_data'}" class ="options" th:text="#{myData}"></a>
+        </td>
+    </tr>
+    <tr>
+        <td class="cell">
+            <a th:href="@{/my_account/preferences}" class ="options" th:text="#{myBooks}"></a>
+        </td>
+    </tr>
+    <tr >
+
+        <td class="cell">
+            <a th:href="@{'/my_account/formular'}" class ="options" th:text="#{requestForm}"></a>
+        </td>
+    </tr>
+    <tr>
+        <td class="cell">
+            <a th:href="@{'/my_account/user-talks'}" class ="options" th:text="#{chat}"></a>
+        </td>
+    </tr>
+</table>
+
+</div>
+
+
+<script th:src="@{/js/result.js}" charset="UTF-8"></script>
+
+</body>
+</html>

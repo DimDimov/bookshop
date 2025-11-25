@@ -1,0 +1,117 @@
+body, html{
+    height: 100%;
+    margin: 0;
+}
+.bg{
+    background-image: url("../images/buchladen.png");
+    min-height:100%;
+    background-position:left top;
+    background-repeat: repeat-y;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.frame{
+    background-color: burlywood;
+    width:710px;
+    height:750px;
+    margin-left: 34%;
+    padding-top: 20px;
+    border-radius: 2mm;
+    padding-left: 30px;
+    border: 1px solid burlywood;
+    outline: 1px solid saddlebrown;
+    outline-offset: -10px;
+}
+
+
+#formular{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.form-row{
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 100px;
+}
+
+label{
+    font-size: 18px;
+    margin-bottom: 4px;
+    margin-top: 10px;
+}
+input{
+    height: 25px;
+    font-size: 18px;
+    font-family: "Arial", serif;
+    font-style: normal;
+}
+
+input:focus{
+    outline: none;
+    border-color: saddlebrown;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+.image-section{
+padding-right: 105px;
+    margin-top: 30px;
+}
+
+.book_author, .book_title, .isbn, .genre{
+    width: 350px;
+}
+
+.price, .stock{
+    width: 150px;
+
+}
+
+.description{
+    width: 350px;
+    height: 200px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 18px;
+    padding: 8px;
+}
+
+
+.l11{
+    margin-left: 95px;
+    background-color: saddlebrown;
+    color: whitesmoke;
+    cursor: pointer;
+    border-radius: 2mm ;
+    padding: 8px 12px;
+    width: 150px;
+}
+
+.l11:hover, .saveNewBook:hover{
+    background-color: brown;
+}
+
+#file-name{
+    font-size: 18px;
+    margin-left: 95px;
+}
+
+.saveNewBook{
+    width:150px;
+    height:60px;
+    margin-top: 20px;
+    border-radius: 2mm;
+    background-color: saddlebrown;
+    font-size: 18px;
+    color: whitesmoke;
+    font-family: "Times New Roman", serif;
+    cursor: pointer;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+<head>
+    <meta charset="UTF-8">
+    <title>Bearbeitung der Beschreibung</title>
+    <link th:href="@{/css/admin-edit-description.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<div class="book-desc-part">
+
+<form  th:object="${book}" th:action="@{/admin/books/editDescription}" method="post"
+class="desc-form">
+
+    <input type="hidden" th:field="*{id}">
+
+
+    <label for="book-desc">Beschreibung</label>
+    <textarea class="book-desc" id="book-desc" th:field="*{description}"></textarea>
+
+<div class="save-btn-section">
+    <button class="save-btn"  type="submit">Speichern</button>
+</div>
+
+
+</form>
+</div>
+</body>
+</html>

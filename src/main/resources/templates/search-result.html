@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<link rel="icon shortcur icon" th:href="@{images/favicon.ico}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Das Ergebnis nach der Suche </title>
+</head>
+<body>
+
+<h2>Das Ergebnis von der Suche nach: <span th:text="${query}"></span></h2>
+
+<ul>
+    <li th:each="book : ${books}">
+        <strong th:text="${book.title}"></strong> by
+        <em th:text="${book.author}"></em>
+    </li>
+</ul>
+
+<p th:if="${books.isEmpty()}"> Keine Buecher gefunden</p>
+
+</body>
+</html>

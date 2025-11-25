@@ -1,0 +1,31 @@
+h2{
+    position: relative;
+    left: 100px;
+    top:50px;
+    color: #778899;
+  text-decoration: underline;
+}
+
+.dashboard{
+    position: absolute;
+    left:100px;
+    top:80px;
+}
+
+li{
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: #005cbf;
+}
+
+a:hover{
+    color: #5a9bd3;
+}

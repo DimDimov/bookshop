@@ -1,0 +1,111 @@
+.full-page{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top:50px;
+}
+
+.back-button{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 240px;
+}
+
+.link_To_Dashboard{
+text-align: center;
+    padding: 10px 17px;
+    width: 150px;
+    background-color: #4682B4; /* cornflower blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+.request-table{
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 18px;
+    font-weight: normal;
+    font-family: "Times New Roman", sans-serif;
+}
+
+.request-table, .td22, .status .clients, .thema,
+.news, .status-text, .reason, .data, .update, .reply-btn, .chat{
+    border: 1px solid black;
+    text-align: center;
+}
+
+.td22, .status-text{
+    text-align: center;
+    padding: 8px;
+}
+
+.clients, .status{
+    width: 150px;
+}
+
+.news, .update{
+    width: 300px;
+}
+.reason, .chat{
+    width:200px;
+}
+
+.td22, .clients, .thema, .news, .status, .reason, .data, .update, .status-text{
+    height: 50px;
+
+}
+
+.adminReply{
+    width:500px;
+    height: 500px;
+}
+
+.reply1 {
+
+    padding: 10px 17px;
+    background-color: #4682B4; /* cornflower blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.admin-text{
+    width:400px;
+    height: 400px;
+    resize: none;
+    padding: 8px 12px;
+}
+
+.adminReply p{
+    font-size: 14px;
+    font-weight: normal;
+    font-family: "Times New Roman", sans-serif;
+}
+
+.linkToChat{
+    text-align: center;
+    padding: 13px 17px;
+    width: 150px;
+    background-color: #4682B4; /* cornflower blue */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+}

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link rel="icon shortcur icon" th:href="@{/images/favicon.ico}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/homePage.css}" rel="stylesheet" type="text/css"/>
+    <title>Willkommen in der Buchhandlung!</title>
+
+</head>
+<body>
+
+<div class="page-top-section" th:fragment="authorization">
+<a th:href="${'/home'}" th:title="#{logoTitle}" style="text-decoration: none;">
+    <div class="logo">
+            <img th:src="@{/images/logo.png}" class="round-logo">
+            <div class="text-logo">
+             <div th:text="#{your}"></div>
+        <div th:text="#{bookshop}"></div>
+            </div>
+    </div>
+</a>
+
+    <div class="book-search" th:fragment="search" >
+        <form class="searchForm" id="searchForm" action="/search" method="get">
+            <input class="input-search" id="searchQuery" type="text" name="query" th:placeholder="#{titleSearch}">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <button type="submit" th:text="#{search}"></button>
+        </form>
+    </div>
+
+    <div class="lang-section">
+        <a href="?lang=de" class="german-btn" th:title="#{germlang}">
+            <img class="germ-img" th:src="@{/images/de.png}">
+        </a>
+        <a href="?lang=en" class="english-btn" th:title="#{englang}">
+            <img class="eng-img" th:src="@{/images/gb.png}">
+        </a>
+    </div>
+
+<div class="message-section">
+    <div class="logout" th:if="${param.logout}">
+        <div>Sie haben sich abgemeldet.</div>
+    </div>
+
+    <div th:if="${message}">
+        <p th:text="${message}" class="email-message"></p>
+    </div>
+
+        <div sec:authorize="isAuthenticated()">
+            <span th:text="#{greeting}"></span>
+            <span th:if="${isAdmin}"> Admin</span>
+            <span th:unless="${isAdmin}" th:text="${vorname + '!'}"></span>
+        </div>
+    <div sec:authorize="!isAuthenticated()">
+        <span th:text="#{greeting}"></span>
+        <span th:text="#{guest}"></span>
+    </div>
+</div>
+    <div class="unreadMessages">
+        <a th:if="${unreadCount > 0 and unreadCount != null}"
+           th:href="@{/my_account/user-talks/{requestId}(requestId=${latestRequestId})}"
+       th:attr="data-request-id=${latestRequestId}"
+       class="unread-link" >
+                <span  class="unread-icon">
+              <i class="fa-solid fa-envelope"></i>
+            </span>
+        </a>
+    </div>
+
+    <div class="cart-section">
+            <a class="trolley" th:href="@{'/cart'}" sec:authorize="isAuthenticated()">
+                <span class="img" style="font-size: 32px">&#128722;</span>
+                <span class="cart-count" th:id="cart-count" th:text="${total}">0</span>
+            </a>
+    </div>
+
+    <div class="child1">
+        <a th:href="@{'/my_account/my_data'}" sec:authorize="isAuthenticated()" id="account_button" class="account_button" >
+            <img th:src="@{/images/user.png}" class="konto_image" alt="Logout icon">
+            <span th:text="#{myAccount}"></span>
+        </a>
+    </div>
+
+        <div class="auth-button">
+            <a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{'/logout'}" id="sign_out_button" class="sign_out_button">
+                <img th:src="@{/images/logout.png}" class="sign_out_image" alt="Logout button">
+                <span th:text="#{logout}"></span>
+            </a>
+
+            <a  th:if="${#authorization.expression('!isAuthenticated()')}" th:href="@{'/login'}" id="sign_in_button" class="sign_in_button">
+                <img th:src="@{/images/login.png}" class="sign_in_image" alt="Login button">
+                <span th:text="#{login}"></span>
+            </a>
+        </div>
+
+</div>
+
+<div class="linkToMyDate" th:fragment="linkToMyDate" sec:authorize="isAuthenticated()">
+    <a th:href="@{'/my_account/my_data'}" class="user-data" th:text="#{myData}"></a>
+    <a th:href="@{'/my_account/my_orders'}" class="bestell" th:text="#{myOrders}"></a>
+    <a th:href="@{/my_account/preferences/{userId}(userId=${user.id})}" class ="books" th:text="#{myBooks}">Meine Bücher</a>
+    <a th:href="@{'/my_account/formular'}" class ="formular" th:text="#{requestForm}"></a>
+    <a th:href="@{'/my_account/user-talks'}" class ="request" th:text="#{chat}"></a>
+
+
+   <span th:if="${isAdmin}"> <a th:href="${'/admin/dashboard'}" class="admin-page">Adminseite</a></span>
+</div>
+
+<div class="category" th:fragment="categories">
+    <table class="mytable">
+        <tr>
+            <td style="color: #10707f" th:text="#{category}">
+            </td>
+        </tr>
+        <tr>
+            <td
+            >
+                <a class="genre" th:href="@{'/books/genre/Klassik'}" th:text="#{classicBooks}"></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="genre" th:href="@{'/books/genre/Science-fiction'}" th:text="#{scienceFiction}"></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="genre" th:href="@{'/books/genre/Kinderbuch'}" th:text="#{kidsBooks}"></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="genre" th:href="@{'/books/genre/Detektiveroman'}" th:text="#{detective}"></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="genre"  th:href="@{'/home'}" th:text="#{homePage}"></a>
+            </td>
+        </tr>
+    </table>
+
+
+</div>
+
+
+<div class="book-list">
+    <div class="book-card" th:each="book: ${toggledBooks}">
+       <input type="hidden" th:value="*{book.id}" name="bookId">
+           <img th:src="${book.imageBook}" alt="book image"
+                 th:data-title="${book.title}"
+                 th:data-author="${book.authorName}"
+
+        th:data-image= "${book.imageBook}"
+                onclick = "openLightboxElement(this)">
+
+
+
+            <h3 class="book-title" th:text="${book.title}"  style="color: #1b1e21"></h3>
+            <p th:text="${book.authorName}" class="author-name"></p>
+        <div class="book-rating">
+                <span
+                        th:each="i : ${#numbers.sequence(1,5)}"
+                        th:class="${i <= book.averageRating} ? 'fa fa-star checked' : 'fa fa-star'">
+                </span>
+        </div>
+            <p class="price" th:text="${book.price + ' Euro'}"></p>
+        <div class="cart">
+            <button th:onclick="'addToCart(' + ${book.id} + ')'" class="linkToCart" title="Zum Warenkorb hinzufügen.">
+                <i class="fa-solid fa-cart-shopping" ></i>
+            </button>
+            <form th:action="@{/preferences/add}" method="post" class="addToMyBooks" th:if="${user != null}">
+                <input type="hidden" name="userId" th:value="${user.id}"/>
+                <input type="hidden" name="bookId" th:value="${book.id}"/>
+
+                <button type="submit"  title="Zu meinen Buecher hinzufuegen.">
+                <i class="fa-solid fa-heart-circle-plus"></i>
+                </button>
+            </form>
+            <div id="cart-message"></div>
+            <a class="linkToInfo" th:href="@{/books/book_info/{slug}(slug=${book.slug})}" title="Zum Info über das Buch.">
+                <i class="fa-solid fa-circle-info"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="bottom-section">
+    <div class="post-part">
+        <h4>Unsere E-Mail-Adresse:
+        <span style="font-size: 18px;">mybookshop2024@gmail.com</span>
+        </h4>
+    </div>
+        <div>
+        <h4>Arbeitstage:</h4>
+        <p>Montag 8.00 - 17.00</p>
+        <p>Dienstag 8.00 - 17.00</p>
+        <p>Mittwoch 8.00 - 17.00</p>
+        <p>Donnerstag 8.00 - 17.00</p>
+        <p>Freitag 8.00 - 17.00</p>
+        <p>Samstag 9.00 - 12.00</p>
+
+        </div>
+    <a class="linkToForm" th:href="@{my_account/formular}" title="Folgen Sie dem Link, um uns zu kontaktieren.">
+        <h4>Kontaktformular:</h4>
+       <!-- <span class="help-text">Folgen Sie dem Link, um uns zu kontaktieren.</span>-->
+    </a>
+</div>
+
+<div id="lightbox" class="lightbox">
+    <div class="lightbox-content" id="lightbox-content">
+        <span class="close" onclick="closeLightbox()">&#8855;</span>
+        <h3 id="lightbox-title" class="lightbox-title"></h3>
+        <p id="lightbox-author" class="lightbox-author"></p>
+        <img id="lightbox-img" src="" alt="gross Buch">
+    </div>
+</div>
+
+<div class="modal fade" id="searchResultModal" th:fragment="searchModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content rounded=3 shadow">
+            <div class="modal-header"  style="background-color: #007bff; color:white">
+                <h5 class="modal-title" th:text="#{searchResult}"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group" id="resultList"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+<script>
+    function addToCart(bookId) {
+
+        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+        fetch('/cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                [csrfHeader]: csrfToken
+
+            },
+            body: JSON.stringify({bookId: bookId, quantity: 1
+            })
+        })
+
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    document.getElementById("cart-count").textContent = data.totalQuantity;
+                } else {
+                    alert("Fehler!")
+                }
+            });
+    }
+
+  function updateCartCount() {
+        fetch('/cart/total')
+            .then(response =>
+            response.text())
+            .then(total => {
+                document.querySelector('.cart-count').textContent = total;
+            })
+            .catch(error =>
+                console.error('Waren nicht', error)
+            )
+  }
+
+  function openLightboxElement(element){
+       /* document.getElementById("lightbox").style.display = "flex";*/
+
+     const image = element.getAttribute('data-image');
+      const title = element.getAttribute('data-title');
+      const author = element.getAttribute('data-author');
+
+      const lightbox = document.getElementById("lightbox");
+
+      document.getElementById('lightbox-img').src = image;
+      document.getElementById('lightbox-title').textContent = title;
+      document.getElementById('lightbox-author').textContent = author;
+
+
+      lightbox.classList.add('show');
+      document.body.classList.add('blurred')
+
+  }
+
+  function closeLightbox() {
+     const lightbox = document.getElementById("lightbox");
+
+     lightbox.classList.remove('show')
+      document.body.classList.remove("blurred");
+
+      document.getElementById('lightbox-img').src = '';
+      document.getElementById("lightbox-title").textContent = "";
+      document.getElementById("lightbox-author").textContent = "";
+  }
+
+    document.querySelectorAll('.unread-link').forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const requestId = this.dataset.requestId;
+            fetch(`/my_account/user/messages/mark-read/${requestId}`, {method: 'POST'})
+                .then(() => {
+                    this.style.display = 'none';
+
+                    window.location.href = this.href;
+                });
+        });
+    });
+
+</script>
+<script th:src="@{/js/book_search.js}" charset="UTF-8"></script>
+</body>
+</html>

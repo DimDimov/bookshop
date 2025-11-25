@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Datenänderungen</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/changeData.css}">
+
+</head>
+<body>
+
+
+<div class = "bg">
+    <div th:insert="~{home.html :: authorization}"></div>
+    <div class="form-frame">
+        <div class="form-title">Sie können Ihre personal Information tauschen.</div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="titel" class="l1">Anrede:</label>
+                <select class="titel" id="titel">
+                    <option>...</option>
+                    <option>männlich</option>
+                    <option>fraulich</option>
+                </select>
+            </div>
+        </div>
+        <!--     @thymesVar id="user22" type="com.example.buchladen.web.dto.UserRegistrationDto"-->
+        <form th:object="${user}" name="myForm" method="post"
+              th:action="@{/my_account/change_data}" role="form">
+            <input type="hidden" name="useEmailAsUsername" value="true">
+            <input type="hidden" name="enabled" value="true">
+          <!--  <input type="hidden" name="email" th:value="${userDto.email}">-->
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName" class="l1">Vorname*:</label>
+                    <input th:field="*{firstName}" id="firstName" class="firstName" name="firstName" type="text">
+                    <div class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName" class="l1">Nachname*:</label>
+                    <input th:field="*{lastName}" id="lastName" class="lastName" name="lastName" type="text">
+                    <div class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="birthday" class="l1">Geburtsdatum*:</label>
+                    <input th:field="*{birthday}" id="birthday" class="birthday" name="birthday" type="date">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="street" class="l1">Straße*:</label>
+                    <input th:field="*{street}" id="street" class="street" name="street" type="text">
+                    <div class="error" th:if="${#fields.hasErrors('street')}" th:errors="*{street}"></div>
+                </div>
+                <div class="form-group">
+                    <label for="house" class="houseNummer">Hausnummer*:</label>
+                    <input th:field="*{houseNumber}" id="house" class="house" name="houseNumber" type="text">
+                    <div class="errorHaus" th:if="${#fields.hasErrors('houseNumber')}" th:errors="*{houseNumber}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="index" class="plz">PLZ*:</label>
+                    <input th:field="*{postcode}" id="index" class="index" name="postcode" type="text">
+                    <div class="errorPlZ" th:if="${#fields.hasErrors('postcode')}" th:errors="*{postcode}"></div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="town" class="l1">Stadt*:</label>
+                    <input th:field="*{town}" id="town" class="town" name="town" type="text">
+                    <div class="error" th:if="${#fields.hasErrors('town')}" th:errors="*{town}"></div>
+                </div>
+                <div class="form-group">
+                    <label for="country" class="l1">Staat*:</label>
+                    <select required th:field="*{country}" id="country" class="country" name="country" type="text">
+                        <option value="Deutschland">Deutchland</option>
+                        <option value="Belgien">Belgien</option>
+                        <option value="Bulgarien">Bulgarien</option>
+                        <option value="Daenmark">Dänemark</option>
+                        <option value="Frankreich">Frankreich</option>
+                        <option value="Italien">Italien</option>
+                        <option value="Niederlande">Niederlande</option>
+                        <option value="Österreich">Österreich</option>
+                        <option value="Portugal">Portugal</option>
+                        <option value="Schweiz">Schweiz</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="customUsername" class="l1">Benutzername</label>
+                    <input class="customUsername" name="customUsername" type="text" id="customUsername" th:field="*{customUsername}">
+                </div>
+                    <div class="form-group">
+                        <button id="submit-button" type="submit" class="save1" value = "Speichern">Speichern</button>
+                </div>
+            </div>
+        </form>
+        <div th:insert="~{home :: searchModal}"></div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/change_data.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+<script th:src="@{/js/book_search.js}" charset="UTF-8"></script>
+
+</body>
+</html>

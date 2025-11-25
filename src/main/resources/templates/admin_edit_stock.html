@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bearbeitung des Lagers</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin-edit-stock.css}">
+</head>
+<body>
+<div class="bg">
+
+    <div class="frame" style="margin-top: 8%">
+        <h2 id="formular" >das Buch bearbeiten </h2>
+        <br>
+<form th:object="${stock}" method="post" th:action="@{/admin/books/getStock/edit_stock}">
+    <input type="hidden" th:field="*{id}">
+    <input type="hidden" th:field="*{bookDto.authorId}">
+    <div class="form-row">
+        <label for="title">Titel*:</label>
+        <input th:field="*{bookDto.title}"  id="title">
+    </div>
+    <div class="form-row">
+        <label for="author">Autor*:</label>
+        <input th:field="*{bookDto.authorName}" id="author">
+    </div>
+    <div class="form-row">
+        <label for="status">Status*:</label>
+        <select class="status" id="status" th:field="*{stockStatus}">
+            <option th:value="NEW">NEW</option>
+            <option th:value="SOLD">SOLD</option>
+            <option th:value="RETURNED">RETURNED</option>
+            <option th:value="DAMAGED">DAMAGED</option>
+        </select>
+
+    </div>
+    <div class="form-row">
+        <label for="quantity">Quantity*:</label>
+        <input th:field="*{quantity}" id="quantity">
+    </div>
+    <div class="form-row">
+        <label for="priceForBook">Price fuer Buch*:</label>
+        <input th:field="*{oneBookPrice}" id="priceForBook">
+    </div>
+    <button type="submit" class="saveBook">Speichern</button>
+
+</form>
+    </div>
+</div>
+</body>
+</html>

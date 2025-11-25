@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link rel="icon shortcur icon" th:href="@{/images/favicon.ico}">
+<head>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/admin-returned-books.css}">
+    <meta charset="UTF-8">
+  <meta name="_csrf" th:content="${_csrf.token}">
+  <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <title>zurueckgegebene Buecher</title>
+</head>
+<body>
+<div class="control-page">
+  <div class="dashboard-btn">
+    <a class="toAdminDashboard" th:href="${'/admin/dashboard'}">Zu die Adminseite</a>
+  </div>
+<table class="returnTable">
+  <thead>
+  <tr>
+    <th class="number">Nummer</th>
+    <th class="number">Benutzer</th>
+    <th>Bestellung</th>
+    <th class="title">Titel/Autor</th>
+    <th class="quantity">Menge</th>
+    <th class="total">Gesamtprice</th>
+    <th class="update">Letzte Aktualizierung</th>
+    <th>Bearbeitung</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="r, iterStat : ${returns}">
+    <td th:text="${iterStat.count}"></td>
+    <td th:text="${r.user.lastName + ' ' + r.user.firstName}"></td>
+    <td th:text="${r.order.id}"></td>
+    <td th:text="${r.book.title + ' / ' + r.book.author.name}"></td>
+    <td th:text="${r.quantity}"></td>
+    <td th:text="${r.book.price}"></td>
+    <td th:text="${#temporals.format(r.returnedDate, 'dd.MM.yyyy HH:mm')}"></td>
+    <td>
+      <button class="delete-returned-book-btn" th:attr="data-id=${r.id}" >Löschen</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+  </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+    document.querySelectorAll(".delete-returned-book-btn").forEach(btn => {
+
+      btn.addEventListener("click", function () {
+        const id = this.getAttribute("data-id");
+
+        fetch(`/admin/control/delete-returned-book/${id}`, {
+          method: 'DELETE',
+          headers: {
+            [csrfHeader]: csrfToken
+          }
+        })
+                .then(response => {
+                  if (response.ok) {
+                    location.reload();
+                  } else {
+                    alert("Fehler beim Löschen!")
+                  }
+                })
+      });
+
+    });
+  });
+</script>
+</body>
+</html>

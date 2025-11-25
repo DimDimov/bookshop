@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+<head>
+    <meta charset="UTF-8">
+    <title>Die Liste der Autoren</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/authors.css}">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+</head>
+<body>
+<a class="toHomePage1" th:href="${'/home'}">Zu die Startseite</a>
+<a th:href="${'/admin/authors/add_newAuthor'}" class="add-author">Ein neuer Autor hinzufügen</a>
+<table class="author-table">
+  <thead>
+  <tr>
+    <th class="number">Nummer</th>
+    <th class="author-name">Name</th>
+    <th class="biography">Biografie</th>
+    <th  class="photo">Bild</th>
+    <th class="delete-and-edit">Bearbeiten</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="authors, iterStat : ${authors}">
+
+    <td th:text = "${iterStat.count}"></td>
+   <td th:text = "${authors.name}"></td>
+    <td th:text="${authors.biography}"></td>
+    <td>
+      <img th:src="@{${authors.photoUrl}}"/>
+    </td>
+      <td>
+          <a class="edit-author-btn" th:href="@{/admin/authors/author_list/edit_author/{id}(id=${authors.id})}">Ändern</a>
+          <button class="delete-author-btn" th:attr="data-id=${authors.id}" >Löschen</button>
+      </td>
+  </tr>
+  </tbody>
+</table>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+        document.querySelectorAll(".delete-author-btn").forEach(btn => {
+            btn.addEventListener("click", function () {
+                const id = this.getAttribute("data-id");
+
+                fetch(`/admin/authors/author_list/delete/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        [csrfHeader]: csrfToken
+                    }
+                })
+                    .then(response => {
+                        if(response.ok) {
+                            location.reload()
+                        }
+                        else {
+                            alert("Fehler beim Löschen!")
+                        }
+                    })
+            });
+        });
+
+    });
+</script>
+
+</body>
+</html>

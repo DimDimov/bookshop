@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="icon shortcur icon" th:href="@{/images/favicon.ico}">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/choose-payment-page.css}">
+    <title>Bezahlung</title>
+</head>
+<body>
+<div class="top-section">
+   <!-- <div th:insert="~{home :: search}"></div>-->
+    <div th:insert="~{home.html :: authorization}"></div>
+</div>
+
+<div th:block th:replace="~{cart-page.html :: checkout-steps }"></div>
+
+<form  th:action="@{/order/choose-payment}" th:object="${order}" method="post" >
+<div class="order-frame" >
+    <div class="payment-frame">
+    <div  class="payment-block">
+
+            <label>
+                <input type="radio" th:field="*{paymentMethod}" value="RECHNUNG" checked="checked"> Rechnung
+            </label>
+    </div>
+        <div  class="payment-block">
+            <label>
+                <input type="radio" th:field="*{paymentMethod}" value="PAYPAL"> PayPal
+            </label>
+        </div>
+        <div  class="payment-block">
+            <label>
+                <input type="radio" th:field="*{paymentMethod}" value="BANKKARTE"> Bankkarte
+            </label>
+
+            <input type="hidden" th:field="*{id}">
+
+    </div>
+        <div class="line3"></div>
+
+        <a class="goToAddresses" th:href="${'/order/delivery_new_or_saved_addresses'}">
+            <i class="fa-solid fa-angles-left"></i>
+            Zurück
+        </a>
+    </div>
+   <!-- <div th:insert="~{delivery-addresses :: books_and_price}"></div>-->
+    <div class="orderPart">
+        <h2 style="margin-top: -5px;">die Bestellung</h2>
+        <div style="display: flex; align-items: center; justify-content: space-between">
+            <p class="totalOrder"> Sie bestellen: </p>
+            <span class="totalBooks"  th:text="${total + ' Büchern'}"></span>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between">
+            <p class="totalSum"> Gesamtbetrag: </p>
+            <span class="totalEuro" th:text="${cartPrice + ' Euro'}"></span>
+        </div>
+        <div th:value="${order.id}"></div>
+        <div class="line2"></div>
+           <!-- <a class="goToConfirmation" id="goToPayment"  th:href="@{/order/confirmation-page/{id}(id=${order.id})}" >
+                Weiter
+                <i class="fa-solid fa-angles-right"></i>
+            </a>-->
+        <button class="goToConfirmation" type="submit">Weiter
+            <i class="fa-solid fa-angles-right"></i>
+        </button>
+    </div>
+</div>
+</form>
+</body>
+
+</html>
