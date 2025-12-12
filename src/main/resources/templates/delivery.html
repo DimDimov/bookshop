@@ -26,37 +26,26 @@
                 <col style="width: 450px;">
             </colgroup>
             <tr>
-                <td class="delAdress" colspan="2">Meine Liefernadresse</td>
+                <td class="delAdress" colspan="2" th:text="#{myDelAddress}"></td>
             </tr>
             <tr>
-                <td colspan="2" style="font-family: 'Times New Roman', Times,serif; font-size: 18px; font-weight: normal; color:#000000;">
-                    Sie befinden sich auf dem Seite mit Ihrer Lieferungsadress.
-                </td>
+                <td colspan="2" style="font-family: 'Times New Roman', Times,serif; font-size: 18px; font-weight: normal; color:#000000;" th:text="#{delAddressPage}"></td>
             </tr>
-            <tr>
-                <td style="font-family: 'Times New Roman', Times,serif; font-size: 32px; font-weight: normal; color:#000000;">
-                    Standartlieferunsadresse:
-                </td>
+            <tr >
+                <td style="font-family: 'Times New Roman', Times,serif; font-size: 32px; white-space: nowrap; font-weight: normal; color:#000000;" th:text="#{standardDelAddress}"></td>
             </tr>
-
-            <!-- @thymesVar id="defaultAddress" type="com.example.buchladen.web.dto.ShippingRegistrationDto" -->
-
     <tr class="probe">
         <td class="info">
-            <p>Vorname:</p>
-            <p>Nachname:</p>
-            <p>Straße:</p>
-            <p>Hausenummer:</p>
-            <p>Stadt:</p>
-            <p>PLZ:</p>
-            <p>Staat:</p>
-
-
+            <p th:text="#{firstName}"></p>
+            <p th:text="#{secondName}"></p>
+            <p th:text="#{street}"></p>
+            <p th:text="#{houseNumber}"></p>
+            <p th:text="#{town}">S</p>
+            <p th:text="#{postcode}"></p>
+            <p th:text="#{country}"></p>
         </td>
-
         <td class="deliv-info">
             <div th:if="${defaultAddress != null}">
-              <!--  <p th:text="${defaultAddress.firstName + ' ' + defaultAddress.lastName}"></p>-->
                 <p>[[${defaultAddress.getFirstName()}]] </p>
                 <p>[[${defaultAddress.getLastName()}]]</p>
                 <p>[[${defaultAddress.getStreet()}]]</p>
@@ -64,35 +53,33 @@
                 <p>[[${defaultAddress.getTown()}]]
                 <p>[[${defaultAddress.getPostcode()}]]</p>
                 <p>[[${defaultAddress.getCountry()}]]</p>
-                <!--<a th:href="${'/my_account/change_data'}" class="change">
 
-                    <img class="icon-right1" th:src="@{/images/setting.png}" alt="Löshen">
-                    Löschen
-                </a>-->
             </div>
         </td>
     </tr>
     </table>
         <a th:href="${'/delivery/add_delivery_address'}" class="add">
             <img class="icon-right1" th:src="@{/images/setting.png}" alt="Neue Lieferungsadresse">
-            Eingabe neue Lieferungsadresse:
+            <span th:text="#{enterNewDelAddress}"></span>
         </a>
-        <!-- @thymesVar id="user" type="com.example.buchladen.web.dto.UserRegistrationDto" -->
 
         <div th:if = "${user !=null}" style="margin-top: 15px;">
             <div class="delAddresses-box">
         <div class="delAddresses" th:each="delivery, iterStat : ${otherAddresses}" th:id = "'delivery-' + ${delivery.id}">
-            <p style="font-weight: bold" th:text="'Lieferadresse' + ' ' + ${iterStat.index + 1}"></p>
+            <p style="font-weight: bold" >
+                <span th:text="#{deliveryAddress}"></span>
+                <span th:text="${iterStat.index + 1}"></span>
+            </p>
             <p th:text= "${delivery.firstName} + ' ' + ${delivery.lastName}">  </p>
             <p th:text = "${delivery.street} + ' ' + ${delivery.houseNumber}"></p>
             <p th:text = "${delivery.postcode} + ' ' + ${delivery.town}"></p>
             <p th:text = "${delivery.country}"></p>
 
-           <a class="changeBtn" th:href = "@{/delivery/edit_delivery/{id}(id=${delivery.id})}">Ändern</a>
-                <button class="delete-btn" th:attr="data-id=${delivery.id}" >Löschen</button>
+           <a class="changeBtn" th:href = "@{/delivery/edit_delivery/{id}(id=${delivery.id})}" th:text="#{change}"></a>
+                <button class="delete-btn" th:attr="data-id=${delivery.id}" th:text="#{delete1}"></button>
 
             <form th:action="@{/delivery/make_default/{id}(id=${delivery.id})}" method="post" class="default_form" >
-                <button class="default_btn" type="submit">Als Standart</button>
+                <button class="default_btn" type="submit" th:text="#{asStandard}"></button>
             </form>
         </div>
 

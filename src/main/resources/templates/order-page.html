@@ -12,79 +12,79 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-
+<div class="full-page-wrapper">
 <div th:insert="~{home :: authorization}"></div>
 
-<div id="deliverAddressError" class="alert alert-warning my-alert" style="display: none">
-Bitte waehlen Sie eine Lieferadresse!
-</div>
+    <div class="order-content">
+
+<div id="deliverAddressError" class="alert alert-warning my-alert" style="display: none" th:text="#{delAddress}"></div>
 
 <div th:block th:replace="~{cart-page.html :: checkout-steps }"></div>
 
 <form th:action="@{/order/order_address}" th:object="${deliveryDto}" method="post">
     <div class="order-frame">
         <div class="deliveryPart">
-            <h2>die Rechnungsadresse</h2>
+            <h2 th:text="#{billAddress}"></h2>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="title">Titel:</label>
+                    <label for="title" th:text="#{title}"></label>
                     <input type="text" id="title" class="title">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="firstName">Vorname:</label>
+                    <label for="firstName" th:text="#{firstName}">Vorname:</label>
                     <input id="firstName" class="firstName" type="text" th:field="*{firstName}">
                 </div>
                 <div class="form-group">
-                    <label for="secondName">Nachname:</label>
+                    <label for="secondName" th:text="#{secondName}"></label>
                     <input id="secondName" class="secondName" type="text" th:field="*{lastName}">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="town">Stadt:</label>
+                    <label for="town" th:text="#{town}"></label>
                     <input id="town" class="town" type="text" th:field="*{town}">
                 </div>
                 <div class="form-group">
-                    <label for="street">Strasse:</label>
+                    <label for="street" th:text="#{street}"></label>
                     <input id="street" class="street" type="text" th:field="*{street}">
                 </div>
                 <div class="form-group">
-                    <label for="houseNumber">Hausnummer:</label>
+                    <label for="houseNumber" th:text="#{houseNumber}"></label>
                     <input id="houseNumber" class="houseNumber" type="text" th:field="*{houseNumber}">
                 </div>
                 <div class="form-group">
-                    <label for="postcode">PLZ:</label>
+                    <label for="postcode" th:text="#{postcode}"></label>
                     <input id="postcode" class="postcode" type="text" th:field="*{postcode}">
 
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="country">Land:</label>
+                    <label for="country" th:text="#{country}"></label>
                     <select id="country" class="country" type="text" th:field="*{country}">
-                        <option value="Deutschland">Deutchland</option>
-                        <option value="Belgien">Belgien</option>
-                        <option value="Bulgarien">Bulgarien</option>
-                        <option value="Daenmark">Dänemark</option>
-                        <option value="Frankreich">Frankreich</option>
-                        <option value="Italien">Italien</option>
-                        <option value="Niederlande">Niederlande</option>
-                        <option value="Österreich">Österreich</option>
+                        <option value="Deutschland" th:text="#{germany}"></option>
+                        <option value="Belgien" th:text="#{belgium}"></option>
+                        <option value="Bulgarien" th:text="#{bulgaria}"></option>
+                        <option value="Daenmark" th:text="#{denmark}"></option>
+                        <option value="Frankreich" th:text="#{france}"></option>
+                        <option value="Italien" th:text="#{italy}"></option>
+                        <option value="Niederlande" th:text="#{netherlands}"></option>
+                        <option value="Österreich" th:text="#{austria}"></option>
                         <option value="Portugal">Portugal</option>
-                        <option value="Schweiz">Schweiz</option>
+                        <option value="Schweiz" th:text="#{switz}"></option>
                     </select>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="deliveryAddress" style="font-weight: bold; font-size: 24px;">Leiferadresse:</label>
+                    <label for="deliveryAddress" style="font-weight: bold; font-size: 24px;" th:text="#{deliveryAddress}"></label>
                     <select id="deliveryAddress" class="deliveryAddress">
-                        <option value="" disabled selected>Wählen Sie eine Lieferaddresse:</option>
-                        <option value="default">Verwenden die Rechnungsadresse als Lieferadresse</option>
-                        <option value="saved">Gespeicherte or neue Lieferadresse</option>
+                        <option value="" disabled selected th:text="#{delAddress}"></option>
+                        <option value="default" th:text="#{default}"></option>
+                        <option value="saved" th:text="#{saved}"></option>
                     </select>
                 </div>
             </div>
@@ -95,26 +95,26 @@ Bitte waehlen Sie eine Lieferadresse!
                 <div class="form-group">
                     <a class="goToCart" th:href="${'/cart'}">
                         <i class="fa-solid fa-angles-left"></i>
-                        Zurück
+                        <span th:text="#{back}"></span>
                     </a>
                 </div>
             </div>
         </div>
 
         <div class="orderPart">
-            <h2 style="margin-top: -5px;">die Bestellung</h2>
+            <h2 style="margin-top: -5px;" th:text="#{order1}"></h2>
             <div style="display: flex; align-items: center; justify-content: space-between">
-            <p class="totalOrder"> Sie bestellen: </p>
-            <span class="totalBooks"  th:text="${total + ' Büchern'}"></span>
+            <p class="totalOrder" th:text="#{youOrder}"></p>
+            <span class="totalBooks"  th:text="|${total} #{books}|"></span>
             </div>
             <div style="display: flex; align-items: center; justify-content: space-between">
-            <p class="totalSum"> Gesamtbetrag: </p>
+            <p class="totalSum" th:text="#{sum1}"></p>
             <span class="totalEuro" th:text="${cartPrice + ' Euro'}"></span>
             </div>
             <div class="line1"></div>
             <div class="form-group">
                 <button class="goToPayment" id="goToPayment" type="button">
-                    Weiter
+                    <span th:text="#{next}"></span>
                     <i class="fa-solid fa-angles-right"></i>
                 </button>
             </div>
@@ -122,8 +122,9 @@ Bitte waehlen Sie eine Lieferadresse!
         </div>
     </div>
 </form>
-
-</body>
+    </div>
+    <div th:insert="~{home :: page-footer}"></div>
+</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -131,46 +132,47 @@ Bitte waehlen Sie eine Lieferadresse!
 <script>
 
 
-$(document).ready(function () {
+    $(document).ready(function () {
 
-    $("#goToPayment").on("click", function () {
+        $("#goToPayment").on("click", function () {
 
-        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
-        const errorDiv = document.getElementById('deliverAddressError');
+            const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+            const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+            const errorDiv = document.getElementById('deliverAddressError');
 
-        let selected = $("#deliveryAddress").val();
-        if (!selected) {
-            errorDiv.style.display = 'block';
-            selected.focus();
-            return;
-        } else {
-            errorDiv.style.display ='none';
-        }
+            let selected = $("#deliveryAddress").val();
+            if (!selected) {
+                errorDiv.style.display = 'block';
+                selected.focus();
+                return;
+            } else {
+                errorDiv.style.display ='none';
+            }
 
-        if (selected === "default") {
-            $.ajax({
-                url: "/order/order_address",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify({useBillingAsDelivery: true}),
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader(csrfHeader, csrfToken);
-                },
-                success: function (data) {
-                    const orderId = data.orderId;
-                    window.location.href = `/order/choose-payment/${orderId}`;
-                },
-                error: function (err) {
+            if (selected === "default") {
+                $.ajax({
+                    url: "/order/order_address",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({useBillingAsDelivery: true}),
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader(csrfHeader, csrfToken);
+                    },
+                    success: function (data) {
+                        const orderId = data.orderId;
+                        window.location.href = `/order/choose-payment/${orderId}`;
+                    },
+                    error: function (err) {
 
-                   alert("Fehler beim Speichern der Adresse!");
-                }
-            });
-        }
-        if (selected === "saved") {
-            window.location.href ="/order/delivery_new_or_saved_addresses"
-        }
+                        alert("Fehler beim Speichern der Adresse!");
+                    }
+                });
+            }
+            if (selected === "saved") {
+                window.location.href ="/order/delivery_new_or_saved_addresses"
+            }
+        });
     });
-});
 </script>
+</body>
 </html>

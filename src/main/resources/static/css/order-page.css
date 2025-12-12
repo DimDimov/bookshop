@@ -6,6 +6,12 @@ html, body{
     height: 100%;
 }
 
+.full-page-wrapper{
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .page-top-section{
     display: flex;
     gap: 20px;
@@ -22,7 +28,7 @@ html, body{
 
 .logo{
     display: flex;
-    margin-left: 200px;
+    margin-left: 150px;
     align-items: center;
     gap: 10px;
     width: 200px;
@@ -85,16 +91,35 @@ html, body{
     background-color: #007bff;
 }
 
+.lang-section{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-left: 10px;
+}
+
+.german-btn, .english-btn{
+    width: 50px;
+    height: auto;
+    border: none;
+    background-color: white;
+}
+
+.germ-img, .eng-img{
+    background: none;
+    width: 50px;
+    height: auto;
+}
 
 .message-section{
     position: relative;
     color: black;
-    font-size: 20px;
+    font-size: 18px;
     font-style: normal;
     font-family: "Times New Roman", serif;
     white-space: nowrap;
     text-align: center;
-    left: 50px;
+    left: 40px;
     /*  margin-top: 20px;*/
 }
 
@@ -124,7 +149,7 @@ html, body{
 }
 
 .cart-section{
-    right: 50px;
+    right: 40px;
     width: 50px;
     position: relative;
 }
@@ -151,7 +176,7 @@ html, body{
 }
 
 .auth-button{
-    right: 50px;
+    right: 40px;
     position: sticky;
 }
 
@@ -176,7 +201,7 @@ html, body{
     text-decoration: none;
 }
 .account_button{
-    right: 40px;
+    right: 30px;
 }
 
 .sign_in_image img, .sign_out_image,.konto_image  {
@@ -406,4 +431,44 @@ input{
     font-weight: bold;
 }
 
+.bottom-section{
+    width:100%;
+    margin-top: 50px;
+    background: #4682B4;
+    padding: 18px 12px;
+    height:250px;
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    color: #ced4da;
+    line-height: 0.8;
+}
+
+.post-part{
+    margin-left: 200px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+
+}
+
+.work-days{
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+    padding-bottom: 15px;
+}
+
+.linkToForm{
+    text-decoration: underline;
+    color: #ced4da;
+    cursor: pointer;
+    max-height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+.linkToForm:hover{
+    color: white;
+}
 

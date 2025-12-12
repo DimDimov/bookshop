@@ -110,17 +110,16 @@ public class DataController {
         User user = userService.findByEmailOrCustomUsername(email, email)
                 .orElseThrow(() -> new RuntimeException("Benutzer nicht gefunden"));
 
-      /*  UserDto userDto = userMapper.toDto(user);//for test*/
+        UserDto userDto = userMapper.toDto(user);//for test*/
 
-      /*  model.addAttribute("user", userDto);//for test;*/
+       model.addAttribute("user", userDto);//for test;*/
 
         return "changeData";
     }
 
-    @RequestMapping(value ="/change_data", method = RequestMethod.POST)
-    public String saveUser(@Valid @ModelAttribute("userDto") UserDto userDto, BindingResult result,
-                           Model model)
-    {
+    @RequestMapping(value = "/change_data", method = RequestMethod.POST)
+    public String saveUser(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result,
+                           Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 
@@ -129,14 +128,14 @@ public class DataController {
 
         Optional<User> otherUser = userService.findByEmailOrCustomUsername(email, email);
 
-       if (result.hasErrors()) {
-            model.addAttribute("userDto", userDto);
+        if (result.hasErrors()) {
+            model.addAttribute("user", userDto);
             return "changeData";
         }
 
         if (otherUser.isPresent()) {
 
-           User existingUser = otherUser.get();
+            User existingUser = otherUser.get();
             existingUser.setFirstName(userDto.getFirstName());
             existingUser.setLastName(userDto.getLastName());
             existingUser.setStreet(userDto.getStreet());
@@ -147,9 +146,7 @@ public class DataController {
             existingUser.setCustomUsername(userDto.getCustomUsername());
 
             userService.save(existingUser);
-        }
-
-        else {
+        } else {
             return "redirect:/login";
         }
         return "redirect:/my_account/my_data";
@@ -194,7 +191,8 @@ public class DataController {
         Order order = orderService.findOrderById(orderId);
 
        Optional <CustomerRequest> existingRequest = customerRequestService.findByCustomerAndOrder(user, order);
-       Book book = bookService.findById(user.getId());
+
+        Book book = order.getItems().getFirst().getBook();
 
        CustomerRequest request;
 
@@ -224,7 +222,7 @@ public class DataController {
            msg.setSender(user);
            msg.setText(message);
            msg.setCreatedAt(LocalDateTime.now());
-           msg.setId(book.getId());
+           msg.setBook(book);
            msg.setSenderType(SenderType.CUSTOMER);
            request.addMessage(msg);
        }

@@ -28,7 +28,7 @@ body, html{
 
 .logo{
     display: flex;
-    margin-left: 200px;
+    margin-left: 150px;
     align-items: center;
     gap: 10px;
     width: 200px;
@@ -90,11 +90,30 @@ body, html{
     background-color: #007bff;
 }
 
+.lang-section{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-left: 10px;
+}
+
+.german-btn, .english-btn{
+    width: 50px;
+    height: auto;
+    border: none;
+    background-color: white;
+}
+
+.germ-img, .eng-img{
+    background: none;
+    width: 50px;
+    height: auto;
+}
 
 .message-section{
     position: relative;
     color: white;
-    font-size: 20px;
+    font-size: 18px;
     font-style: normal;
     font-family: "Times New Roman", serif;
     white-space: nowrap;
@@ -129,7 +148,7 @@ body, html{
 }
 
 .cart-section{
-    right: 50px;
+    right: 40px;
     width: 50px;
     position: relative;
 }
@@ -156,7 +175,7 @@ body, html{
 }
 
 .auth-button{
-    right: 50px;
+    right: 40px;
     position: sticky;
 }
 
@@ -181,7 +200,7 @@ body, html{
     text-decoration: none;
 }
 .account_button{
-    right: 40px;
+    right: 30px;
 }
 
 .sign_in_image, .sign_out_image,.konto_image  {
@@ -249,7 +268,6 @@ font-family: "Times New Roman", sans-serif;
 }
 
  select.titel {
-     padding: 6px 10px;
      font-size: 18px;
      width: 620px;
  }
@@ -427,7 +445,7 @@ select.country{
 .save1{
     position: relative;
     margin-top: 30px;
-    margin-left: 140px;
+    margin-left: 460px;
     width:120px;
     height:50px;
     border-radius: 2mm;

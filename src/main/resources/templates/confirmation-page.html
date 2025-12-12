@@ -9,41 +9,86 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+<div class="full-page-wrapper">
 <div th:insert="~{home :: authorization}"></div>
+
+    <div class="confirm-content">
 
 <div th:block th:replace="~{cart-page.html :: checkout-steps }"></div>
 <form th:action="@{/order/confirmation-page}" th:object="${order}" method="post">
 <div class="full-order-section">
     <div style="display: flex; flex-direction: column">
-        <h2 class="inf-title">Rechnungsadresse</h2>
+        <h2 class="inf-title" th:text="#{billingAddress}">Rechnungsadresse</h2>
         <div class="invoice-address">
-            <p class="inf">Vorname: <span  th:text="${invoiceAddress.firstName}"></span></p>
-            <p class="inf">Nachname: <span th:text="${invoiceAddress.lastName}"></span></p>
-            <p class="inf">PLZ: <span th:text="${invoiceAddress.postcode}"></span></p>
-            <p class="inf">Strasse: <span th:text="${invoiceAddress.street}"></span></p>
-            <p class="inf">Stadt: <span th:text="${invoiceAddress.town}"></span></p>
-            <p class="inf">Land: <span th:text="${invoiceAddress.country}"></span></p>
+            <div style="padding: 15px 0">
+                <span class="inf" th:text="#{firstName}"></span>
+                <span class="spanText" th:text="${invoiceAddress.firstName}"></span>
+            </div>
+            <div style="padding-bottom: 18px">
+                <span class="inf" th:text="#{secondName}"></span>
+                <span  class="spanText" th:text="${invoiceAddress.lastName}"></span>
+            </div>
+            <div style="padding-bottom: 18px">
+                <span class="inf" th:text="#{postcode}"></span>
+                <span  class="spanText" th:text="${invoiceAddress.postcode}"></span>
+            </div>
+            <div style="padding-bottom: 18px">
+                <span class="inf" th:text="#{street}"></span>
+                <span  class="spanText" th:text="${invoiceAddress.street}"></span>
+            </div>
+            <div style="padding-bottom: 18px">
+                <span class="inf" th:text="#{town}"></span>
+                <span  class="spanText" th:text="${invoiceAddress.town}"></span>
+            </div>
+            <div>
+                <span class="inf" th:text="#{country}"></span>
+                <span  class="spanText" th:text="${invoiceAddress.country}"></span>
+            </div>
         </div>
     </div>
 
         <div style="display: flex; flex-direction: column">
-            <h2 class="inf-title">Lieferadresse</h2>
+            <h2 class="inf-title" th:text="#{deliveryAddress}"></h2>
             <div class="delivery-address">
-        <p class="inf">Vorname: <span  th:text="${deliveryAddress.firstName}"></span></p>
-        <p class="inf">Nachname: <span th:text="${deliveryAddress.lastName}"></span></p>
-        <p class="inf">PLZ: <span th:text="${deliveryAddress.postcode}"></span></p>
-        <p class="inf">Strasse: <span th:text="${deliveryAddress.street}"></span></p>
-        <p class="inf">Stadt: <span th:text="${deliveryAddress.town}"></span></p>
-        <p class="inf">Land: <span th:text="${deliveryAddress.country}"></span></p>
+                <div style="padding: 15px 0">
+                    <span class="inf" th:text="#{firstName}"></span>
+                    <span class="spanText"  th:text="${deliveryAddress.firstName}"></span>
+                </div>
+                <div style="padding-bottom: 18px">
+                    <span class="inf" th:text="#{secondName}"></span>
+                    <span class="spanText" th:text="${deliveryAddress.lastName}"></span>
+                </div>
+                <div style="padding-bottom: 18px">
+                    <span class="inf" th:text="#{postcode}"></span>
+                    <span class="spanText" th:text="${deliveryAddress.postcode}"></span>
+                </div>
+                <div style="padding-bottom: 18px">
+                    <span class="inf" th:text="#{street}"></span>
+                    <span class="spanText" th:text="${deliveryAddress.street}"></span>
+                </div>
+                <div style="padding-bottom: 18px">
+                    <span class="inf" th:text="#{town}"></span>
+                    <span class="spanText" th:text="${deliveryAddress.town}"></span>
+                </div>
+                <div>
+                    <span class="inf" th:text="#{country}"></span>
+                    <span class="spanText" th:text="${deliveryAddress.country}"></span>
+                </div>
     </div>
     </div>
     <div style="display: flex; flex-direction: column">
-        <h2 class="inf-title">Zahlungsart</h2>
+        <h2 class="inf-title" th:text="#{payMethod}"></h2>
     <div class="payment-type" style="display: flex; gap: 10px">
        <div class="inf-type-payment">
-           <span th:if="${order.paymentMethod.name() == 'RECHNUNG'}"> RECHNUNG  <i class="fa-solid fa-receipt"> </i></span>
-           <span th:if="${order.paymentMethod.name() == 'PAYPAL'}">  PAYPAL  <i class="fa-brands fa-paypal"> </i></span>
-           <span th:if="${order.paymentMethod.name() == 'BANKKARTE'}">  BANKKARTE  <i class="fa-solid fa-credit-card"> </i></span>
+           <span th:if="${order.paymentMethod.name() == 'RECHNUNG'}">
+               <span th:text="#{invoice1}"></span>
+               <i class="fa-solid fa-receipt"> </i>
+           </span>
+           <span th:if="${order.paymentMethod.name() == 'PAYPAL'}">PAYPAL<i class="fa-brands fa-paypal"> </i></span>
+           <span th:if="${order.paymentMethod.name() == 'BANKKARTE'}">
+               <span th:text="#{bankCard}"></span>
+               <i class="fa-solid fa-credit-card"> </i>
+           </span>
        </div>
     </div>
     </div>
@@ -57,7 +102,7 @@
         <tr>
             <th></th>
             <th class="author-title">Name, Autor</th>
-            <th class="sum">Menge</th>
+            <th class="sum" th:text="#{quantity}"></th>
             <th>Price</th>
         </tr>
       <tr class="line" th:each="item : ${items}">
@@ -74,12 +119,19 @@
     </table>
 </div>
     <div class="end-line">
-        <p>Gesamtbeitrag
-        <span class="cartPrice" th:text="${cartPrice + ' Euro'}"></span>
-        </p>
-    <button class="confirm-order" type="submit">Jetzt Kaufen</button>
-    </div>
-</form>
+        <a class="goToChoosePayment" th:href="${'/order/choose-payment/' + order.id}">
+            <i class="fa-solid fa-angles-left"></i>
+            <span th:text="#{back}"></span>
+        </a>
+        <span class="totalSum"  th:text="#{totalsum}"> </span>
+        <span class="cartPrice"  th:text="${cartPrice + ' Euro'}"></span>
 
+    <button class="confirm-order" type="submit" th:text="#{buynow}"></button>
+    </div>
+
+</form>
+    </div>
+    <div th:insert="~{home :: page-footer}"></div>
+</div>
 </body>
 </html>

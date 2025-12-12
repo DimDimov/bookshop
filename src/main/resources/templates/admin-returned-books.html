@@ -10,21 +10,23 @@
     <title>zurueckgegebene Buecher</title>
 </head>
 <body>
+<div class="full-page-wrapper">
+  <div th:insert="~{home.html :: authorization}"></div>
 <div class="control-page">
   <div class="dashboard-btn">
-    <a class="toAdminDashboard" th:href="${'/admin/dashboard'}">Zu die Adminseite</a>
+    <a class="toAdminDashboard" th:href="${'/admin/dashboard'}" th:text="#{admin-dashboard}"></a>
   </div>
 <table class="returnTable">
   <thead>
   <tr>
-    <th class="number">Nummer</th>
-    <th class="number">Benutzer</th>
-    <th>Bestellung</th>
-    <th class="title">Titel/Autor</th>
-    <th class="quantity">Menge</th>
-    <th class="total">Gesamtprice</th>
-    <th class="update">Letzte Aktualizierung</th>
-    <th>Bearbeitung</th>
+    <th class="number" th:text="#{number}"></th>
+    <th class="number" th:text="#{user}"></th>
+    <th th:text="#{order1}"></th>
+    <th class="title" th:text="#{titleAuthor}"></th>
+    <th class="quantity" th:text="#{sum1}"></th>
+    <th class="total" th:text="#{totalsum}"></th>
+    <th class="update" th:text="#{lastUpdate}"></th>
+    <th th:text="#{process}"></th>
   </tr>
   </thead>
   <tbody>
@@ -43,6 +45,8 @@
   </tbody>
 </table>
   </div>
+  <div th:insert="~{home :: page-footer}"></div>
+</div>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
 

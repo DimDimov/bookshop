@@ -1,10 +1,13 @@
 
 html, body{
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
     height: 100%;
+    margin: 0;
+}
+
+.full-page-wrapper{
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .page-top-section{
@@ -23,7 +26,7 @@ html, body{
 
 .logo{
     display: flex;
-    margin-left: 200px;
+    margin-left: 150px;
     align-items: center;
     gap: 10px;
     width: 200px;
@@ -86,17 +89,35 @@ html, body{
     background-color: #007bff;
 }
 
+.lang-section{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-left: 10px;
+}
+
+.german-btn, .english-btn{
+    width: 50px;
+    height: auto;
+    border: none;
+    background-color: white;
+}
+
+.germ-img, .eng-img{
+    background: none;
+    width: 50px;
+    height: auto;
+}
 
 .message-section{
     position: relative;
     color: black;
-    font-size: 20px;
+    font-size: 18px;
     font-style: normal;
     font-family: "Times New Roman", serif;
     white-space: nowrap;
     text-align: center;
-    left: 50px;
-    /*  margin-top: 20px;*/
+    left: 40px;
 }
 
 
@@ -124,7 +145,7 @@ html, body{
 }
 
 .cart-section{
-    right: 50px;
+    right: 40px;
     width: 50px;
     position: relative;
 }
@@ -151,7 +172,7 @@ html, body{
 }
 
 .auth-button{
-    right: 50px;
+    right: 40px;
     position: sticky;
 }
 
@@ -176,7 +197,7 @@ html, body{
     text-decoration: none;
 }
 .account_button{
-    right: 40px;
+    right: 30px;
 }
 
 .sign_in_image img, .sign_out_image,.konto_image  {
@@ -195,6 +216,10 @@ html, body{
     outline:0 !important;
 }
 
+
+.cart-content{
+    flex: 1;
+}
 
 .checkout-steps{
     display: flex;
@@ -404,8 +429,10 @@ thead th, .every-book {
 }
 
 .payment{
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    padding: 18px 57px;
+    padding: 18px 50px;
     background-color: #4682B4; /* cornflower blue */
     color: white;
     text-decoration: none;
@@ -418,4 +445,53 @@ thead th, .every-book {
 
 .payment:hover{
     background-color: #5a9bd3;
+}
+
+.emptyCart{
+    height: 50px;
+    text-align: center;
+    width: 200px;
+    background-color: #dc3545;
+}
+
+.bottom-section{
+    width:100%;
+    margin-top: 50px;
+    background: #4682B4;
+    padding: 18px 0;
+    height:250px;
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    color: #ced4da;
+    line-height: 0.8;
+}
+
+.post-part{
+    margin-left: 200px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+
+}
+
+.work-days{
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+    padding-bottom: 15px;
+}
+
+.linkToForm{
+    text-decoration: underline;
+    color: #ced4da;
+    cursor: pointer;
+    max-height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.linkToForm:hover{
+    color: white;
 }

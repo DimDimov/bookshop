@@ -10,24 +10,26 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
 </head>
 <body>
+<div class="full-page-wrapper">
+    <div th:insert="~{home.html :: authorization}"></div>
 <div class="stock-page">
 
     <div class="back-btn">
-        <a class="link-to-dashboard" th:href="@{'/admin/dashboard'}">Zu die Adminseite</a>
+        <a class="link-to-dashboard" th:href="@{'/admin/dashboard'}" th:text="#{admin-dashboard}"></a>
     </div>
     <div class="add-book-link">
-<a class="add-book-to-stock" th:href="@{'/admin/stock/addNewBookToStock'}">Ein neues Buch hinzufuegen</a>
+<a class="add-book-to-stock" th:href="@{'/admin/stock/addNewBookToStock'}" th:text="#{addNewBook}"></a>
     </div>
     <table class="stockTable">
         <thead>
             <tr>
-                <th class="number">Nummer</th>
-                <th class="title">Titel/Autor</th>
-                <th class="quantity">Menge</th>
-                <th>Price fuer ein Buch</th>
-               <th class="total">Gesamtprice</th>
-                <th class="update">Letzte Aktualizierung</th>
-                <th>Bearbeitung</th>
+                <th class="number" th:text="#{number}"></th>
+                <th class="title" th:text="#{titleAuthor}"></th>
+                <th class="quantity" th:text="#{sum1}"></th>
+                <th th:text="#{priceForBook}"></th>
+               <th class="total" th:text="#{totalsum}"></th>
+                <th class="update" th:text="#{lastUpdate}"></th>
+                <th th:text="#{process}"></th>
             </tr>
         </thead>
         <tbody>
@@ -40,18 +42,21 @@
             <td th:text="${stock.totalPrice}"></td>
             <td th:text="${#temporals.format(stock.lastUpdate, 'dd.MM.yyyy HH:mm')}"></td>
             <td>
-                <a class="edit-stock-book-btn" th:href="@{/admin/stock/books/getStock/edit_stock/{id}(id=${stock.id})}">Bearbeiten</a>
-                <button class="delete-stock-book-btn" th:attr="data-id=${stock.id}" >Löschen</button>
+                <a class="edit-stock-book-btn" th:href="@{/admin/stock/books/getStock/edit_stock/{id}(id=${stock.id})}" th:text="#{process}"></a>
+                <button class="delete-stock-book-btn" th:attr="data-id=${stock.id}" th:text="#{delete1}"></button>
             </td>
 
         </tr>
         </tbody>
     </table>
     <div class="full-price">
-    <p>Gesamtwert aller Buecher im Lager
+    <p>
+        <span th:text="#{totalValue}"></span>
         <strong th:text="${#numbers.formatDecimal(totalStockValue, 1, 'COMMA', 2, 'POINT')} + ' Euro'" ></strong>
     </p>
     </div>
+</div>
+    <div th:insert="~{home :: page-footer}"></div>
 </div>
 <script th:src="@{/js/admin-stock-page.js}" charset="UTF-8"></script>
 </body>

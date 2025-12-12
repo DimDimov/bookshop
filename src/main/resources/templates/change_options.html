@@ -12,7 +12,6 @@
 <body>
     <div th:insert="~{home.html :: authorization}"></div>
 <div  th:block th:replace="~{myData.html :: linkToBooks}"></div>
-<!--<div th:insert="~{result.html :: buttons}"></div>-->
 <div class="options-table">
     <div class="sidebar">
     <div class="side-table" th:insert="~{result.html :: myTable}"></div>
@@ -20,14 +19,13 @@
 
     <div class="option_table" >
         <div style="font-size: 24px; font-family: 'Times New Roman', serif; font-style: normal; font-weight: bold; color: cornflowerblue">
-            <span class="headName">Zugangdaten:</span>
+            <span class="headName" th:text="#{accessDetails}"></span>
         </div>
        <div class="email-section">
             <button class="option-btn" onclick="toggleForm('form1')">
-                E-Mail Adresse
+                <span class="myEm"  th:text="#{email}"></span>
                 <span class="triangle">&#9656;</span>
             </button>
-
 
             <div class="options-form" id="form1" th:classappend="${activeForm == 'form1'} ? 'open'">
               <div th:if="${user !=null}">
@@ -36,84 +34,77 @@
                     <input type="hidden" name="formId" value="emailDto" />
 
                     <div class="form-row-actual">
-                            <div class="actual-label"> Aktuelle E-Mail</div>
+                            <label class="actual-label" th:text="#{current}"></label>
                             <div class="active-email" id="active-email">[[${user.getEmail()}]]</div>
                     </div>
                     <div class="form-row">
-                        <label class="the-label" for="new-email">neue E-Mail*:</label>
+                        <label class="the-label" for="new-email" th:text="#{newEmail}"></label>
                         <input th:field="*{newEmail}" class="new-email" id="new-email" type="text">
                        <div  id="newEmail_error" th:if="${#fields.hasErrors('newEmail')}" th:errors="*{newEmail}"></div>
                     </div>
                     <div class="form-row">
-                        <label class="the-label" for="repeat-newEmail">neue E-Mail wiederholen*:</label>
+                        <label class="the-label" for="repeat-newEmail" th:text="#{repeat1}"></label>
                         <input th:field="*{confirmEmail}" id="repeat-newEmail" class="repeat-email" type="text">
                         <div  id="confirmEmail_error" th:if="${#fields.hasErrors('confirmEmail')}" th:errors="*{confirmEmail}"></div>
                     </div>
                     <div class="form-row">
-                        <label class="the-label" for="pass">Passwort*:</label>
+                        <label class="the-label" for="pass" th:text="#{pass}"></label>
                         <input th:field="*{password}" type="text" id="pass" class="pass">
                        <div  id="pass_error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
                     </div>
-                    <button class="option-submit-btn" type="submit" >E-Mail Adresse ändern</button>
+                    <button class="option-submit-btn" type="submit" th:text="#{change1}"></button>
                 </form>
                </div>
            </div>
         </div>
 
-        <!-- @thymesVar id="usernameDto" type="com.example.buchladen.web.dto.ChangeUserNameDto -->
         <div class="user-name-section" id="user-name-section">
             <button class="option-btn" onclick="toggleForm('form2')">
-                Benutzername
+               <span class="myUs" th:text="#{username}"></span>
                 <span class="triangle">&#9656;</span>
             </button>
             <div class="options-form" id="form2" th:classappend="${activeForm == 'form2'} ? 'open'">
-               <!-- <div class="form-row">
 
-                <div class="active-email" id="active-userName">[[${user.getEmail()}]]</div>
-
-                </div>-->
                 <form  th:action="@{/my_account/change_username}"  th:object="${changeUsernameDto}"   method="post">
                     <input type="hidden" name="formId" value="changeUsername" />
-
-
 
                     <div style="padding-top: 10px" >
                         <input type="hidden" name="_useEmailAsUsername" value="false">
                         <input type="checkbox" id="useEmailAsUsername" th:field="*{useEmailAsUsername}"
                                style="align-items: start;" onchange="toggleCustomFields(this)">
-                        <label class="the-label" for="useEmailAsUsername">E-Mail Adresse als Benutzername verwenden</label>
+                        <label class="the-label" for="useEmailAsUsername" th:text="#{useEmail}"></label>
                     </div>
                     <div class="form-row">
-                        <p style="font-size: 18px; padding-bottom: 0"> Aktueller Benutzername</p>
+                        <p style="font-size: 18px; padding-bottom: 0" th:text="#{curName}"></p>
                         <div class="active-userName"><span >[[${user.customUsername}]]</span></div>
                         <div id="userEmail" >[[${user.email}]]</div>
                     </div>
                 <div id="custom_field">
                     <div class="form-row">
-                        <label class="the-label" for="customUsername">neuer Benutzername*:</label>
+                        <label class="the-label" for="customUsername" th:text="#{newName}"></label>
                         <input th:field="*{customUsername}" class="andere" id="customUsername"  type="text" autocomplete="off">
                         <div class="error" id="customUsername_error" th:if="${#fields.hasErrors('customUsername')}" th:errors="*{customUsername}" ></div>
                     </div>
                     <div class="form-row" >
-                        <label class="the-label" for="confirmUsername">neuer Benutzername wiederholen*:</label>
+                        <label class="the-label" for="confirmUsername" th:text="#{repNewName}"></label>
                         <input th:field="*{confirmCustomUsername}" id="confirmUsername" type="text" autocomplete="off">
                         <div class="error" id="repeatUsername_error" th:if="${#fields.hasErrors('confirmCustomUsername')}" th:errors="*{confirmCustomUsername}" ></div>
                     </div>
                 </div>
                    <div class="form-row">
-                        <label class="the-label" for="password">Passwort*:</label>
+                        <label class="the-label" for="password" th:text="#{pass}"></label>
                         <input th:field="*{password}" type="text" id="password" name="someother" autocomplete="off">
                        <div class="error" id="pass_error1" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></div>
                     </div>
-                    <button class="option-submit-btn" type="submit">Benutzername ändern</button>
+                    <button class="option-submit-btn" type="submit" th:text="#{change2}"></button>
                 </form>
             </div>
         </div>
 
         <div class="password-section" id="password-section">
             <button class="option-btn" onclick="toggleForm('form3')">
-                Passwort
-                <span class="triangle1">&#9656;</span>
+               <span class="myPs" th:text="#{pass2}"></span>
+                <span class="triangle">&#9656;</span>
             </button>
             <div class="options-form" id="form3" th:classappend="${activeForm == 'form3'} ? 'open'">
 
@@ -121,22 +112,22 @@
                     <input type="hidden" name="formId" value="changePassword" />
 
                     <div class="form-row">
-                        <label class="the-label" for="actual_password">actuelles Passwort*:</label>
+                        <label class="the-label" for="actual_password" th:text="#{curPass}"></label>
                         <input th:field="*{password}" type="text" id="actual_password"  name="someother" autocomplete="off">
                         <div class="error" id="actual_pass_error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></div>
                     </div>
                     <div class="form-row">
-                        <label class="the-label" for="customUsername">neues Passwort*:</label>
+                        <label class="the-label" for="customUsername" th:text="#{newPass}"></label>
                         <input th:field="*{newPassword}" class="andere" id="newPassword"  type="text" autocomplete="off">
                         <div class="error" id="newPassword_error" th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}" ></div>
                     </div>
                     <div class="form-row">
-                        <label class="the-label" for="confirmNewPassword">neues Password wiederholen*:</label>
+                        <label class="the-label" for="confirmNewPassword" th:text="#{repNewPass}"></label>
                         <input th:field="*{confirmNewPassword}" id="confirmNewPassword" type="text" autocomplete="off">
                         <div class="error" id="repeatPassword_error" th:if="${#fields.hasErrors('confirmNewPassword')}" th:errors="*{confirmNewPassword}" ></div>
                     </div>
 
-                    <button class="option-submit-btn" type="submit">Passwort ändern</button>
+                    <button class="option-submit-btn" type="submit" th:text="#{changePass}"></button>
                 </form>
             </div>
         </div>

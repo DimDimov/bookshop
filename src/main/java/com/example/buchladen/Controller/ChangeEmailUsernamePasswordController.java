@@ -12,6 +12,7 @@ import com.example.buchladen.web.dto.ChangePasswordDto;
 import com.example.buchladen.web.dto.ChangeUserNameDto;
 import com.example.buchladen.web.dto.EmailChangeDto;
 import jakarta.validation.Valid;
+import org.springframework.context.MessageSource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/my_account")
@@ -38,13 +40,16 @@ public class ChangeEmailUsernamePasswordController {
 
     private final CartService cartService;
 
+    private final MessageSource messageSource;
+
 
     public ChangeEmailUsernamePasswordController(UserService userService, EmailService emailService,
-                                                 PasswordEncoder passwordEncoder, CartService cartService) {
+                                                 PasswordEncoder passwordEncoder, CartService cartService, MessageSource messageSource) {
         this.userService = userService;
         this.emailService = emailService;
         this.passwordEncoder = passwordEncoder;
         this.cartService = cartService;
+        this.messageSource = messageSource;
     }
 
     @GetMapping("/change_options")
@@ -94,7 +99,7 @@ model.addAttribute("user", user);
 
                                      BindingResult result,
                                      Principal principal,
-                                     Model model, RedirectAttributes redirectAttributes) {
+                                     Model model, Locale locale, RedirectAttributes redirectAttributes) {
 
         if (principal == null) {
             return "redirect:/login";
@@ -107,12 +112,18 @@ model.addAttribute("user", user);
         }
 
         if (!passwordEncoder.matches(emailDto.getPassword(), user.getPassword())) {
-            result.rejectValue("password", "error.emailDto", "!Passwort ist falsch.");
+
+            String pass = messageSource.getMessage("password.invalid", null, locale);
+
+            result.rejectValue("password", "error.emailDto", pass);
         }
 
 
         if (!emailDto.isMatchingEmails()) {
-            result.rejectValue("confirmEmail", "error.emailDto", "!E-Mail-Adressen passen nicht zusammen.");
+
+            String email = messageSource.getMessage("email.notCoincide", null, locale);
+
+            result.rejectValue("confirmEmail", "error.emailDto", email);
         }
 
         if (result.hasErrors()) {
@@ -124,6 +135,8 @@ model.addAttribute("user", user);
 
         String newEmail = emailDto.getNewEmail();
 
+        String email = messageSource.getMessage("email.success", null, locale);
+
         String text = "Deine E-Mail Adresse wurde erfolgreich geändert!\n\n" +
                 "Neue E-Mail Adresse: " + newEmail + "\n\n" +
                 "Falls du das nicht gemacht hast, kontaktiere bitte sofort mit unseren Support.\n\n" +
@@ -133,9 +146,9 @@ model.addAttribute("user", user);
         userService.save(user);
 
         emailService.sendSimpleEmail("Bestätigung", text);
-        redirectAttributes.addFlashAttribute("message", "E-Mail erfolgreich geändert. Bitte melden Sie sich erneut an.");
+        redirectAttributes.addFlashAttribute("success_message", email);
 
-        return "redirect:/home1";
+        return "redirect:/login";
 
     }
 
@@ -143,7 +156,7 @@ model.addAttribute("user", user);
     public String changeUsername(@ModelAttribute("changeUsernameDto") @Valid ChangeUserNameDto changeUsernameDto,
                                  BindingResult result,
                                  Principal principal,
-                                 Model model,
+                                 Model model, Locale locale,
                                  RedirectAttributes redirectAttributes)
     {
 
@@ -155,7 +168,10 @@ model.addAttribute("user", user);
         User user = userService.findByLoginIdentifier(principal.getName());
 
         if (!passwordEncoder.matches(changeUsernameDto.getPassword(), user.getPassword())) {
-            result.rejectValue("password", "error.changeUsernameDto", "!Passwort ist falsch.");
+
+            String pass = messageSource.getMessage("password.invalid", null, locale);
+
+            result.rejectValue("password", "error.changeUsernameDto", pass);
         }
 
         if (Boolean.TRUE.equals(changeUsernameDto.getUseEmailAsUsername())) {
@@ -175,12 +191,12 @@ model.addAttribute("user", user);
             return "redirect:/my_account/change_options";
         }
 
+        String username = messageSource.getMessage("username.success", null, locale);
 
         model.addAttribute("changeUsernameDto", changeUsernameDto);
-        System.out.println("Checkbox value: " + changeUsernameDto.getUseEmailAsUsername());
         userService.save(user);
-        redirectAttributes.addFlashAttribute("message", "Benutzername erfolgreich geändert. Bitte melden Sie sich erneut an.");
-        return "redirect:/home1";
+        redirectAttributes.addFlashAttribute("success_message", username);
+        return "redirect:/login";
 
     }
 
@@ -188,7 +204,7 @@ model.addAttribute("user", user);
     public String changePassword(@ModelAttribute("changePasswordDto") @Valid ChangePasswordDto changePasswordDto,
                                  BindingResult result,
                                  Principal principal,
-                                 Model model,
+                                 Model model, Locale locale,
                                  RedirectAttributes redirectAttributes)
 
     {
@@ -196,11 +212,16 @@ model.addAttribute("user", user);
         User user = userService.findByLoginIdentifier(principal.getName());
 
         if (!passwordEncoder.matches(changePasswordDto.getPassword(), user.getPassword())) {
-            result.rejectValue("password", "error.changePasswordDto", "!Passwort ist falsch.");
+
+            String pass = messageSource.getMessage("password.invalid", null, locale);
+
+            result.rejectValue("password", "error.changePasswordDto", pass);
         }
 
         if (!changePasswordDto.isMatchingPassword()) {
-            result.rejectValue("confirmNewPassword", "error.changePasswordDto", "!Passwörter passen nicht zusammen.");
+
+            String pass1 = messageSource.getMessage("password.notCoincide", null, locale);
+            result.rejectValue("confirmNewPassword", "error.changePasswordDto", pass1);
         }
 
 
@@ -215,11 +236,13 @@ model.addAttribute("user", user);
             "Falls du das nicht gemacht hast, kontaktiere bitte sofort mit unseren Support.\n\n" +
             "Viele Grüße, \nDein Buchladen-Team!";
 
+        String pass2 = messageSource.getMessage("password.success", null, locale);
+
         model.addAttribute("changePasswordDto", changePasswordDto);
         user.setPassword(passwordEncoder.encode(changePasswordDto.getNewPassword()));
         userService.save(user);
         emailService.sendSimpleEmail("Bestätigung", text);
-        redirectAttributes.addFlashAttribute("message", "Passwort erfolgreich geändert. Bitte melden Sie sich erneut an.");
-        return "redirect:/home1";
+        redirectAttributes.addFlashAttribute("success_message", pass2);
+        return "redirect:/login";
     }
 }

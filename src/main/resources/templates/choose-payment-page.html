@@ -8,11 +8,12 @@
     <title>Bezahlung</title>
 </head>
 <body>
+<div class="full-page-wrapper">
 <div class="top-section">
-   <!-- <div th:insert="~{home :: search}"></div>-->
+
     <div th:insert="~{home.html :: authorization}"></div>
 </div>
-
+<div class="payment-content">
 <div th:block th:replace="~{cart-page.html :: checkout-steps }"></div>
 
 <form  th:action="@{/order/choose-payment}" th:object="${order}" method="post" >
@@ -21,7 +22,7 @@
     <div  class="payment-block">
 
             <label>
-                <input type="radio" th:field="*{paymentMethod}" value="RECHNUNG" checked="checked"> Rechnung
+                <input type="radio" th:field="*{paymentMethod}" value="RECHNUNG" checked="checked" th:text="#{invoice}">
             </label>
     </div>
         <div  class="payment-block">
@@ -31,7 +32,7 @@
         </div>
         <div  class="payment-block">
             <label>
-                <input type="radio" th:field="*{paymentMethod}" value="BANKKARTE"> Bankkarte
+                <input type="radio" th:field="*{paymentMethod}" value="BANKKARTE" th:text="#{bankCard}">
             </label>
 
             <input type="hidden" th:field="*{id}">
@@ -41,32 +42,31 @@
 
         <a class="goToAddresses" th:href="${'/order/delivery_new_or_saved_addresses'}">
             <i class="fa-solid fa-angles-left"></i>
-            Zurück
+            <span th:text="#{back}"></span>
         </a>
     </div>
-   <!-- <div th:insert="~{delivery-addresses :: books_and_price}"></div>-->
     <div class="orderPart">
-        <h2 style="margin-top: -5px;">die Bestellung</h2>
+        <h2 style="margin-top: -5px;" th:text="#{order1}"></h2>
         <div style="display: flex; align-items: center; justify-content: space-between">
-            <p class="totalOrder"> Sie bestellen: </p>
-            <span class="totalBooks"  th:text="${total + ' Büchern'}"></span>
+            <p class="totalOrder" th:text="#{youOrder}"></p>
+            <span class="totalBooks"  th:text="|${total} #{books}|"></span>
         </div>
         <div style="display: flex; align-items: center; justify-content: space-between">
-            <p class="totalSum"> Gesamtbetrag: </p>
+            <p class="totalSum" th:text="#{sum1}"></p>
             <span class="totalEuro" th:text="${cartPrice + ' Euro'}"></span>
         </div>
         <div th:value="${order.id}"></div>
         <div class="line2"></div>
-           <!-- <a class="goToConfirmation" id="goToPayment"  th:href="@{/order/confirmation-page/{id}(id=${order.id})}" >
-                Weiter
-                <i class="fa-solid fa-angles-right"></i>
-            </a>-->
-        <button class="goToConfirmation" type="submit">Weiter
+        <button class="goToConfirmation" type="submit">
+            <span th:text="#{next}"></span>
             <i class="fa-solid fa-angles-right"></i>
         </button>
     </div>
 </div>
 </form>
+</div>
+    <div th:insert="~{home :: page-footer}"></div>
+</div>
 </body>
 
 </html>

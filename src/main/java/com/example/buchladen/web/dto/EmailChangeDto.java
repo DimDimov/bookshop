@@ -10,15 +10,15 @@ import lombok.Setter;
 @Getter
 public class EmailChangeDto {
 
-    @NotEmpty(message = "!Bitte geben Sie eine E-Mail Adresse an.")
-    @Email(message = "!Bitte geben Sie eine gültige E-Mail Adresse an.")
+    @NotEmpty(message = "{emailDto.newEmail.empty}")
+    @Email(message = "{emailDto.newEmail.invalid}")
     private String newEmail;
 
-    @NotEmpty(message = "!Bitte geben Sie eine E-Mail Adresse an.")
-    @Email(message = "!Bitte geben Sie eine gültige E-Mail Adresse an.")
+    @NotEmpty(message = "{emailDto.confirmEmail.empty}")
+    @Email(message = "{emailDto.confirmEmail.invalid}")
     private String confirmEmail;
 
-    @Size(min = 6, message = "!Ihr Passwort muss mindestens sechs Zeichen lang sein.")
+    @Size(min = 6, message = "{emailDto.password.short}")
     private String password;
 
     public EmailChangeDto(){}

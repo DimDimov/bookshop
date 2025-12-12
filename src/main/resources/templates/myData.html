@@ -9,10 +9,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+<div class="full-page-wrapper">
 <div class="top-section">
     <div th:insert="~{home.html :: authorization}"></div>
 </div>
 
+
+    <div class="myData-content">
 <div class="linkToBooks" th:fragment="linkToBooks">
     <a th:href="${'/home'}" class="home"  th:text="#{homePage}"></a>
     <a th:href="@{'/books/genre/Klassik'}" class="genre" th:text="#{classicBooks}"></a>
@@ -103,6 +106,8 @@
 
     </table>
 </div>
+    </div>
+    <div th:insert="~{home :: page-footer}"></div>
 
 <div th:insert="~{home :: searchModal}"></div>
 <script th:src="@{/js/book_search.js}" charset="UTF-8"></script>
@@ -110,5 +115,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+</div>
 </body>
 </html>

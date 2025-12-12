@@ -1,14 +1,229 @@
-.full-page{
+html, body{
+    height: 100%;
+    margin: 0;
+}
+
+.full-page-wrapper{
+    min-height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    margin-top:50px;
+    gap: 20px;
+}
+
+.page-top-section{
+    display: flex;
+    gap: 20px;
+    max-width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    z-index: 1000;
+    min-height: 100px;
+    padding: 20px 0;
+     margin-top: 20px;
+}
+
+.logo{
+    display: flex;
+    margin-left: 150px;
+    align-items: center;
+    gap: 10px;
+    width: 200px;
+}
+
+.text-logo{
+    font-family: "Tahoma", serif;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    color: black;
+}
+
+.round-logo{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.book-search {
+    visibility: hidden;
+    position: relative;
+}
+
+
+.searchForm{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input-search{
+    height: 30px;
+    width: 400px;
+    padding-left: 8px ;
+    font-size: 20px;
+    font-style: normal;
+    font-family: "Times New Roman", serif;
+}
+
+.book-search i{
+    padding-top: 4px;
+    margin-left: -35px;
+}
+
+.book-search button{
+    position: relative;
+    cursor: pointer;
+    margin-left: 20px;
+    width:80px;
+    height:30px;
+    background-color: #005cbf;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    font-size: 14px;
+}
+
+.book-search button:hover{
+    background-color: #007bff;
+}
+
+.lang-section{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-left: 10px;
+}
+
+.german-btn, .english-btn{
+    width: 50px;
+    height: auto;
+    border: none;
+    background-color: white;
+}
+
+.germ-img, .eng-img{
+    background: none;
+    width: 50px;
+    height: auto;
+}
+
+.message-section{
+    position: relative;
+    color: black;
+    font-size: 18px;
+    font-style: normal;
+    font-family: "Times New Roman", serif;
+    white-space: nowrap;
+    text-align: center;
+    left: 40px;
+}
+
+
+.logout{
+    color: black;
+    font-size: 20px;
+    font-style: normal;
+    font-family: "Times New Roman", serif;
+}
+
+.unreadMessages{
+    width:100px;
+    position: relative;
+    /* right: 480px;*/
+}
+
+.unread-icon i {
+    color: red;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse  {
+    0% {transform: scale(1); opacity: 1}
+    50% { transform:scale(1.3); opacity: 0}
+    100% {transform:scale(1); opacity: 1}
+}
+
+.cart-section{
+    right: 40px;
+    width: 50px;
+    position: relative;
+}
+
+.trolley{
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+}
+
+.cart-count{
+    position: absolute;
+    top: -30px;
+    right:-10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.auth-button{
+    right: 40px;
+    position: sticky;
+}
+
+.sign_in_button, .sign_out_button, .account_button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    color: black;
+    font-size: 18px;
+    font-style: normal;
+    font-family: "Times New Roman", serif;
+    border: none;
+    background-color: white;
+    width: 150px;
+    height: 50px;
+    padding-left: 10px;
+    border-radius: 3mm;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+.account_button{
+    right: 30px;
+}
+
+.sign_in_image, .sign_out_image,.konto_image  {
+    width: 30px;
+    height: auto;
+}
+
+.sign_in_button:hover, .sign_out_button:hover, .account_button:hover {
+    background-color: whitesmoke;
+    border-radius: 3mm;
+    cursor: pointer;
+    border: none;
+}
+
+.sign_in_button:focus, .sign_out_button:focus, .account_button:focus{
+    outline:0 !important;
+}
+.full-page{
+    flex: 1;
 }
 
 .back-button{
     display: flex;
     justify-content: flex-end;
-    margin-right: 240px;
+    margin-right: 200px;
+    margin-bottom: 20px;
 }
 
 .link_To_Dashboard{
@@ -108,4 +323,46 @@ text-align: center;
     transition: background-color 0.2s ease;
     border: none;
     cursor: pointer;
+}
+
+.bottom-section{
+    width:100%;
+    margin-top: 50px;
+    background: #4682B4;
+    padding: 18px 0;
+    height:250px;
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    color: #ced4da;
+    line-height: 0.8;
+}
+
+.post-part{
+    margin-left: 200px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+
+}
+
+.work-days{
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+    padding-bottom: 15px;
+}
+
+.linkToForm{
+    text-decoration: underline;
+    color: #ced4da;
+    cursor: pointer;
+    max-height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.linkToForm:hover{
+    color: white;
 }

@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
 <head>
@@ -6,36 +6,49 @@
     <title>Admin_Seite</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/admin_dashboard.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h2>die Seite des Administrators</h2>
-<ul class="dashboard">
-    <li><a th:href="@{'/admin/books/books_list'}">die Bearbeitung der Büchern
+<div class="full-page-wrapper">
+<div th:insert="~{home :: authorization}"></div>
+    <div class="dashboard-content">
+    <h4 class="dash-head" style="padding-left: 30px;" th:text="#{admin-page1}"></h4>
+<ul>
+    <li><a class="dash-links" th:href="@{'/admin/books/books_list'}">
+        <span th:text="#{book-process}"></span>
         <i class="fa-solid fa-book"></i>
     </a></li>
-    <li><a th:href="@{'/admin/users'}">die Liste der registrierten Benutzer
+    <li><a class="dash-links" th:href="@{'/admin/users'}">
+        <span th:text="#{users-list}"></span>
         <i class="fa-solid fa-users"></i>
     </a></li>
-    <li><a th:href="@{'/home'}">zu die Startseite
+    <li><a class="dash-links" th:href="@{'/home'}">
+        <span th:text="#{homePage}"></span>
         <i class="fa-solid fa-right-to-bracket"></i>
     </a></li>
-    <li><a th:href="@{'/admin/authors/author_list'}">die Liste der Autoren
+    <li><a class="dash-links" th:href="@{'/admin/authors/author_list'}">
+        <span th:text="#{author-list1}"></span>
         <i class="fa-solid fa-feather"></i>
     </a></li>
-    <li><a th:href="@{'/admin/user-requests'}">die Liste der Nachrichten von Benutzern
+    <li><a class="dash-links" th:href="@{'/admin/user-requests'}">
+        <span th:text="#{news-list}"></span>
         <i class="fa-solid fa-message"></i>
     </a></li>
-    <li><a th:href="@{'/admin/stock/books/getStock'}">der Lager
+    <li><a class="dash-links" th:href="@{'/admin/stock/books/getStock'}">
+        <span th:text="#{warehouse}"></span>
         <i class="fa-solid fa-warehouse"></i>
     </a></li>
-    <li><a th:href="@{'/admin/control/controlForBooks'}">die Buecherkontrolle
+    <li><a class="dash-links" th:href="@{'/admin/control/controlForBooks'}">
+        <span th:text="#{book-inspection}"></span>
         <i class="fa-solid fa-list-check"></i>
     </a></li>
-    <li><a th:href="@{'/admin/control/returned-books'}">die zurueckgegebene Buecher
+    <li><a class="dash-links" th:href="@{'/admin/control/returned-books'}">
+        <span th:text="#{return-books1}"></span>
         <i class="fa-solid fa-right-left"></i>
     </a></li>
 </ul>
-
-
+    </div>
+  <div th:insert="~{home :: page-footer}"></div>
+</div>
 </body>
 </html>

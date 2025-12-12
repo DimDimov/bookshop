@@ -91,8 +91,10 @@ public class HomeController {
     }
 
     @GetMapping("/login")
-    public String getLogin() {
+    public String getLogin(Model model) {
 
+
+      /*  model.addAttribute("success_message", "Username successfully changed. Please log in again.");*/
         return "login";
     }
 

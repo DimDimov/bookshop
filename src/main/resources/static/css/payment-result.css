@@ -13,7 +13,7 @@
 
 .logo{
     display: flex;
-    margin-left: 200px;
+    margin-left: 150px;
     align-items: center;
     gap: 10px;
     width: 200px;
@@ -34,11 +34,12 @@
 }
 
 .book-search {
-    margin-right: 300px;
+  /*  margin-right: 300px;
     height: 60px;
     align-items: center;
     display: flex;
-    margin-bottom: -40px;
+    margin-bottom: -40px;*/
+    position: relative;
     visibility: hidden;
 }
 
@@ -72,17 +73,35 @@
     background-color: #007bff;
 }
 
+.lang-section{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-left: 10px;
+}
+
+.german-btn, .english-btn{
+    width: 50px;
+    height: auto;
+    border: none;
+    background-color: white;
+}
+
+.germ-img, .eng-img{
+    background: none;
+    width: 50px;
+    height: auto;
+}
 
 .message-section{
-
+position: relative;
     color: black;
-    font-size: 20px;
+    font-size: 18px;
     font-style: normal;
     font-family: "Times New Roman", serif;
     white-space: nowrap;
     text-align: center;
-    margin-right: 400px;
-    margin-top: 20px;
+  left: 40px;
 }
 
 
@@ -94,8 +113,8 @@
 }
 
 .cart-section{
-    margin-left: -450px;
-    width: 100px;
+   right: 40px;
+    width: 50px;
     position: relative;
 
 }
@@ -122,7 +141,7 @@
 }
 
 .auth-button{
-    right: 50px;
+    right: 40px;
     position: sticky;
 }
 
@@ -148,7 +167,7 @@
 }
 
 .account_button{
-    right: 40px;
+    right: 30px;
 }
 
 .sign_in_image img, .sign_out_image,.konto_image  {
@@ -168,7 +187,6 @@
 }
 
 .send-part{
-
     margin: 0 auto;
     min-height: 100px;
     display: flex;

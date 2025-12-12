@@ -10,17 +10,17 @@ import lombok.Setter;
 public class ShippingRegistrationDto {
 
     private Long id;
-    @NotBlank(message = "!Bitte geben Sie Ihren Vorname an.")
+    @NotBlank(message = "{userDto.firstName.notBlank}")
     private String firstName;
-    @NotEmpty(message = "!Bitte geben Sie Ihren Nachname an.")
+    @NotEmpty(message = "{userDto.lastName.notBlank}")
     private String lastName;
-    @NotBlank(message = "!Bitte geben Sie Ihre Straße an.")
+    @NotBlank(message = "{userDto.street.notBlank}")
     private String street;
-    @NotEmpty(message = "!Bitte geben Sie Ihre Hausnummer an.")
+    @NotEmpty(message = "{userDto.houseNumber.notBlank}")
     private String houseNumber;
-    @NotEmpty(message = "!Bitte geben Sie Ihre Postleitzahl an.")
+    @NotEmpty(message = "{userDto.postcode.notBlank}")
     private String postcode;
-    @NotEmpty(message = "!Bitte geben Sie Ihre Stadt an.")
+    @NotEmpty(message = "{userDto.town.notBlank}")
     private String town;
     private String country;
 

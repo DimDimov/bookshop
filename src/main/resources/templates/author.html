@@ -9,16 +9,22 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
 </head>
 <body>
-<a class="toHomePage1" th:href="${'/home'}">Zu die Startseite</a>
-<a th:href="${'/admin/authors/add_newAuthor'}" class="add-author">Ein neuer Autor hinzufügen</a>
+<div class="full-page-wrapper">
+    <div th:insert="~{home.html :: authorization}"></div>
+    <div class="toDashboard">
+<a class="toHomePage1" th:href="@{'/admin/dashboard'}" th:text="#{admin-dashboard}"></a>
+    </div>
+    <div class="new-author">
+<a th:href="@{'/admin/authors/add_newAuthor'}" class="add-author" th:text="#{addAuthor}"></a>
+    </div>
 <table class="author-table">
   <thead>
   <tr>
-    <th class="number">Nummer</th>
+    <th class="number" th:text="#{number}"></th>
     <th class="author-name">Name</th>
-    <th class="biography">Biografie</th>
-    <th  class="photo">Bild</th>
-    <th class="delete-and-edit">Bearbeiten</th>
+    <th class="biography" th:text="#{biography}"></th>
+    <th  class="photo" th:text="#{image}"></th>
+    <th class="delete-and-edit" th:text="#{process}"></th>
   </tr>
   </thead>
   <tbody>
@@ -31,12 +37,13 @@
       <img th:src="@{${authors.photoUrl}}"/>
     </td>
       <td>
-          <a class="edit-author-btn" th:href="@{/admin/authors/author_list/edit_author/{id}(id=${authors.id})}">Ändern</a>
-          <button class="delete-author-btn" th:attr="data-id=${authors.id}" >Löschen</button>
+          <a class="edit-author-btn" th:href="@{/admin/authors/author_list/edit_author/{id}(id=${authors.id})}" th:text="#{change}"></a>
+          <button class="delete-author-btn" th:attr="data-id=${authors.id}" th:text="#{delete1}"></button>
       </td>
   </tr>
   </tbody>
 </table>
+    <div th:insert="~{home :: page-footer}"></div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
@@ -65,6 +72,6 @@
 
     });
 </script>
-
+</div>
 </body>
 </html>

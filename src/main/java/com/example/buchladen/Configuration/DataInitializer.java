@@ -5,6 +5,7 @@ import com.example.buchladen.Model.User;
 import com.example.buchladen.Repositories.RoleRepository;
 import com.example.buchladen.Repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,12 @@ public class DataInitializer implements CommandLineRunner {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Value("${admin.email}")
+    private String adminEmail;
+
+    @Value("${admin.password}")
+    private String adminPassword;
+
     @Override
     public void run (String ... args) {
         if (roleRepository.findByName("ROLE_USER") == null) {
@@ -28,11 +35,12 @@ public class DataInitializer implements CommandLineRunner {
             roleRepository.save(new Role("ROLE_ADMIN"));
         }
 
-        if (userRepository.findByEmailOrCustomUsername("youremail@gmail.com", "admin").isEmpty()) {
+        if (userRepository.findByEmailOrCustomUsername(adminEmail, "admin").isEmpty()) {
 
             User admin  = new User();
-            admin.setEmail("youremail@gmail.com");
-            admin.setPassword(passwordEncoder.encode("yourpassword"));
+            admin.setEmail(adminEmail);
+            admin.setPassword(passwordEncoder.encode(adminPassword));
+
             admin.setCustomUsername("admin");
             admin.setUseEmailAsUsername(false);
 

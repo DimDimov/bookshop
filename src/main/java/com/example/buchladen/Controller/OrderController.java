@@ -10,6 +10,8 @@ import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -19,10 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/order")
@@ -37,8 +36,10 @@ public class OrderController {
     private final UserMapper userMapper;
     private final UserService userService;
     private final ShippingService shippingService;
+    private final MessageSource messageSource;
 
-    public OrderController(OrderServiceImpl orderService,  OrderMapper orderMapper, EmailService emailService, CartService cartService, PaypalService paypalService, UserMapper userMapper, UserService userService, ShippingService shippingService) {
+    public OrderController(OrderServiceImpl orderService,  OrderMapper orderMapper, EmailService emailService, CartService cartService, PaypalService paypalService, UserMapper userMapper,
+                           UserService userService, ShippingService shippingService, MessageSource messageSource) {
 
         this.orderService = orderService;
         this.orderMapper = orderMapper;
@@ -48,6 +49,7 @@ public class OrderController {
         this.userMapper = userMapper;
         this.userService = userService;
         this.shippingService = shippingService;
+        this.messageSource = messageSource;
     }
 
     @GetMapping("/order_address")
@@ -270,8 +272,7 @@ return "redirect:/order/error";
     public String getSuccessPaymentPage(
             @RequestParam(value = "paymentId", required = false) String paymentId,
             @RequestParam(value = "PayerID", required = false) String payerId,
-            Authentication authentication, Model model) throws PayPalRESTException {
-
+            Authentication authentication, Model model, Locale locale) throws PayPalRESTException {
 
         String login = authentication.getName();
 
@@ -296,7 +297,10 @@ return "redirect:/order/error";
             orderService.completeOrder(order);
 
         } else if (order.getPaymentMethod() == PaymentMethod.RECHNUNG) {
-            model.addAttribute("send2", " Sie haben per Rechnung bezahlt.");
+
+            String send2 = messageSource.getMessage("order.success1", null, locale);
+
+            model.addAttribute("send2", send2);
 
         } else if (order.getPaymentMethod() == PaymentMethod.BANKKARTE) {
             model.addAttribute("send2", " Ihre Zahlung per Bankkarte abgeschlossen.");
@@ -308,7 +312,9 @@ return "redirect:/order/error";
 
         cartService.clearCart(user);
 
-        model.addAttribute("send1", "Ihr Einkauf war erfolgreich!");
+        String send1 = messageSource.getMessage("order.success", null, locale);
+
+        model.addAttribute("send1", send1);
 
         model.addAttribute("send3", "Transaktions-ID: " + order.getId());
         model.addAttribute("user", userDto);

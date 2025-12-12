@@ -1,3 +1,15 @@
+
+html, body{
+    height: 100%;
+    margin: 0;
+}
+
+.full-page-wrapper{
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .page-top-section{
     display: flex;
     gap: 20px;
@@ -205,6 +217,9 @@
     outline:0 !important;
 }
 
+.form-content{
+    flex: 1;
+}
 
 .alert-section{
     text-align: center;
@@ -215,6 +230,21 @@
     font-size: 18px;
 }
 
+.message-box1{
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.some-change{
+    font-size: 18px;
+    font-family: "Arial", serif;
+    font-style: normal;
+}
 
 
 .box-in-login-page{
@@ -480,4 +510,45 @@
 .toHomePage:hover{
     background-color: goldenrod;
     cursor: pointer;
+}
+
+.bottom-section{
+    width:100%;
+    margin-top: 50px;
+    background: #4682B4;
+    padding: 18px 12px;
+    height:250px;
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    color: #ced4da;
+    line-height: 0.8;
+}
+
+.post-part{
+    margin-left: 200px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.work-days{
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+    padding-bottom: 15px;
+}
+
+.linkToForm{
+    text-decoration: underline;
+    color: #ced4da;
+    cursor: pointer;
+    max-height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.linkToForm:hover{
+    color: white;
 }

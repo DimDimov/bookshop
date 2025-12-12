@@ -23,14 +23,14 @@
     <span class="send" th:text="${send2}"></span>
     <span class="send" th:text="${send3}"></span>
     <div>
-        <span class="send" >Die PDF Rechnung wurde an </span>
+        <span class="send"  th:text="#{pdf}"></span>
         <span class="send4" th:text="${user.email}"></span>
-        <span class="send"> geschickt.</span>
+        <span class="send" th:text="#{send5}">geschickt.</span>
     </div>
 
 </div>
 <div class="linkToHome">
-    <a th:href="${'/home'}" style="text-decoration: none;"> Zur StartSeite </a>
+    <a th:href="${'/home'}" style="text-decoration: none;" th:text="#{homePage}"></a>
     <i class="fa-solid fa-house"></i>
 </div>
 </div>

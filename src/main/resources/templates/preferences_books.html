@@ -10,8 +10,10 @@
   <link th:href="@{/css/preferences-books.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<div class="full-page-wrapper">
 <div th:insert="~{home.html :: authorization}"></div>
 <div th:insert="~{home :: searchModal}"></div>
+  <div class="preference-content">
 <div th:insert="~{myData :: linkToBooks}"></div>
 <div class="myBookAndSidebar">
 <div  th:insert="~{result.html :: myTable}"></div>
@@ -35,6 +37,9 @@
     </tr>
     </tbody>
   </table>
+</div>
+  </div>
+  <div th:insert="~{home :: page-footer}"></div>
 </div>
 </body>
 </html>

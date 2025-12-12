@@ -46,12 +46,11 @@
         <button class="add-to-cart" sec:authorize="isAuthenticated()" title="Zum Warenkorb hinzufügen"
                 th:data-slug="${book.slug}"
                 onclick="addToCart(this)">
-            Zum Warenkorb hinzufügen
+            <span th:text="#{addCart}"></span>
             <i class="fa-solid fa-cart-shopping" style="margin-left: 10px;"></i>
         </button>
         <a class="linkToOrderPage" sec:authorize="isAuthenticated()" th:href="@{/order/order_address}"
-           title="Zum Lifierungsadress">
-            an die Lieferadresse
+           title="Zum Lifierungsadress" th:text="#{toAddress}">
             <i class="fa-solid fa-location-dot" style="margin-left: 10px;"></i>
         </a>
     </div>
@@ -59,10 +58,10 @@
 
 <div class="function-block">
     <div class="functions-buttons">
-        <span class="info-button active" data-tab="description">Beschreibung</span>
-        <span class="info-button" data-tab="author">Über dem Autor</span>
-        <span class="info-button" data-tab="feedback">Bewertungen</span>
-        <span class="info-button" data-tab="review" sec:authorize="isAuthenticated()">Rezension</span>
+        <span class="info-button active" data-tab="description" th:text="#{desc}"></span>
+        <span class="info-button" data-tab="author" th:text="#{about}"></span>
+        <span class="info-button" data-tab="feedback" th:text="#{feedbacks}"></span>
+        <span class="info-button" data-tab="review" sec:authorize="isAuthenticated()" th:text="#{review}"></span>
     </div>
 
     <div class="book-content">
@@ -83,7 +82,7 @@
 
         <div id="feedback" class="item-content">
             <br>
-                <span> Die Bewertungen von anderen Lesern:</span>
+                <span th:text="#{readers}"></span>
             <br>
                 <div class="notes" th:each="f : ${feedbackList}">
                     <strong th:text="${'die Bewertung von ' + f.username}"></strong>
@@ -95,7 +94,7 @@
                      </span>
                     <p th:text="${f.text}"></p>
                     <div class="thumbs" sec:authorize="isAuthenticated()">
-                    <button class="thumb-up" th:attr="data-id=${f.id}" title="Der Kommentar hat Ihnen gefallen.">
+                    <button class="thumb-up" th:attr="data-id=${f.id}" th:title="#{liked}">
                         <i class="fa-solid fa-thumbs-up"></i>
                     </button>
                         <span class="likes-number" th:text="${f.likes}"></span>
@@ -106,12 +105,12 @@
                     </div>
                 </div>
             <div class="book-rating">
-                <p>Average rating: <span th:text="${ratingCount}"></span></p>
+                <p th:text="#{rating1}"><span th:text="${ratingCount}"></span></p>
             </div>
         </div>
 
         <div id="review" class="item-content">
-            <a href="#" data-bs-toggle="modal" data-bs-target="#feedbackModal">Hinterlassen Sie eine Bewertung.</a>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#feedbackModal" th:text="#{comment}"></a>
         </div>
     </div>
 </div>
@@ -140,7 +139,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Hinterlassen Sie Ihre Bewertung</h3>
+                <h3 class="modal-title" th:text="#{comment}"></h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
@@ -152,7 +151,7 @@
 
 
                     <div class="mb-3">
-                        <label class="form-label">Bewerten Sie das Buch.</label>
+                        <label class="form-label" th:text="#{rate}"></label>
                         <div class="star-rating">
                             <span class="fa fa-star" data-value="1"></span>
                             <span class="fa fa-star" data-value="2"></span>
@@ -163,15 +162,11 @@
                         <input type="hidden" id="ratingValue" name="rating" value="0">
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Bestätigen</button>
+                    <button type="submit" class="btn btn-primary" th:text="#{conf}"></button>
                 </form>
 
-                <div id="feedbackSuccess" class="alert alert-success mt-2" style="display: none">
-                    Vielen Dank fuer Ihr Feedback!
-                </div>
-                <div id="feedbackFailed" class="alert alert-warning mt-2" style="display: none; margin-top: 10px;">
-                    Sie haben schon eine Bewertung für das Buch hinterlassen!
-                </div>
+                <div id="feedbackSuccess" class="alert alert-success mt-2" style="display: none" th:text="#{thanks}"></div>
+                <div id="feedbackFailed" class="alert alert-warning mt-2" style="display: none; margin-top: 10px;" th:text="#{submitted}"></div>
             </div>
         </div>
     </div>
@@ -183,8 +178,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>-->
 <script>
 
 

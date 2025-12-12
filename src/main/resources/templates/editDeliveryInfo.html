@@ -13,15 +13,15 @@
 
     <div th:insert="~{home.html :: authorization}"></div>
     <div class="form-frame">
-        <div class="form-title">Sie können Ihre Lieferungsadresse tauschen.</div>
+        <div class="form-title" th:text="#{changeDelAddress}"></div>
 
         <div class="form-row">
             <div class="form-group">
-                <label for="titel" class="l1">Anrede:</label>
+                <label for="titel" class="l1" th:text="#{title}"></label>
                 <select class="titel" id="titel">
                     <option>...</option>
-                    <option>männlich</option>
-                    <option>fraulich</option>
+                    <option th:text="#{male}"></option>
+                    <option th:text="#{female}"></option>
                 </select>
             </div>
         </div>
@@ -30,58 +30,58 @@
             <input type="hidden" th:field="*{id}"/>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="firstName" class="l1">Vorname*:</label>
-                    <input th:field="*{firstName}" type="text" id="firstName" class="firstName" name="firstName" placeholder="Vorname"/>
+                    <label for="firstName" class="l1"  th:text="#{firstName}"></label>
+                    <input th:field="*{firstName}" type="text" id="firstName" class="firstName"/>
                     <div class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" ></div>
                 </div>
                 <div class="form-group">
-                    <label for="lastName" class="l1">Nachname*:</label>
-                    <input type="text" id="lastName" class="lastName" name="lastName" th:field="*{lastName}" placeholder="Nachname"/>
+                    <label for="lastName" class="l1" th:text="#{secondName}"></label>
+                    <input type="text" id="lastName" class="lastName" th:field="*{lastName}"/>
                     <div class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="street" class="l1">Straße*:</label>
-                    <input type="text" id="street" class="street" name="street" th:field="*{street}" placeholder="Strasse"/>
+                    <label for="street" class="l1" th:text="#{street}"></label>
+                    <input type="text" id="street" class="street" th:field="*{street}"/>
                     <div class="error" th:if="${#fields.hasErrors('street')}" th:errors="*{street}"></div>
                 </div>
                 <div class="form-group">
-                    <label for="house" class="houseNummer">Hausnummer*:</label>
-                    <input type="text" id="house" class="house" th:field="*{houseNumber}" placeholder="Hausnummer"/>
+                    <label for="house" class="houseNummer" th:text="#{houseNumber}"></label>
+                    <input type="text" id="house" class="house" th:field="*{houseNumber}"/>
                     <div class="errorHaus" th:if="${#fields.hasErrors('houseNumber')}" th:errors="*{houseNumber}"></div>
                 </div>
                 <div class="form-group">
-                    <label for="index" class="plz">PLZ*:</label>
-                    <input type="text" id="index" class="index" th:field="*{postcode}" placeholder="PLZ"/>
+                    <label for="index" class="plz" th:text="#{postcode}"></label>
+                    <input type="text" id="index" class="index" th:field="*{postcode}"/>
                     <div class="errorPLZ1" th:if="${#fields.hasErrors('postcode')}" th:errors="*{postcode}"></div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="town"  class="l1">Stadt*:</label>
-                    <input type="text" id="town" class="town" th:field="*{town}" placeholder="Stadt"/>
+                    <label for="town"  class="l1" th:text="#{town}"></label>
+                    <input type="text" id="town" class="town" th:field="*{town}"/>
                     <div class="error" th:if="${#fields.hasErrors('town')}" th:errors="*{town}"></div>
                 </div>
                 <div class="form-group">
-                    <label for="country" class="l1">Staat:</label>
-                    <select required th:field="*{country}" id="country" class="country" name="country" type="text">
-                        <option value="Deutschland">Deutchland</option>
-                        <option value="Belgien">Belgien</option>
-                        <option value="Bulgarien">Bulgarien</option>
-                        <option value="Daenmark">Dänemark</option>
-                        <option value="Frankreich">Frankreich</option>
-                        <option value="Italien">Italien</option>
-                        <option value="Niederlande">Niederlande</option>
-                        <option value="Österreich">Österreich</option>
-                        <option value="Portugal">Portugal</option>
-                        <option value="Schweiz">Schweiz</option>
+                    <label for="country" class="l1" th:text="#{country}"></label>
+                    <select required th:field="*{country}" id="country" class="country" type="text">
+                        <option value="Deutschland" th:text="#{germany}"></option>
+                        <option value="Belgien" th:text="#{belgium}"></option>
+                        <option value="Bulgarien" th:text="#{bulgaria}"></option>
+                        <option value="Daenmark" th:text="#{denmark}"></option>
+                        <option value="Frankreich" th:text="#{france}"></option>
+                        <option value="Italien" th:text="#{italy}"></option>
+                        <option value="Niederlande" th:text="#{netherlands}"></option>
+                        <option value="Österreich" th:text="#{austria}"></option>
+                        <option value="Portugal" >Portugal</option>
+                        <option value="Schweiz" th:text="#{switz}"></option>
                     </select>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <button type="submit" class="editDeliveryAddress">Speichern</button>
+                    <button type="submit" class="editDeliveryAddress" th:text="#{save1}">Speichern</button>
                 </div>
             </div>
         </form>

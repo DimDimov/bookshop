@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+<div class="full-page-wrapper">
 <div th:block th:replace="~{home.html :: authorization }"></div>
+
+    <div class="cart-content">
 
 <div th:block th:replace="~{home.html :: categories}"></div>
 
@@ -17,19 +20,19 @@
 <div th:fragment="checkout-steps" class="checkout-steps">
     <div class="step" th:classappend="${step == 1} ? 'active'">
         <span>1</span>
-        <p>Einkaufwagen</p>
+        <p th:text="#{cart1}"></p>
     </div>
     <div class="step" th:classappend="${step == 2} ? 'active'">
         <span>2</span>
-        <p>Bestellung</p>
+        <p th:text="#{order1}"></p>
     </div>
     <div class="step" th:classappend="${step == 3} ? 'active'">
         <span>3</span>
-        <p>Bezalung</p>
+        <p th:text="#{payment1}"></p>
     </div>
     <div class="step" th:classappend="${step== 4} ? 'active'">
         <span>4</span>
-        <p>Bestätigung</p>
+        <p th:text="#{confirm}"></p>
     </div>
 </div>
 
@@ -37,9 +40,9 @@
     <table>
         <thead>
         <tr>
-            <th class="book-info">Artikel</th>
-            <th class="number-of-books">Menge</th>
-            <th class="total-price">Gesamt</th>
+            <th class="book-info" th:text="#{article}"></th>
+            <th class="number-of-books" th:text="#{quantity}"></th>
+            <th class="total-price" th:text="#{inTotal}"></th>
             <th></th>
         </tr>
         </thead>
@@ -74,27 +77,31 @@
 <div class="total-sum">
     <table class="order" >
         <tr>
-            <td>Du bestellst
-            <span style="color: #b21f2d; float: right" th:text="${total} + ' Bücher'">0</span>
+            <td>
+            <span th:text="#{youOrder}"></span>
+            <span style="color: #b21f2d; float: right" th:text="|${total} #{books}|">0</span>
             </td>
         </tr>
         <tr style="border-bottom: #778899 solid 1px;">
-            <td >Summe
+            <td>
+                <span th:text="#{sum1}"></span>
             <span style="color: #b21f2d; float: right" th:id="|totalSum|" th:text="${cartPrice} + '  €'">0.00</span>
             </td>
         </tr>
-        <tr>
-            <td style="height: 70px">
-                <a class="payment" th:href="${'/order/order_address'}">Zur Kasse
+        <tr >
+            <td id="checkout-block" style="height: 70px" th:style="${empty} ? 'display: none;'  : ''">
+                <a class="payment" th:href="${'/order/order_address'}">
+                    <span th:text="#{checkout1}" style="margin-right: 5px"></span>
                     <i class="fa-solid fa-angles-right"></i>
                 </a>
             </td>
+            <td id="empty-block" th:style="${empty} ? 'color: #ced4da; ' : 'display:none;'" class="emptyCart" th:text="#{emptyCart}"></td>
         </tr>
     </table>
 </div>
 
-</body>
-
+    </div>
+  <div th:insert="~{home :: page-footer}"></div>
 <script>
 
     function updateQuantity(bookId, change) {
@@ -122,6 +129,12 @@
                     document.getElementById("price1-" + bookId).textContent = data.itemTotalPrice.toFixed(2) + ' €';
 
                     document.getElementById("totalSum").textContent = data.totalCartPrice.toFixed(2) + '  €';
+
+                    if(data.totalQuantity === 0) {
+                        document.getElementById("checkout-block").style.display = 'none';
+
+                        document.getElementById("empty-block").style.display = 'table-cell';
+                    }
 
                 } else {
                     alert("Fehler!");
@@ -162,21 +175,8 @@
                 alert("Fehler beim Entfernen Buches");
             }
         });
-
     }
-
-
-
-   /* function updateCartCount() {
-        fetch('/cart/total')
-            .then(response =>
-                response.text())
-            .then(total => {
-                document.querySelector('.cart-count').textContent = total;
-            })
-            .catch(error =>
-                console.error('Waren nicht', error)
-            )
-    }*/
 </script>
+</div>
+</body>
 </html>

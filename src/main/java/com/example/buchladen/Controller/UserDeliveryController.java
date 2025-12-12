@@ -74,7 +74,7 @@ public class UserDeliveryController {
         }
 
         model.addAttribute("shipping", new ShippingDetails());
-        return "/addDeliveryAddress";
+        return "addDeliveryAddress";
     }
 
     @RequestMapping(value="/add_delivery_address", method = RequestMethod.POST)
@@ -107,7 +107,7 @@ public class UserDeliveryController {
         user.getShippingDetailsList().add(shipping);
         userService.save(user);
 
-        return "redirect:/my_account/get_delivery";
+        return "redirect:/delivery/get_delivery";
     }
 
     @GetMapping("/edit_delivery/{id}")

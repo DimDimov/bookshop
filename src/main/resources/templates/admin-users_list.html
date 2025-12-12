@@ -11,27 +11,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+<div class="full-page-wrapper">
+    <div th:insert="~{home.html :: authorization}"></div>
 <div class="users-page">
-    <h2>die Liste der Benutzer</h2>
+    <h2 th:text="#{users-list}"></h2>
 <div class="home-btn">
-    <a class="linkToStartPage" th:href="@{'/home'}">Zu die Startseite</a>
+    <a class="linkToStartPage"  th:href="@{'/admin/dashboard'}" th:text="#{admin-dashboard}"></a>
 </div>
 
 <table class="user-table">
     <thead>
-    <th class="number">Nummer</th>
-    <th class="firstName">Vorname</th>
-    <th class="secondName">Nachname</th>
-    <th class="birthday">Geburtstag</th>
-    <th class="country">Staat</th>
-    <th class="town">Stadt</th>
-    <th class="street">Strasse</th>
-    <th class="houseNumber">Hausnummer</th>
-    <th class="index">Postzahl</th>
-    <th class="email">Email</th>
+    <th class="number" th:text="#{number}"></th>
+    <th class="firstName" th:text="#{firstName1}"></th>
+    <th class="secondName" th:text="#{secondName1}"></th>
+    <th class="birthday" th:text="#{birth1}"></th>
+    <th class="country" th:text="#{country1}"></th>
+    <th class="town" th:text="#{town1}"></th>
+    <th class="street" th:text="#{street1}"></th>
+    <th class="houseNumber" th:text="#{houseNumber1}"></th>
+    <th class="index" th:text="#{postcode1}"></th>
+    <th class="email" th:text="#{email}"></th>
     <th class="role">Role</th>
     <th class="status">Status</th>
-    <th class="disable">Aktivieren/Deaktivieren</th>
+    <th class="disable" th:text="#{enable-disable}"></th>
     </thead>
     <tbody>
     <tr th:each="user, iterStat : ${users}">
@@ -67,6 +69,7 @@
     </tbody>
 </table>
 </div>
+    <div th:insert="~{home :: page-footer}"></div>
 <script>
 
     function updateCheckbox(userId) {
@@ -121,7 +124,7 @@
 
 
 </script>
-
+</div>
 
 </body>
 </html>

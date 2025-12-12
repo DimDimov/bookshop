@@ -20,7 +20,7 @@
 
  .logo{
      display: flex;
-     margin-left: 200px;
+     margin-left: 150px;
      align-items: center;
      gap: 10px;
      width: 200px;
@@ -83,17 +83,35 @@
      background-color: #007bff;
  }
 
+ .lang-section{
+     display: flex;
+     flex-direction: row;
+     gap: 10px;
+     margin-left: 10px;
+ }
+
+ .german-btn, .english-btn{
+     width: 50px;
+     height: auto;
+     border: none;
+     background-color: white;
+ }
+
+ .germ-img, .eng-img{
+     background: none;
+     width: 50px;
+     height: auto;
+ }
 
  .message-section{
      position: relative;
      color: black;
-     font-size: 20px;
+     font-size: 18px;
      font-style: normal;
      font-family: "Times New Roman", serif;
      white-space: nowrap;
      text-align: center;
-     left: 50px;
-     /*  margin-top: 20px;*/
+     left: 40px;
  }
 
 
@@ -121,7 +139,7 @@
  }
 
  .cart-section{
-     right: 50px;
+     right: 40px;
      width: 50px;
      position: relative;
  }
@@ -148,7 +166,7 @@
  }
 
  .auth-button{
-     right: 50px;
+     right: 40px;
      position: sticky;
  }
 
@@ -173,7 +191,7 @@
      text-decoration: none;
  }
  .account_button{
-     right: 40px;
+     right: 30px;
  }
 
  .sign_in_image img, .sign_out_image,.konto_image  {
@@ -309,6 +327,9 @@
 
 .option-btn{
     color: black;
+    display: flex;
+    align-items: center;
+
     padding: 12px 12px;
     font-size: 24px;
     font-weight: normal;
@@ -329,14 +350,13 @@
     border-radius: 5px 5px 0 0;
 }
 
-.triangle{
-    display: inline-block;
-    margin-left: 480px;
+.myEm, .myUs, .myPs{
+    width: 200px;
 }
 
-.triangle1{
-    display: inline-block;
-    margin-left: 535px;
+.triangle{
+    margin-left: 480px;
+    flex: 1;
 }
 
 .option-btn.active .triangle{
@@ -353,7 +373,6 @@
     transition: max-height 0.2s ease-out;
     padding-left: 20px;
     border: none;
-
 }
 
 .options-form.open {
@@ -371,33 +390,26 @@
 .active-email, .active-userName{
     border: 1px solid black;
     width: 650px;
-    height: 25px;
+    height:35px;
+    display: flex;
+    align-items: center;
     font-size: 18px;
-   /* padding: 5px;*/
-    text-align: left;
+   padding-left: 8px;
     border-radius: 2px;
     font-style: normal;
     font-family: "Arial", serif;
     background-color: #dddddd;
-  /*  margin-top: -10px;*/
-}
-
-.active-email{
-    margin-top: -10px;
-    padding-left: 5px;
 }
 
 .email-form form{
     display: flex;
     flex-direction: column;
-  /*  gap: 10px;*/
 }
 
 .form-row{
     display: flex;
     flex-direction: column;
     flex: 1;
-  /*  max-width: 350px;*/
 }
 
 .form-row-actual{
@@ -412,10 +424,11 @@
 }
 .new-email, .repeat-email, .pass  {
     width: 650px;
-   /* align-items: center;*/
+    display: flex;
+   align-items: center;
    font-size: 18px;
-    height: 25px;
-    padding-left: 5px;
+    height: 35px;
+    padding-left: 8px;
 }
 
 .form-row input:focus{
@@ -426,7 +439,6 @@
 
 .the-label {
     font-size: 18px;
-  /*  margin-bottom: 4px;*/
     margin-top: 20px;
     font-family: "Times New Roman", sans-serif;
 }
@@ -437,7 +449,7 @@
 }
 
 .option-submit-btn{
-   /* display: inline-flex;*/
+
     position: relative;
     padding: 4px 9px;
     background-color: #4682B4; /* cornflower blue */

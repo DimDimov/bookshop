@@ -11,6 +11,8 @@
     <title>Chat mit Benutzer</title>
 </head>
 <body>
+<div class="full-page-wrapper">
+    <div th:insert="~{home.html :: authorization}"></div>
 <div th:insert="~{admin-user-requests :: admin-user-request-table}"></div>
 
 <div class="chat-box">
@@ -24,10 +26,14 @@
    </div>
 </div>
 </div>
-</body>
+    <div th:insert="~{home :: page-footer}"></div>
+
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous">
 </script>
 <script th:src="@{/js/admin-request-page.js}" charset="UTF-8"></script>
+</body>
+
 </html>

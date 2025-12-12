@@ -61,10 +61,14 @@ public class CartController {
 
         CartDto cartDto = cartService.convertToCartDto(cart);
 
+        boolean isEmpty = cart.getCartItems().isEmpty();
+
         int total = cartService.getTotalQuantityByUser(user);
 
         boolean isAdmin = user.getRoles().stream()
                         .anyMatch(role -> role.getName().equals("ROLE_ADMIN"));
+
+
 
         if(isAdmin) {
             model.addAttribute("total", 0);
@@ -77,6 +81,7 @@ public class CartController {
         model.addAttribute("vorname", user.getFirstName());
         model.addAttribute("isAdmin", isAdmin);
         model.addAttribute("step", 1);
+        model.addAttribute("empty", isEmpty);
 
         return "cart-page";
     }

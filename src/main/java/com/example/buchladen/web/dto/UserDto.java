@@ -2,6 +2,7 @@ package com.example.buchladen.web.dto;
 
 
 import com.example.buchladen.Model.User;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,12 +15,18 @@ public class UserDto {
     private Long id;
   private String customUsername;
   private String email;
+  @NotEmpty(message = "{userDto.firstName.notBlank}")
   private String firstName;
+   @NotEmpty (message = "{userDto.lastName.notBlank}")
   private String lastName;
+    @NotEmpty(message = "{userDto.town.notBlank}")
   private String town;
+    @NotEmpty(message = "{userDto.street.notBlank}")
   private String street;
     private String country;
+    @NotEmpty(message = "{userDto.houseNumber.notBlank}")
     private String houseNumber;
+    @NotEmpty(message = "{userDto.postcode.notBlank}")
     private String postcode;
     private Boolean useEmailAsUsername;
     private boolean enabled;
