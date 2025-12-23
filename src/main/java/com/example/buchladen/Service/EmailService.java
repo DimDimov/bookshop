@@ -57,7 +57,7 @@ public class EmailService {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
             helper.setTo(order.getUser().getEmail());
-            helper.setSubject("Rechnung fuer die Bestellung #" + order.getId());
+            helper.setSubject("Rechnung für die Bestellung #" + order.getId());
             helper.setText("Hallo, \n\n Anbei finden Sie Ihre Rechnung.\n\nVielen Dank!");
 
             byte[] pdfBytes = PdfInvoiceGenerator.generate(order);

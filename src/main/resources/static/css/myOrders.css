@@ -47,10 +47,7 @@ html, body{
 }
 
 .book-search {
-
     position: relative;
-    /* margin-right: 200px;*/
-    /* height: 60px;*/
 }
 
 
@@ -121,7 +118,6 @@ html, body{
     white-space: nowrap;
     text-align: center;
     left: 40px;
-    /*  margin-top: 20px;*/
 }
 
 
@@ -135,11 +131,13 @@ html, body{
 .unreadMessages{
     width:100px;
     position: relative;
+    margin-left: 50px;
 }
 
 .unread-icon i {
     color: red;
     animation: pulse 1.5s ease-in-out infinite;
+    margin-left: 50px;
 }
 
 @keyframes pulse  {

@@ -13,7 +13,7 @@ import lombok.Setter;
 public class BookDescription {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Lob

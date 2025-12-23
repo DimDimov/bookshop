@@ -25,7 +25,6 @@ public class Book {
     private String title;
     private String isbn;
     private String genre;
-    @Lob
     private BigDecimal price;
     private String imageBook;
     @Column(name="toggled_book")
@@ -38,7 +37,7 @@ public class Book {
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
     private BookDescription description;
 
     @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)

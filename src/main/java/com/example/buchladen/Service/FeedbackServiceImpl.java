@@ -1,6 +1,7 @@
 package com.example.buchladen.Service;
 
 
+import com.example.buchladen.Mapper.FeedbackMapper;
 import com.example.buchladen.Model.Feedback;
 import com.example.buchladen.Model.FeedbackVote;
 import com.example.buchladen.Model.User;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
@@ -22,11 +24,13 @@ public class FeedbackServiceImpl implements FeedbackService {
     private final FeedbackRepository feedbackRepository;
     private final UserRepository userRepository;
     private final FeedbackVoteRepository feedbackVoteRepository;
+    private final FeedbackMapper feedbackMapper;
 
-    public FeedbackServiceImpl(FeedbackRepository feedbackRepository, UserRepository userRepository, FeedbackVoteRepository feedbackVoteRepository) {
+    public FeedbackServiceImpl(FeedbackRepository feedbackRepository, UserRepository userRepository, FeedbackVoteRepository feedbackVoteRepository, FeedbackMapper feedbackMapper) {
         this.feedbackRepository = feedbackRepository;
         this.userRepository = userRepository;
         this.feedbackVoteRepository = feedbackVoteRepository;
+        this.feedbackMapper = feedbackMapper;
     }
 
     @Transactional
@@ -91,7 +95,10 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public List<FeedbackDto> findByBookId(Long bookId) {
-        return feedbackRepository.findByBookId(bookId);
+        return feedbackRepository.findByBookId(bookId)
+                .stream()
+                .map(feedbackMapper::toFeedbackDto)
+                .collect(Collectors.toList());
     }
 
     @Override

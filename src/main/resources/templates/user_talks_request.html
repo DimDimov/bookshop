@@ -25,7 +25,8 @@
         <select id="requestSelect" name="requestId" class="requestSelect">
             <option th:text="#{selectRequest}"></option>
             <option th:each="req : ${requests }"  th:value="${req.id}"
-                    th:text="${req.bookSummary}"
+                    th:text="${#temporals.format(req.createdAt, 'dd.MM.YYYY') + ' | '
+                    + req.order.totalAmount + ' Euro | ' + req.order.items[0].book.title}"
             th:selected="${req.id == openRequestId} ">
             </option>
         </select>

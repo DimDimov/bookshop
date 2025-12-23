@@ -110,9 +110,9 @@ public class DataController {
         User user = userService.findByEmailOrCustomUsername(email, email)
                 .orElseThrow(() -> new RuntimeException("Benutzer nicht gefunden"));
 
-        UserDto userDto = userMapper.toDto(user);//for test*/
+       /* UserDto userDto = userMapper.toDto(user);*///for test*/
 
-       model.addAttribute("user", userDto);//for test;*/
+     /*  model.addAttribute("user", userDto);*///for test;*/
 
         return "changeData";
     }

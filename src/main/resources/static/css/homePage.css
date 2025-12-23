@@ -46,7 +46,6 @@ html, body{
 }
 
 .book-search {
-
     position: relative;
 }
 
@@ -119,7 +118,6 @@ position: relative;
     left: 40px;
 }
 
-
 .logout{
     color: black;
     font-size: 20px;
@@ -130,7 +128,7 @@ position: relative;
 .unreadMessages{
     width:100px;
     position: relative;
-   /* right: 480px;*/
+    margin-left: 50px;
 }
 
 .unread-icon i {

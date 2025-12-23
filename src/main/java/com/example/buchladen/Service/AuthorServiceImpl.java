@@ -16,10 +16,10 @@ import java.util.List;
 public class AuthorServiceImpl implements AuthorService {
 
     //for Intellij
-    private final String uploadDir = "src/main/resources/static/images/authors/";
+    private final String uploadDir = "src/main/resources/static/images/authors/";//for Intellij
 
     //for Docker
-    private final String uploadDockerDir = "/app/uploads/authors";
+    private final String uploadDockerDir = "/app/uploads/authors";//for Docker
     private final AuthorRepository authorRepository;
 
     public AuthorServiceImpl(AuthorRepository authorRepository) {
@@ -40,7 +40,7 @@ public class AuthorServiceImpl implements AuthorService {
         //for Intellij
       /*  return "/images/authors/" + fileName;*/
         //for Docker
-        return "/uploads/authors/" + fileName;
+       return "/uploads/authors/" + fileName;
 
     }
 

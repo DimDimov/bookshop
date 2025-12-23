@@ -9,29 +9,31 @@
 <body>
 
 <div class="bg">
+    <div th:insert="~{home.html :: authorization}"></div>
     <div class="frame" style="margin-top: 8%">
-        <h2 class="formular">Ein neues Buch hinzufügen </h2>
+        <h2 class="formular" th:text="#{addNewBook}"></h2>
 <br>
 <form th:object="${stock}" th:action="@{/admin/addNewBookToStock}" method="post">
     <div class="form-row">
-        <label for="title">Titel*:</label>
+        <label for="title" th:text="#{title1}"></label>
     <input th:field="*{bookDto.title}"  id="title">
     </div>
     <div class="form-row">
-        <label for="author">Autor*:</label>
+        <label for="author" th:text="#{author1}"></label>
     <input th:field="*{bookDto.authorName}" id="author">
     </div>
     <div class="form-row">
-        <label for="quantity">Quantity*:</label>
+        <label for="quantity" th:text="#{quantity1}"></label>
     <input th:field="*{quantity}" id="quantity">
     </div>
     <div class="form-row">
-        <label for="priceForBook">Price fuer Buch*:</label>
+        <label for="priceForBook" th:text="#{priceForBook1}"></label>
         <input th:field="*{oneBookPrice}" id="priceForBook">
     </div>
-    <button type="submit" class="saveBook">Speichern neues Buch</button>
+    <button type="submit" class="saveBook" th:text="#{save1}"></button>
 </form>
     </div>
+    <div th:insert="~{home :: page-footer}"></div>
 </div>
 </body>
 </html>

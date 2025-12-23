@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -91,10 +92,10 @@ public class HomeController {
     }
 
     @GetMapping("/login")
-    public String getLogin(Model model) {
+    public String getLogin(Model model, RedirectAttributes redirectAttributes) {
 
 
-      /*  model.addAttribute("success_message", "Username successfully changed. Please log in again.");*/
+        model.addAttribute("success_message", true);
         return "login";
     }
 

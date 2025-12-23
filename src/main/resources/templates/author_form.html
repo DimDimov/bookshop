@@ -9,9 +9,9 @@
 <body>
 
 <div class="bg">
-
-    <div class="frame1" style="margin-top: 8%">
-        <h2 id="formular">Ein neuer Autor hinzufügen </h2>
+    <div th:insert="~{home.html :: authorization}"></div>
+    <div class="frame1" style="margin-top: 1%">
+        <h2 id="formular" th:text="#{addAuthor}"></h2>
 
         <br>
         <form th:object="${author}" id="myForm22" class="authorForm" method="post"
@@ -26,16 +26,22 @@
 
 
                 <div class="buttons-group">
-                    <label for="author_image" class="l11"> &#128194; Wählen Datei*:</label>
+                    <label for="author_image" class="l11">
+                       <span>&#128194; </span>
+                        <span th:text="#{fileSelect}"></span>
+                    </label>
                     <input th:field="*{photoUrl}" type="file" id="author_image" class="author_image" name="image" accept="image/*" style="display: none">
-                    <span id="file-name">Keine Datei ausgewählt.</span>
-                    <button id="submit-button" type="submit" class="saveNewAuthor" >&#128217;  Neuer Author hinzufügen</button>
+                    <span id="file-name" th:text="#{noSelect}"></span>
+                    <button id="submit-button" type="submit" class="saveNewAuthor" >
+                       <span>&#129718;</span>
+                        <span th:text="#{save1}"></span>
+                    </button>
                 </div>
                 </div>
 
            <div class="right_column">
 
-                    <label for="author_biography">Biography*:</label>
+                    <label for="author_biography" th:text="#{biography1}"></label>
                     <textarea th:field="*{biography}" type="text" class="author_biography" id="author_biography"></textarea>
                     <div id="author_biography_error" th:if="${#fields.hasErrors('biography')}" th:errors="*{biography}"></div>
            </div>
@@ -45,6 +51,7 @@
 
         </form>
     </div>
+    <div th:insert="~{home :: page-footer}"></div>
 </div>
 
 

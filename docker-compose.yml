@@ -20,7 +20,7 @@ services:
     container_name: buchladen-app
     restart: always
     ports:
-      - "8078:8078"
+      - "8080:8080"
     environment:
       SPRING_DATASOURCE_URL: ${DB_URL}
       SPRING_DATASOURCE_USERNAME: ${DB_USER}
@@ -34,3 +34,4 @@ services:
       - mysql
     volumes:
       - ./uploads:/app/uploads
+      - ./src/main/resources/application.properties:/app/application.properties

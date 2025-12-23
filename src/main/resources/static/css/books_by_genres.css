@@ -134,6 +134,7 @@ html, body{
 .unreadMessages{
     width:100px;
     position: relative;
+    margin-left: 50px;
 }
 
 .unread-icon i {

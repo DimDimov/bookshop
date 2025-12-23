@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 public class Author {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
     private String name;
@@ -25,6 +25,7 @@ public class Author {
     @Column (columnDefinition = "LONGTEXT")
     private String biography;
 
+    @Column(name = "photo_url")
     private String photoUrl;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)

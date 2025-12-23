@@ -15,7 +15,8 @@ import java.util.Locale;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    public void addResourcesHandler(ResourceHandlerRegistry registry) {
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations("file:uploads/");
     }

@@ -9,10 +9,10 @@
 <body>
 
 <div class="bg">
+    <div th:insert="~{home.html :: authorization}"></div>
+    <div class="frame" >
 
-    <div class="frame" style="margin-top: 8%">
-
-        <h2 id="formular">Ein neues Buch hinzufügen </h2>
+        <h2 id="formular" th:text="#{addNewBook}"></h2>
 
         <br>
         <form th:object="${book}" id="myForm22" class="bookForm" method="post"
@@ -21,7 +21,7 @@
          <input type="hidden" name="authorId" th:field="${book.id}">
             <div class="form-row">
                 <div class="form-group">
-                <label for="book_title">Titel*:</label>
+                <label for="book_title" th:text="#{title1}"></label>
                 <input th:field="*{title}" type="text" class="book_title" id="book_title">
                 <div id="book_title_error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
                 </div>
@@ -29,9 +29,9 @@
 
             <div class="form-row">
                 <div class="form-group">
-                <label for="l1" class="l1" >Autor*:</label>
+                <label for="l1" class="l1" th:text="#{author1}"></label>
                     <select class="choose_author" id="l1" th:field="*{authorId}">
-                    <option value="">Wählen Sie ein Autor</option>
+                    <option value="" th:text="#{selectAuthor}"></option>
                     <option th:each= "author : ${authors}"
                     th:value="${author.id}"
                     th:text="${author.name}" >
@@ -58,9 +58,12 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="book_image" class="l11"> &#128194; Wählen Datei*:</label>
+                        <label for="book_image" class="l11">
+                            <span>&#128194;</span>
+                           <span th:text="#{fileSelect}"></span>
+                        </label>
                         <input th:field="*{imageFile}" type="file" id="book_image"  accept="image/*" style="display: none">
-                       <span id="file-name">Keine Datei ausgewählt.</span>
+                       <span id="file-name" th:text="#{noSelect}"></span>
                     </div>
                 </div>
 
@@ -74,12 +77,16 @@
                     <div id="price_error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
                     </div>
                     <div class="form-group">
-                        <button id="submit-button" type="submit" class="saveNewBook" >&#128217;  Neues Buch hinzufügen</button>
+                        <button id="submit-button" type="submit" class="saveNewBook" >
+                           <span>&#128217;</span>
+                          <span th:text="#{save1}"></span>
+                        </button>
                     </div>
                 </div>
 
         </form>
     </div>
+    <div th:insert="~{home :: page-footer}"></div>
 </div>
 
 <script>

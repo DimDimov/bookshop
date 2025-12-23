@@ -19,8 +19,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.security.Principal;
 import java.util.*;
 
 @Controller
@@ -104,7 +102,6 @@ public class OrderController {
 
         return ResponseEntity.ok(response);
     }
-
 
     @GetMapping("/delivery_new_or_saved_addresses")
     public String getDeliveryAddresses(Model model, Authentication authentication) {
@@ -228,13 +225,6 @@ public class OrderController {
     public String confirmPayment(@RequestParam Long orderId, @RequestParam String method,
     RedirectAttributes redirectAttributes) throws PayPalRESTException {
 
-     /*   String login = authentication.getName();
-
-        Optional<User> optionalUser = userService.findByEmailOrCustomUsername(login, login);
-        if (optionalUser.isEmpty()) {
-            throw  new RuntimeException("Benutzer nicht gefunden");
-        }*/
-
         Order order = orderService.findOrderById(orderId);
         if ("RECHNUNG".equals(method)) {
             emailService.sendInvoicePdf(order);
@@ -306,9 +296,7 @@ return "redirect:/order/error";
             model.addAttribute("send2", " Ihre Zahlung per Bankkarte abgeschlossen.");
 
         }
-
         UserDto userDto = userMapper.toDto(user);
-      /*  emailService.sendInvoicePdf(order);*/
 
         cartService.clearCart(user);
 
@@ -325,7 +313,7 @@ return "redirect:/order/error";
     @GetMapping("/cancel")
     public String cancelPayment(Model model) {
 
-        model.addAttribute("message", "die Bezahlung war abgesagt. Sie koennen noch einmal probieren.");
+        model.addAttribute("message", "die Bezahlung war abgesagt. Sie können noch einmal probieren.");
         model.addAttribute("orderId", orderService.getCurrentUser().getId());
         return "cancel-payment-page";
     }

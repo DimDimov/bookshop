@@ -67,13 +67,9 @@ public class CartController {
 
         boolean isAdmin = user.getRoles().stream()
                         .anyMatch(role -> role.getName().equals("ROLE_ADMIN"));
-
-
-
         if(isAdmin) {
             model.addAttribute("total", 0);
         }
-
 
         model.addAttribute("cart", cartDto);
         model.addAttribute("total", total);
@@ -88,7 +84,7 @@ public class CartController {
 
     @PostMapping("/cart")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> postShoppingTrolley(@RequestBody CartItemDto cartItemDto, Authentication authentication, Model model)
+    public ResponseEntity<Map<String, Object>> postShoppingTrolley(@RequestBody CartItemDto cartItemDto, Authentication authentication)
     {
         User user = userService.findByEmail(authentication.getName());
 

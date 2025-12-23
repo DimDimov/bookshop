@@ -31,14 +31,14 @@
     </div>
     <div class="frame"  style="margin-top: 1%">
 
-        <h2 id="formular">Anmeldungsformular</h2>
+        <h2 id="formular" th:text="#{form}"></h2>
 
-        <label for="titel">Anrede:</label>
+        <label for="titel" th:text="#{title1}"></label>
         <br>
         <select class="titel" id="titel" style="width: 570px; height: 30px">
             <option>...</option>
-            <option>männlich</option>
-            <option>fraulich</option>
+            <option th:text="#{male}"></option>
+            <option th:text="#{female}"></option>
         </select>
         <br>
 
@@ -46,8 +46,8 @@
         <form th:object="${registration_form}" id="myForm22"  class="form" method="post"
               th:action="@{/user_form}"  role="form">
 
-            <label for="firstName">Vorname*:</label>
-            <label class="l1" for="second_name" style="margin-left: 33%">Nachname*:</label>
+            <label for="firstName" th:text="#{firstName}"></label>
+            <label class="l1" for="second_name" style="margin-left: 33%" th:text="#{secondName}"></label>
             <br>
 
             <input th:field="*{firstName}"  type="text" class="first_name" id="firstName" name="firstName">
@@ -56,7 +56,7 @@
             <div id="second_name_error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
             <br>
             <br>
-            <label for="geburtsdatum" class="l8">Geburtsdatum*:</label>
+            <label for="geburtsdatum" class="l8" th:text="#{birth}"></label>
              <br>
 
              <input name="birthday" th:field="*{birthday}" type="date" class="geburtsdatum" id="geburtsdatum"
@@ -65,9 +65,9 @@
             <div  id="birthday_error" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></div>
             <br>
             <br>
-               <label for="street" class="l2">Straße*:</label>
-               <label for="home" class="l3">Hausnummer*:</label>
-               <label for="index" class="l4">PLZ*:</label>
+               <label for="street" class="l2" th:text="#{street}"></label>
+               <label for="home" class="l3" th:text="#{houseNumber}"></label>
+               <label for="index" class="l4" th:text="#{postcode}"></label>
              <br>
               <input th:field="*{street}"  id="street" name="street" style="width: 250px" >
               <input th:field="*{houseNumber}" name="houseNumber"  id="home" >
@@ -81,28 +81,28 @@
                </div>
             <br>
             <label for="town" >Ort*:</label>
-             <label for="country" class="l11">Land*:</label>
+             <label for="country" class="l11" th:text="#{country}"></label>
              <br>
             <input th:field="*{town}" id="town" class="town">
 
              <select required th:field="*{country}" name="country" class="country" id="country" style="width: 260px; height: 30px">
-                 <option value="Deutschland">Deutchland</option>
-                 <option value="Belgien">Belgien</option>
-                 <option value="Bulgarien">Bulgarien</option>
-                 <option value="Daenmark">Dänemark</option>
-                 <option value="Frankreich">Frankreich</option>
-                 <option value="Italien">Italien</option>
-                 <option value="Niederlande">Niederlande</option>
-                 <option value="Österreich">Österreich</option>
+                 <option value="Deutschland" th:text="#{germany}"></option>
+                 <option value="Belgien" th:text="#{belgium}"></option>
+                 <option value="Bulgarien" th:text="#{bulgaria}"></option>
+                 <option value="Daenmark" th:text="#{denmark}"></option>
+                 <option value="Frankreich" th:text="#{france}"></option>
+                 <option value="Italien" th:text="#{italy}"></option>
+                 <option value="Niederlande" th:text="#{netherlands}"></option>
+                 <option value="Österreich" th:text="#{austria}"></option>
                  <option value="Portugal">Portugal</option>
-                 <option value="Schweiz">Schweiz</option>
+                 <option value="Schweiz" th:text="#{switz}"></option>
              </select>
              <br>
             <br>
             <div  id="town_error" th:if="${#fields.hasErrors('town')}" th:errors="*{town}"></div>
             <br>
-            <label for="myPost">E-Mail*:</label>
-            <label for="regpass" class="l5">Passwort*:</label>
+            <label for="myPost" th:text="#{email}"></label>
+            <label for="regpass" class="l5" th:text="#{pass}"></label>
             <br>
             <input th:field="*{email}" name="email" class="myPost" type="text" id="myPost">
 
@@ -118,22 +118,22 @@
             <br>
             <div>
                 <input type="checkbox" id="usePost" onclick="showUsername()" th:field="*{useEmailAsUsername}" value="true" checked/>
-                <label for="usePost">E-Mail Adresse als Benutzernamen verwenden</label>
+                <label for="usePost" th:text="#{useEmail}"></label>
             </div>
             <br>
             <div id="myWrapper">
-            <label for="usernameField" id="u_name">Benutzname</label>
+            <label for="usernameField" id="u_name" th:text="#{username}"></label>
                 <br>
             <input th:field="*{customUsername}" name="username"  id="usernameField" type="text">
             </div>
             <br>
             <div>
-                    <button type="button" onclick="goToLogin()"  class="back" >Zu die Anmeldung</button>
-                <button id="submit-button" type="submit"  class="save" value = "Speichern">Speichern</button>
+                    <button type="button" onclick="goToLogin()"  class="back" th:text="#{toLogin}"></button>
+                <button id="submit-button" type="submit"  class="save" th:text="#{save1}"></button>
             </div>
         </form>
-
     </div>
+    <div th:insert="~{home :: page-footer}"></div>
 </div>
 
 

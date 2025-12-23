@@ -99,8 +99,8 @@ public class BookServiceImpl implements BookService{
         Path filePpath = uploadPath.resolve(filename);
         Files.write(filePpath, file.getBytes());
         //for Intellij
-       /* return "/images/books/" + filename;*/
-        return "/uploads/books/" + filename;
+      /*  return "/images/books/" + filename;//for Intellij*/
+        return "/uploads/books/" + filename;///for Docker
     }
 
     @Override

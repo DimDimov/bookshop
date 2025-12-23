@@ -20,7 +20,7 @@ public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
     Long countRatingByBook(@Param("bookId") Long bookId);
 
     @Query("SELECT f FROM Feedback f WHERE f.book.id = :bookId ORDER BY f.createdAt DESC")
-    List<FeedbackDto>findByBookId(@Param("bookId") Long bookId);
+    List<Feedback>findByBookId(@Param("bookId") Long bookId);
 
     Optional<Feedback>findByBookIdAndUserId(Long bookId, Long UserId);
 

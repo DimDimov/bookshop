@@ -90,7 +90,7 @@ public class AdminBookController {
         if(image != null && !image.isEmpty() ) {
             String fileName = UUID.randomUUID() + "_" + image.getOriginalFilename();
             //for intellij
-           /* Path uploadPath = Paths.get("src/main/resources/static/images/books");*/
+         /*   Path uploadPath = Paths.get("src/main/resources/static/images/books");*/
             //for Docker
             Path uploadPath = Paths.get("/app/uploads/books");
 
@@ -99,7 +99,7 @@ public class AdminBookController {
             //for Docker
             book.setImageBook("/uploads/books/" + fileName);
             //for Intellij
-          /*  book.setImageBook("/images/books/" + fileName);*/
+          /* book.setImageBook("/images/books/" + fileName);*/
         }
 
         bookService.saveBook(book);
@@ -116,21 +116,19 @@ public class AdminBookController {
         bookDto.setId((book.getId()));
         bookDto.setTitle(book.getTitle());
         bookDto.setAuthorId(book.getAuthor().getId());
-        bookDto.setAuthorName(book.getAuthor().getName());
         bookDto.setIsbn(book.getIsbn());
         bookDto.setGenre(book.getGenre());
         bookDto.setExistingImage(book.getImageBook());
         bookDto.setPrice(book.getPrice());
         model.addAttribute("bookEntity", book);
         model.addAttribute("bookDto", bookDto);
-
+        model.addAttribute("authors", authorService.findAll());
         return "edit_book";
     }
 
     @PostMapping("/books_list/edit_book")
     public String editBook( @Valid @ModelAttribute("bookDto") BookDto bookDto,  BindingResult result,
                            Model model) throws IOException {
-
 
         if(result.hasErrors()) {
             model.addAttribute("book", bookDto);
@@ -141,19 +139,14 @@ public class AdminBookController {
 
         Book book = bookService.findById(id);
 
-        if (book.getId() == null) {
-            throw new IllegalArgumentException("Book ID must not be null when editing.");
-        }
-
         Author author = authorService.findById(bookDto.getAuthorId());
 
-        book.setId(bookDto.getId());
         book.setTitle(bookDto.getTitle());
         book.setAuthor(author);
         book.setIsbn(bookDto.getIsbn());
         book.setGenre(bookDto.getGenre());
-       /* book.setDescription(bookDto.getDescription());*/
         book.setPrice(bookDto.getPrice());
+
         MultipartFile  image = bookDto.getImageFile();
 
         if(image != null && !image.isEmpty() ) {
@@ -162,10 +155,8 @@ public class AdminBookController {
         } else {
             book.setImageBook(bookDto.getExistingImage());
         }
-       /* model.addAttribute("book", book);*/
 
         bookService.saveBook(book);
-
         return "redirect:/admin/books/books_list";
     }
 

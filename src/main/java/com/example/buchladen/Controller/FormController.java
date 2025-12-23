@@ -42,11 +42,6 @@ public class FormController implements WebMvcConfigurer {
         userDto.setUseEmailAsUsername(true);
 
         model.addAttribute("registration_form", userDto);
-       /* model.addAttribute("message1", "Sie haben sich erfolgreich angemeldet!");
-        model.addAttribute("message2",   "Sie werden in ");
-        model.addAttribute("message3", " Sekunden zur Anmeldeseite weitergeleitet." );
-        model.addAttribute("message4",  "Alternativ können Sie auch auf die Schaltfläche unten klicken.");*/
-
         return "user_form";
     }
 

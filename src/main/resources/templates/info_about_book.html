@@ -13,7 +13,7 @@
 
 </head>
 <body>
-
+<div class="full-page-wrapper">
 <div th:insert="~{home.html :: authorization}"></div>
 
 <div th:block th:replace="~{home.html :: categories }"></div>
@@ -67,45 +67,43 @@
     <div class="book-content">
 
         <div id="description" class="item-content active">
-            <span th:text="${book.description.description}"></span>
+            <span th:text="${book.description}"></span>
         </div>
 
         <div id="author" class="item-content author-block">
 
             <img class="author-img" th:src="@{|${author.photoUrl}|}">
-            <!--   <div class="author-text">-->
             <span class="author-text" th:text="${author.biography}"></span>
-            <!--  </div>-->
-
-
         </div>
 
         <div id="feedback" class="item-content">
             <br>
                 <span th:text="#{readers}"></span>
             <br>
-                <div class="notes" th:each="f : ${feedbackList}">
-                    <strong th:text="${'die Bewertung von ' + f.username}"></strong>
+               <div class="notes" th:each="f : ${feedbackList}">
+                 <strong th:text="${'die Bewertung von ' + f.username}"></strong>
                     <span style="margin: 0 20px">/</span>
                     <em th:text="${#temporals.format(f.createdAt, 'yyyy-MM-dd HH:mm')}"></em>
                     <span style="margin: 0 20px">/</span>
+                 <!--  <p th:text="${f.id}"></p>-->
                     <span th:each="i : ${#numbers.sequence(1,5)}"
                         th:class="${i <= f.rating} ? 'fa fa-star checked' : 'fa fa-star'">
                      </span>
                     <p th:text="${f.text}"></p>
-                    <div class="thumbs" sec:authorize="isAuthenticated()">
+                  <div class="thumbs" sec:authorize="isAuthenticated()">
                     <button class="thumb-up" th:attr="data-id=${f.id}" th:title="#{liked}">
                         <i class="fa-solid fa-thumbs-up"></i>
                     </button>
                         <span class="likes-number" th:text="${f.likes}"></span>
-                    <button class="thumb-down" th:attr="data-id=${f.id}" title="Der Kommentar hat Ihnen nicht gefallen.">
+                    <button class="thumb-down" th:attr="data-id=${f.id}" th:title="#{dislike}">
                         <i class="fa-solid fa-thumbs-down"></i>
                     </button>
                         <span class="dislikes-number" th:text="${f.dislikes}"></span>
                     </div>
                 </div>
             <div class="book-rating">
-                <p th:text="#{rating1}"><span th:text="${ratingCount}"></span></p>
+                <span th:text="#{rating1}"></span>
+                <span th:text="${rating}"></span>
             </div>
         </div>
 
@@ -113,6 +111,7 @@
             <a href="#" data-bs-toggle="modal" data-bs-target="#feedbackModal" th:text="#{comment}"></a>
         </div>
     </div>
+
 </div>
 
 
@@ -126,9 +125,8 @@
                         data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
-
-                <embed id="book-text" th:src="@{'/images/book_content/' + ${book.slug} + '.pdf'}" type="application/pdf"
-                       width="50%" height="600px">
+            <embed id="book-text" th:src="@{${bookPages}}" type="application/pdf"
+                   width="50%" height="600px">
             </div>
             <div id="magnifier"></div>
         </div>
@@ -171,139 +169,13 @@
         </div>
     </div>
 </div>
-
+    <div th:insert="~{home :: page-footer}"></div>
 <div th:insert="~{home :: searchModal}"></div>
 <script th:src="@{/js/book_search.js}" charset="UTF-8"></script>
-
+<script th:src="@{/js/book_info_page.js}" charset="UTF-8"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-<script>
-
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const buttons = document.querySelectorAll('.info-button');
-        const contents = document.querySelectorAll('.item-content');
-
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                buttons.forEach(b => b.classList.remove('active'));
-                contents.forEach(c => c.classList.remove('active'));
-
-                button.classList.add('active');
-
-                const targetId = button.dataset.tab;
-                const target = document.getElementById(targetId);
-
-                if (target) {
-                    target.classList.add('active');
-                }
-
-            });
-        });
-    });
-
-
-    function addToCart(button) {
-
-        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
-
-        const slug = button.getAttribute("data-slug");
-        fetch(`/books/book_info/${slug}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                [csrfHeader]: csrfToken
-
-            },
-            body: JSON.stringify({
-                slug: slug, quantity: 1
-            })
-        })
-
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById("cart-count").textContent = data.totalQuantity;
-                } else {
-                    alert("Fehler!")
-                }
-            });
-    }
-
-
-    document.getElementById('feedbackForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        let formData = new FormData(this);
-        let params = new URLSearchParams(formData);
-        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
-
-        fetch('/books/feedback', {
-            method: 'POST',
-            headers: {
-                [csrfHeader]: csrfToken
-            },
-            body: params
-        }).then(response => {
-            if (response.ok) {
-
-                let successDiv = document.getElementById('feedbackSuccess');
-                successDiv.style.display = 'block';
-                setTimeout(() => {
-                    successDiv.style.display = 'none';
-                    document.getElementById('feedbackModal').querySelector('form').reset();
-                    bootstrap.Modal.getInstance(document.getElementById('feedbackModal')).hide();
-                }, 1000);
-            } else {
-                let failedDiv = document.getElementById('feedbackFailed');
-                failedDiv.style.display = 'block';
-            }
-        });
-    });
-
-
-    document.querySelectorAll(".star-rating .fa-star").forEach((star) => {
-        star.addEventListener("click", function () {
-            let value = this.getAttribute("data-value");
-
-            document.querySelectorAll(".star-rating .fa-star").forEach(s => {
-                s.classList.remove("filled");
-                if (s.getAttribute("data-value") <= value) {
-                    s.classList.add("filled");
-                }
-            });
-
-            document.getElementById("ratingValue").value = value;
-        });
-    });
-
-
-    document.querySelectorAll(".thumb-up, .thumb-down").forEach(btn => {
-        btn.addEventListener("click", function () {
-            const id = this.getAttribute("data-id");
-            const like = this.classList.contains("thumb-up");
-
-            const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-            const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
-
-            fetch(`/books/feedback/${id}/vote?like=${like}`, {
-                method: "POST",
-                headers: {[csrfHeader]: csrfToken}
-            })
-                .then(res => res.json())
-                .then(data => {
-                    this.parentNode.querySelector(".likes-number").textContent = data.likes;
-                    this.parentNode.querySelector(".dislikes-number").textContent = data.dislikes;
-                })
-                .catch(err => console.error(err));
-        });
-    });
-
-</script>
-
-
+</div>
 </body>
 </html>

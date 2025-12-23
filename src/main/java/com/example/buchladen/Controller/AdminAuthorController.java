@@ -60,11 +60,11 @@ public class AdminAuthorController {
 
         if (photo != null && !photo.isEmpty()) {
             String fileName = UUID.randomUUID() + "_" + photo.getOriginalFilename();
-           /* Path uploadPath = Paths.get("src/main/resources/static/images/authors");*///for Intellij
+          /*  Path uploadPath = Paths.get("src/main/resources/static/images/authors");*///for Intellij
             Path uploadPath = Paths.get("/app/uploads/authors");
             Files.createDirectories(uploadPath);
             photo.transferTo(uploadPath.resolve(fileName));
-            /*author.setPhotoUrl("/images/authors/" + fileName);*///for intellij
+          /*  author.setPhotoUrl("/images/authors/" + fileName)*////for intellij
             author.setPhotoUrl("/uploads/authors/" + fileName);
         }
         authorService.save(author);

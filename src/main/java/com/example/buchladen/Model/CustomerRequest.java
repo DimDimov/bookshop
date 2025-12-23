@@ -21,7 +21,7 @@ import java.util.List;
 public class CustomerRequest {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne private User customer;

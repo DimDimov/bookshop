@@ -64,9 +64,9 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/home", "/uploads/**", "/login", "/css/**", "/images/**", "/user_form", "/js/**", "/books/**", "/search").permitAll()
+                        .requestMatchers("/home", "/uploads/**", "/login", "/forgot_password", "/reset_password",  "/css/**", "/images/**", "/user_form", "/js/**", "/books/**", "/search").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/my_account/**", "/forgot_password", "/reset_password", "/payment", "/cart/**", "/order").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/my_account/**", "/payment", "/cart/**", "/order").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
 

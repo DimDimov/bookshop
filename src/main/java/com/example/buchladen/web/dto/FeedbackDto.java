@@ -20,7 +20,4 @@ public class FeedbackDto {
     private int likes;
     private int dislikes;
 
-
-   /* public FeedbackDto(Long id, String username, String text, LocalDateTime createdAt, int rating) {
-    }*/
 }

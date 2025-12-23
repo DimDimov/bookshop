@@ -179,26 +179,16 @@ public class BooksController {
 
            Long ratingCount = feedbackService.countRatingByBook(book.getId());
 
+        //for Intellij
+    /*   String pagesFolder = "/images/book_content/" + book.getSlug() + ".pdf";*/
+        //for Docker
+        String pagesFolder = "/uploads/book_content/" + book.getSlug() + ".pdf";
 
-        Path pagesFolder = Paths.get("src/main/resources/static/images/book_content/" + book.getSlug());
-
-        List<String> pages = new ArrayList<>();
-        if (Files.exists(pagesFolder) && Files.isDirectory(pagesFolder)) {
-
-            try (Stream<Path> paths = Files.list(pagesFolder)) {
-                pages = paths
-                        .filter(Files::isRegularFile)
-                        .map(path -> "/images/book_content/" + book.getSlug() + "/" + path.getFileName().toString())
-                        .sorted()
-                        .toList();
-            }
-        }
 
         List<FeedbackDto> feedbackList = feedbackService.findByBookId(book.getId())
                 .stream()
-                .map(f -> new FeedbackDto(f.getId(), f.getUsername(), f.getText(), f.getCreatedAt(), f.getRating(), f.getLikes(), f.getDislikes()))
+                .map(f -> new FeedbackDto(f.getId(), f.getUsername(),  f.getText(), f.getCreatedAt(), f.getRating(), f.getLikes(), f.getDislikes()))
                 .collect(Collectors.toList());
-
 
         BookDto bookDto = new BookDto();
         bookDto.setId(book.getId());
@@ -213,7 +203,7 @@ public class BooksController {
           model.addAttribute("rounded", rounded);
 
         model.addAttribute("book", book);
-        model.addAttribute("bookPages", pages);
+        model.addAttribute("bookPages", pagesFolder);
         model.addAttribute("author", author);
 
         return "info_about_book";
@@ -270,7 +260,7 @@ if (existing.isPresent()) {
             feedback.setCreatedAt(LocalDateTime.now());
             feedbackService.save(feedback);
 
-            FeedbackDto dto = new FeedbackDto(feedback.getId(), user.getFirstName(),feedback.getText(),
+            FeedbackDto dto = new FeedbackDto(feedback.getId(), feedback.getUsername(), feedback.getText(),
                     feedback.getCreatedAt(), feedback.getRating(), feedback.getLikes(), feedback.getDislikes());
 
         return ResponseEntity.ok(dto);

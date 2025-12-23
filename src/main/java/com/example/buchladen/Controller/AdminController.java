@@ -103,7 +103,6 @@ public class AdminController {
                         .map(msg -> {
                             ChatMessageDto dto = new ChatMessageDto();
 
-                         /*   String role = msg.getSender().getRoles().iterator().next().getName();*/
                             boolean isAdmin = msg.getSender().getRoles().stream()
                                     .anyMatch(r -> r.getName().equalsIgnoreCase("ROLE_ADMIN"));
 

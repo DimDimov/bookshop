@@ -20,16 +20,14 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
     private final CartService cartService;
-    private final ShippingRepository shippingRepository;
     private final StockServiceImpl stockServiceImpl;
     private final StockRepository stockRepository;
     private final OrderItemsRepository orderItemsRepository;
 
-    public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, CartService cartService, ShippingRepository shippingRepository, StockServiceImpl stockServiceImpl, StockRepository stockRepository, OrderItemsRepository orderItemsRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, CartService cartService, StockServiceImpl stockServiceImpl, StockRepository stockRepository, OrderItemsRepository orderItemsRepository) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.cartService = cartService;
-        this.shippingRepository = shippingRepository;
         this.stockServiceImpl = stockServiceImpl;
         this.stockRepository = stockRepository;
         this.orderItemsRepository = orderItemsRepository;
@@ -89,68 +87,6 @@ public class OrderServiceImpl implements OrderService {
         return order;
     }
 
-
-/*
-@Transactional
-    public Order setDeliveryAsBilling() {
-
-        User user = getCurrentUser();
-
-        ShippingDetails  shipping = user.getShippingDetailsList().getFirst();
-
-       return createOrUpdateOrder(user, shipping);
-    }
-
-    @Transactional
-    public void saveOrUpdateDelivery(ShippingRegistrationDto dto) {
-        User user = getCurrentUser();
-
-        ShippingDetails shipping;
-
-        if(dto.getId() != null) {
-            shipping = shippingRepository.findById(dto.getId())
-                    .orElseThrow(() -> new RuntimeException("Adresse nicht gefunden"));
-
-            shipping.setFirstName(dto.getFirstName());
-            shipping.setLastName(dto.getLastName());
-            shipping.setStreet(dto.getStreet());
-            shipping.setHouseNumber(dto.getHouseNumber());
-            shipping.setPostcode(dto.getPostcode());
-            shipping.setTown(dto.getTown());
-            shipping.setCountry(dto.getCountry());
-        } else {
-
-            Optional<ShippingDetails> existing = user.getShippingDetailsList().stream()
-                    .filter(a -> a.getFirstName().equals(dto.getFirstName())
-                            && a.getLastName().equals(dto.getLastName())
-                            && a.getStreet().equals(dto.getStreet())
-                            && a.getHouseNumber().equals(dto.getHouseNumber())
-                            && a.getPostcode().equals(dto.getPostcode())
-                            && a.getTown().equals(dto.getTown())
-                            && a.getCountry().equals(dto.getCountry()))
-                    .findFirst();
-
-            if (existing.isPresent()) {
-                shipping = existing.get();
-            } else {
-
-                shipping = new ShippingDetails();
-                shipping.setFirstName(dto.getFirstName());
-                shipping.setLastName(dto.getLastName());
-                shipping.setStreet(dto.getStreet());
-                shipping.setHouseNumber(dto.getHouseNumber());
-                shipping.setPostcode(dto.getPostcode());
-                shipping.setTown(dto.getTown());
-                shipping.setCountry(dto.getCountry());
-                shipping.setUser(user);
-            }
-        }
-        shippingRepository.save(shipping);
-        createOrUpdateOrder(user, shipping);
-    }
-*/
-
-
     @Override
     public void save(Order order) {
         orderRepository.save(order);
@@ -164,21 +100,6 @@ public class OrderServiceImpl implements OrderService {
         Order savedOrder = orderRepository.save(order);
         stockServiceImpl.reduceStock(savedOrder);
     }
-
-   /* public void returnOrder(Order order) {
-        order.setReturned(true);
-        orderRepository.save(order);
-        stockServiceImpl.restoreStock(order);
-    }
-
-    public double calculateCostAllBoughtBooks() {
-        List<OrderItem> items = orderItemsRepository.findAll();
-        double boughtBooksPrice = 0.0;
-        for(OrderItem item : items) {
-            boughtBooksPrice += item.getQuantity() * item.getBook().getPrice().doubleValue();
-        }
-        return boughtBooksPrice;
-    }*/
 
     @Override
     public double calculateProfit() {

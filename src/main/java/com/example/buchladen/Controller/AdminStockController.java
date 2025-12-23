@@ -120,7 +120,7 @@ public class AdminStockController {
 
         Long id = stockDto.getId();
 
-        Stock stock = stockService.findById(stockDto.getId());
+        Stock stock = stockService.findById(id);
 
         Book book = stock.getBook();
         Author author = book.getAuthor();

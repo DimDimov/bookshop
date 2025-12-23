@@ -11,6 +11,8 @@ import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.data.repository.query.Param;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -19,21 +21,31 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import net.bytebuddy.utility.RandomString;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Locale;
 
 @Controller
 public class ForgotPasswordController  {
 
-  @Autowired
-    private  JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
 
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    private final CustomUserDetailsService customUserDetailsService;
+
+
+    @Value("${spring.mail.username}")
+    private String username;
+
+    public ForgotPasswordController(JavaMailSender mailSender, CustomUserDetailsService customUserDetailsService) {
+        this.mailSender = mailSender;
+        this.customUserDetailsService = customUserDetailsService;
+    }
 
     @GetMapping("/forgot_password")
     public String showForgotPasswordForm() {
@@ -41,7 +53,7 @@ public class ForgotPasswordController  {
     }
 
     @PostMapping("/forgot_password")
-    public String processForgotPassword(HttpServletRequest request, Model model) {
+    public String processForgotPassword(HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
         String email = request.getParameter("email");
         String token = RandomString.make(30);
 
@@ -49,13 +61,14 @@ public class ForgotPasswordController  {
             customUserDetailsService.updateResetPasswordToken(token, email);
             String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
             sendEmail(email, resetPasswordLink);
-            model.addAttribute("message", "Wir haben einen Link zum Zurücksetzen des Passworts an Ihre E-Mail geschickt. Bitte überprüfen Sie das.");
+
+           redirectAttributes.addFlashAttribute("success_message", true);
         } catch (UsernameNotFoundException ex) {
             model.addAttribute("error", ex.getMessage());
         } catch (MessagingException | UnsupportedEncodingException e) {
-           model.addAttribute("error", "Fehler beim Senden einer E-Mail.");
+           model.addAttribute("email_error", "Fehler beim Senden einer E-Mail.");
        }
-        return "forgot_password_form";
+        return "redirect:/forgot_password";
     }
 
     public void sendEmail(String recipientEmail, String link)
@@ -63,7 +76,7 @@ public class ForgotPasswordController  {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom("mybookshop2024@gmail.com", "Setzen das Passwort zurück. ");
+        helper.setFrom(username, "Setzen das Passwort zurück. ");
         helper.setTo(recipientEmail);
 
         String subject = "Here ist ein Link, um Ihr Passwort zurückzusetzen";
@@ -82,7 +95,9 @@ public class ForgotPasswordController  {
     }
 
     @GetMapping("/reset_password")
-    public String showResetPassword(@Param(value = "token") String token, Model model) {
+    public String showResetPassword(
+          @Param(value = "token") String token,
+                                    Model model) {
 
         User user = customUserDetailsService.getByResetPasswordToken(token);
         model.addAttribute("token", token);
@@ -95,21 +110,19 @@ public class ForgotPasswordController  {
 
     @PostMapping("/reset_password")
     public String processResetPassword(HttpServletRequest request, Model model) {
+
         String token = request.getParameter("token");
         String password = request.getParameter("password");
 
         User user = customUserDetailsService.getByResetPasswordToken(token);
-        //model.addAttribute(/"title", "Reset your password");
 
         if(user == null) {
-            model.addAttribute("message", "Ungültiges Token");
+            model.addAttribute("fail_message", true);
             return "reset_password";
         } else {
             customUserDetailsService.updatePassword(user, password);
-            model.addAttribute("success_message", "Sie haben Ihr Passwort erfolgreich geändert");
+            model.addAttribute("success_message", true);
         }
             return "reset_password";
     }
-
-
 }

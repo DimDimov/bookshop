@@ -31,12 +31,10 @@ import java.util.Optional;
 public class CartApiController {
 
     public final UserService userService;
-    public final CartItemsRepository cartItemsRepository;
     private final CartService cartService;
 
-    public CartApiController(  UserService userService, CartItemsRepository cartItemsRepository, CartService cartService) {
+    public CartApiController(  UserService userService, CartService cartService) {
         this.userService = userService;
-        this.cartItemsRepository = cartItemsRepository;
         this.cartService = cartService;
     }
 

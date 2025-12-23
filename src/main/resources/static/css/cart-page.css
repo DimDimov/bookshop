@@ -407,7 +407,15 @@ thead th, .every-book {
     position: fixed;
     top:335px;
     right: 200px;
+}
 
+.count-wrapper{
+    display: inline-flex;
+    margin-left: 32px;
+    gap:5px;
+    width: 80px;
+    justify-content: flex-end;
+    color: #b21f2d;
 }
 
 .order{

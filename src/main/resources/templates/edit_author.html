@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="bg">
-
+  <div th:insert="~{home.html :: authorization}"></div>
   <div class="frame" style="margin-top: 8%">
     <h2 id="formular">der Autor bearbeiten </h2>
 
@@ -47,6 +47,7 @@
       </div>
     </form>
   </div>
+  <div th:insert="~{home :: page-footer}"></div>
 </div>
 
 <script>

@@ -1,3 +1,4 @@
+
 function validateForm() {
 
     const pass1 =
@@ -6,17 +7,31 @@ function validateForm() {
         document.getElementById("password2").value;
 
     const not_match = document.getElementById(
-        "not_match"
-    );
+        "not_match");
 
+    const err1 = document.getElementById("passErr1");
+    const err2 = document.getElementById("passErr2");
 
     not_match.textContent = " ";
+    err1.textContent = " ";
+    err2.textContent = " ";
 
     let isValid = true;
 
+    if (pass1.length  < 6) {
+        err1.textContent =
+            window.i18n.shortPass;
+        isValid = false;
+    }
+        if (pass2.length < 6) {
+        err2.textContent =
+            window.i18n.shortPass;
+        isValid = false;
+    }
+
     if (pass1 !== pass2) {
         not_match.textContent =
-            "Die Passwörter stimmen nicht überein!";
+          window.i18n.noMatch;
         isValid = false;
     }
     return isValid;

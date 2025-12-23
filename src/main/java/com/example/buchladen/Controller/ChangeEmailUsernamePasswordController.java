@@ -31,7 +31,6 @@ import java.util.Locale;
 @RequestMapping("/my_account")
 public class ChangeEmailUsernamePasswordController {
 
-
     private final UserService userService;
 
     private final EmailService emailService;

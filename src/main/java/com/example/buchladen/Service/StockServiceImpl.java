@@ -96,7 +96,7 @@ public class StockServiceImpl implements StockService {
 
             int newQuantity = (int) (stock.getQuantity() - item.getQuantity());
             if (newQuantity < 0) {
-                throw new RuntimeException("Nicht genug Buecher im Lager: " + stock.getBook().getTitle());
+                throw new RuntimeException("Nicht genug Bücher im Lager: " + stock.getBook().getTitle());
             }
 
             stock.setQuantity(newQuantity);
@@ -104,15 +104,6 @@ public class StockServiceImpl implements StockService {
             stockRepository.save(stock);
         }
     }
-
-  /*  @Transactional
-    public void restoreStock(Order order) {
-        for (OrderItem item : order.getItems()) {
-            Stock stock = item.getStock();
-            stock.setQuantity((int) (stock.getQuantity() + item.getQuantity()));
-            stockRepository.save(stock);
-        }
-    }*/
 
     @Override
     public double calculateCostFullStock() {

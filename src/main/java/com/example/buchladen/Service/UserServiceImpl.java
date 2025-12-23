@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
 
         Role userRole = roleRepository.findByName("ROLE_USER");
         if (userRole == null) {
-            throw new RuntimeException("ROLE_USER not found.");
+            throw new RuntimeException("ROLE_USER nicht gefunden.");
         }
         user.setRoles(Set.of(userRole));
 
